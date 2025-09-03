@@ -2,8 +2,8 @@ import {
 	IAuthenticateGeneric,
 	ICredentialType,
 	INodeProperties,
-	ICredentialTestRequest
-}	 from 'n8n-workflow';
+	ICredentialTestRequest,
+} from 'n8n-workflow';
 
 export class ChartMogulApi implements ICredentialType {
 	name = 'chartmogulApi';
@@ -29,7 +29,7 @@ export class ChartMogulApi implements ICredentialType {
 				username: '={{$credentials.apiKey}}',
 				password: '={{$credentials.apiKey}}',
 			},
-		}
+		},
 	};
 	test: ICredentialTestRequest = {
 		request: {
