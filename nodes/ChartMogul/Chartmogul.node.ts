@@ -42,7 +42,7 @@ export class Chartmogul implements INodeType {
 					{
 						name: 'Source',
 						value: 'source',
-					}
+					},
 				],
 				default: 'account',
 			},
@@ -146,13 +146,9 @@ export class Chartmogul implements INodeType {
 				description: 'The desired name for the new source',
 				displayOptions: {
 					show: {
-						resource: [
-							'source'
-						],
-						operation: [
-							'create'
-						]
-					}
+						resource: ['source'],
+						operation: ['create'],
+					},
 				},
 				routing: {
 					request: {
@@ -160,7 +156,7 @@ export class Chartmogul implements INodeType {
 							name: '={{$value}}',
 						},
 					},
-				}
+				},
 			},
 			{
 				displayName: 'Source UUID',
@@ -171,20 +167,16 @@ export class Chartmogul implements INodeType {
 				description: 'The UUID of the source',
 				displayOptions: {
 					show: {
-						resource: [
-							'source'
-						],
-						operation: [
-							'get', 'delete'
-						]
-					}
+						resource: ['source'],
+						operation: ['get', 'delete'],
+					},
 				},
 				routing: {
 					request: {
 						url: '=/data_sources/{{$value}}',
 					},
-				}
-			}
+				},
+			},
 		],
 	};
 }
