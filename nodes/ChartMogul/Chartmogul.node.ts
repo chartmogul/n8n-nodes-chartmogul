@@ -36,12 +36,11 @@ export class Chartmogul implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Retrieve Account Information',
-						value: 'accountDetails',
-						description: 'Get details about your ChartMogul account',
+						name: 'Account',
+						value: 'account'
 					}
 				],
-				default: 'accountDetails',
+				default: 'account',
 			},
 			{
 				displayName: 'Operation',
@@ -51,15 +50,14 @@ export class Chartmogul implements INodeType {
 				displayOptions: {
 					show: {
 						resource: [
-							'accountDetails',
+							'account',
 						],
 					},
 				},
 				options: [
 					{
-						name: 'Get',
+						name: 'Get Account Details',
 						value: 'get',
-						description: 'Get details about your ChartMogul account',
 						action: 'Get account details',
 						routing: {
 							request: {
