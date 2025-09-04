@@ -445,7 +445,7 @@ export class Chartmogul implements INodeType {
 			// Plan Optional Fields
 			{
 				displayName: 'Update Options',
-				name: 'addtionalFields',
+				name: 'additionalFields',
 				type: 'collection',
 				placeholder: 'Add Field',
 				default: {},
@@ -1042,16 +1042,12 @@ export class Chartmogul implements INodeType {
 						type: 'string',
 						default: '',
 						description: 'The ISO US State code where the customer is located',
+						hint: 'Works only if country is "US"',
 						routing: {
 							request: {
 								body: {
 									state: '={{$value}}',
 								},
-							},
-						},
-						displayOptions: {
-							show: {
-								country: ['US'],
 							},
 						},
 					},
