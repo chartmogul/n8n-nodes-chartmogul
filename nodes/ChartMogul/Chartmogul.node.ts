@@ -226,12 +226,32 @@ export class Chartmogul implements INodeType {
 						},
 					},
 					{
+						name: 'Delete a Customer',
+						value: 'delete',
+						action: 'Delete a customer',
+						routing: {
+							request: {
+								method: 'DELETE',
+							},
+						},
+					},
+					{
 						name: 'Retrieve a Customer',
 						value: 'get',
 						action: 'Retrieve a customer',
 						routing: {
 							request: {
 								method: 'GET',
+							},
+						},
+					},
+					{
+						name: 'Update a Customer',
+						value: 'update',
+						action: 'Update a customer',
+						routing: {
+							request: {
+								method: 'PATCH',
 							},
 						},
 					},
@@ -271,7 +291,7 @@ export class Chartmogul implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['customer'],
-						operation: ['get'],
+						operation: ['get', 'delete', 'update'],
 					},
 				},
 				routing: {
@@ -691,7 +711,7 @@ export class Chartmogul implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['customer'],
-						operation: ['create'],
+						operation: ['create', 'update'],
 					},
 				},
 				options: [
@@ -1051,6 +1071,32 @@ export class Chartmogul implements INodeType {
 							},
 						},
 					},
+					/* {
+						displayName: 'Status',
+						name: 'status',
+						type: 'options',
+						options: [
+							{ name: 'New Lead', value: 'New Lead' },
+							{ name: 'Working Lead', value: 'Working Lead' },
+							{ name: 'Qualified Lead', value: 'Qualified Lead' },
+							{ name: 'Unqualified Lead', value: 'Unqualified Lead' },
+						],
+						default: 'New Lead',
+						description: "The customer's status",
+						hint: "You can only set a customer's lead status. Other statuses are automatically assigned\.",
+						routing: {
+							request: {
+								body: {
+									status: '={{$value}}',
+								},
+							},
+						},
+						displayOptions: {
+							show: {
+								operation: ['update'],
+							},
+						},
+					}, */
 					{
 						displayName: 'Tags',
 						name: 'tags',
