@@ -1,4 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
+import { SharedOptionItems } from './shared-options';
 
 const CityField: INodeProperties = {
 	displayName: 'City',
@@ -350,18 +351,229 @@ const ZipCodeField: INodeProperties = {
 	routing: { request: { body: { zip: '={{$value}}' } } },
 };
 
-export const CustomerOptionItems = {
-	CityField,
-	CompanyField,
-	CountryField,
-	CustomAttributesField,
-	FreeTrialField,
-	LeadCreatedField,
-	OwnerField,
-	PrimaryContactField,
-	StateField,
-	StatusField,
-	TagsField,
-	WebsiteURLField,
-	ZipCodeField,
-};
+export const customerOperations: INodeProperties[] = [
+	{
+		displayName: 'Operation',
+		name: 'operation',
+		type: 'options',
+		noDataExpression: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+			},
+		},
+		options: [
+			{
+				name: 'Create a Customer',
+				value: 'create',
+				action: 'Create a customer',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '/customers',
+					},
+				},
+			},
+			{
+				name: 'Delete a Customer',
+				value: 'delete',
+				action: 'Delete a customer',
+				routing: {
+					request: {
+						method: 'DELETE',
+					},
+				},
+			},
+			{
+				name: 'List Customers',
+				value: 'list',
+				action: 'List all customers',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/customers',
+					},
+				},
+			},
+			{
+				name: 'Retrieve a Customer',
+				value: 'get',
+				action: 'Retrieve a customer',
+				routing: {
+					request: {
+						method: 'GET',
+					},
+				},
+			},
+			{
+				name: 'Update a Customer',
+				value: 'update',
+				action: 'Update a customer',
+				routing: {
+					request: {
+						method: 'PATCH',
+					},
+				},
+			},
+		],
+		default: 'get',
+	},
+];
+
+export const customerFields: INodeProperties[] = [
+	/* -- Required fields -- */
+	{
+		displayName: 'Customer UUID',
+		name: 'customer_uuid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The UUID of the customer',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['get', 'delete', 'update'],
+			},
+		},
+		routing: {
+			request: {
+				url: '=/customers/{{$value}}',
+			},
+		},
+	},
+	{
+		displayName: 'Data Source UUID',
+		name: 'source_uuid',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The UUID of the source',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['create'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					data_source_uuid: '={{$value}}',
+				},
+			},
+		},
+	},
+	{
+		displayName: 'External ID',
+		name: 'external_id',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'A unique identifier specified by you, typically from your internal system',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['create'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					external_id: '={{$value}}',
+				},
+			},
+		},
+	},
+	/* -- Optional fields -- */
+	{
+		displayName: 'Filter Options',
+		name: 'filterOptions',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['list'],
+			},
+		},
+		options: [
+			SharedOptionItems.BillingSystemField,
+			SharedOptionItems.CursorField,
+			SharedOptionItems.DataSourceUUIDField,
+			SharedOptionItems.ExternalIDField,
+			SharedOptionItems.PerPageField,
+			{
+				displayName: 'Status',
+				name: 'status',
+				type: 'options',
+				options: [
+					{ name: 'Active', value: 'Active' },
+					{ name: 'Cancelled', value: 'Cancelled' },
+					{ name: 'New Lead', value: 'New_Lead' },
+					{ name: 'Past Due', value: 'Past_Due' },
+					{ name: 'Qualified Lead', value: 'Qualified_Lead' },
+					{ name: 'Unqualified Lead', value: 'Unqualified_Lead' },
+					{ name: 'Working Lead', value: 'Working_Lead' },
+				],
+				default: 'Active',
+				description: 'Filter results by customer status',
+				routing: { request: { qs: { status: '={{$value}}' } } },
+			},
+		],
+	},
+	{
+		displayName: 'Additional Fields',
+		name: 'additionalFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['create'],
+			},
+		},
+		options: [
+			CityField,
+			CompanyField,
+			CountryField,
+			CustomAttributesField,
+			FreeTrialField,
+			LeadCreatedField,
+			OwnerField,
+			PrimaryContactField,
+			StateField,
+			TagsField,
+			WebsiteURLField,
+			ZipCodeField,
+		],
+	},
+	{
+		displayName: 'Additional Fields',
+		name: 'additionalFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['update'],
+			},
+		},
+		options: [
+			CityField,
+			CompanyField,
+			CountryField,
+			CustomAttributesField,
+			FreeTrialField,
+			LeadCreatedField,
+			OwnerField,
+			PrimaryContactField,
+			StateField,
+			StatusField,
+			TagsField,
+			WebsiteURLField,
+			ZipCodeField,
+		],
+	},
+];

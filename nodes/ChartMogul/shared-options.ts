@@ -1,16 +1,14 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-type NameLocation = 'body' | 'qs';
-type NameFieldArgs =
-	| { location: NameLocation; displayName?: string; description?: string }
-	| NameLocation;
+type Location = 'body' | 'qs' | 'path';
+type NameFieldArgs = { location: Location; displayName?: string; description?: string } | Location;
 
-const toRequest = (location: NameLocation) => ({
+const toRequest = (location: Location) => ({
 	[location]: { name: '={{$value}}' },
 });
 
 export const NameField = (args: NameFieldArgs): INodeProperties => {
-	const location: NameLocation = typeof args === 'string' ? args : args.location;
+	const location: Location = typeof args === 'string' ? args : args.location;
 	const displayName = typeof args === 'string' ? 'Name' : (args.displayName ?? 'Name');
 	const description =
 		typeof args === 'string'
