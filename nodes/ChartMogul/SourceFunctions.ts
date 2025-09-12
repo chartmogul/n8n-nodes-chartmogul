@@ -1,37 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
-
-type Location = 'body' | 'qs';
-type NameFieldArgs = { location: Location; displayName?: string; description?: string } | Location;
-
-const toRequest = (location: Location) => ({
-	[location]: { name: '={{$value}}' },
-});
-
-export const NameField = (args: NameFieldArgs): INodeProperties => {
-	const location: Location = typeof args === 'string' ? args : args.location;
-	const displayName = typeof args === 'string' ? 'Name' : (args.displayName ?? 'Name');
-	const description =
-		typeof args === 'string'
-			? 'Display name of the object'
-			: (args.description ?? 'Display name of the object');
-	return {
-		displayName,
-		name: 'name',
-		type: 'string',
-		default: '',
-		description,
-		routing: { request: toRequest(location) },
-	};
-};
-
-const BillingSystemField: INodeProperties = {
-	displayName: 'Billing System',
-	name: 'billingSystem',
-	type: 'string',
-	default: '',
-	description: 'The billing system you are using, e.g., Stripe, Recurly, etc',
-	routing: { request: { qs: { system: '={{$value}}' } } },
-};
+import { SharedOptionItems } from './SharedOptions';
 
 export const sourceOperations: INodeProperties[] = [
 	{
@@ -105,7 +73,7 @@ export const sourceOperations: INodeProperties[] = [
 export const sourceFields: INodeProperties[] = [
 	/* -- Required fields -- */
 	{
-		...NameField({
+		...SharedOptionItems.NameField({
 			location: 'body',
 			displayName: 'Data Source Name',
 			description: 'The desired name for the new data source',
@@ -152,11 +120,12 @@ export const sourceFields: INodeProperties[] = [
 			},
 		},
 		options: [
-			NameField({
+			SharedOptionItems.NameField({
 				location: 'qs',
+				displayName: 'Data Source Name',
 				description: 'Filter results by source name',
 			}),
-			BillingSystemField,
+			SharedOptionItems.BillingSystemField,
 		],
 	},
 ];

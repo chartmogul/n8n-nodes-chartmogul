@@ -1,5 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
-import { SharedOptionItems } from './shared-options';
+import { SharedOptionItems } from './SharedOptions';
 
 /* -- Reused fields -- */
 const PlanIntervalCountField: INodeProperties = {
@@ -98,23 +98,14 @@ export const planOperations: INodeProperties[] = [
 export const planFields: INodeProperties[] = [
 	/* -- Required Fields -- */
 	{
-		displayName: 'Data Source UUID',
-		name: 'source_uuid',
-		type: 'string',
+		...SharedOptionItems.DataSourceUUIDField({
+			location: 'body',
+		}),
 		required: true,
-		default: '',
-		description: 'The UUID of the source',
 		displayOptions: {
 			show: {
 				resource: ['plan'],
 				operation: ['create'],
-			},
-		},
-		routing: {
-			request: {
-				body: {
-					data_source_uuid: '={{$value}}',
-				},
 			},
 		},
 	},
@@ -223,7 +214,7 @@ export const planFields: INodeProperties[] = [
 		options: [
 			SharedOptionItems.BillingSystemField,
 			SharedOptionItems.CursorField,
-			SharedOptionItems.DataSourceUUIDField,
+			SharedOptionItems.DataSourceUUIDField({ location: 'qs' }),
 			SharedOptionItems.ExternalIDField,
 			SharedOptionItems.PerPageField,
 		],

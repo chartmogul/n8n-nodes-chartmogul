@@ -1,5 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
-import { SharedOptionItems } from './shared-options';
+import { SharedOptionItems } from './SharedOptions';
 
 const CityField: INodeProperties = {
 	displayName: 'City',
@@ -155,138 +155,14 @@ const PrimaryContactField: INodeProperties = {
 	default: {},
 	placeholder: 'Add contact details',
 	options: [
-		{
-			displayName: 'Email',
-			name: 'email',
-			type: 'string',
-			default: '',
-			placeholder: 'name@email.com',
-			description: "The contact's email address",
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							email: '={{$value}}',
-						},
-					},
-				},
-			},
-		},
-		{
-			displayName: 'First Name',
-			name: 'first_name',
-			type: 'string',
-			default: '',
-			description: "The contact's first name",
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							first_name: '={{$value}}',
-						},
-					},
-				},
-			},
-		},
-		{
-			displayName: 'Last Name',
-			name: 'last_name',
-			type: 'string',
-			default: '',
-			description: "The contact's last name",
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							last_name: '={{$value}}',
-						},
-					},
-				},
-			},
-		},
-		{
-			displayName: 'LinkedIn',
-			name: 'linked_in',
-			type: 'string',
-			default: '',
-			description: "The contact's LinkedIn profile URL",
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							linked_in: '={{$value}}',
-						},
-					},
-				},
-			},
-		},
-		{
-			displayName: 'Notes',
-			name: 'notes',
-			type: 'string',
-			typeOptions: {
-				rows: 4,
-			},
-			description: 'Any additional notes you wish to add about the contact',
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							notes: '={{$value}}',
-						},
-					},
-				},
-			},
-			default: '',
-		},
-		{
-			displayName: 'Phone',
-			name: 'phone',
-			type: 'string',
-			default: '',
-			description: "The contact's phone number",
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							phone: '={{$value}}',
-						},
-					},
-				},
-			},
-		},
-		{
-			displayName: 'Title',
-			name: 'title',
-			type: 'string',
-			default: '',
-			description: "The contact's job title",
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							title: '={{$value}}',
-						},
-					},
-				},
-			},
-		},
-		{
-			displayName: 'Twitter',
-			name: 'twitter',
-			type: 'string',
-			default: '',
-			description: "The contact's Twitter URL",
-			routing: {
-				request: {
-					body: {
-						primary_contact: {
-							twitter: '={{$value}}',
-						},
-					},
-				},
-			},
-		},
+		SharedOptionItems.EmailField('customer'),
+		SharedOptionItems.FirstNameField('customer'),
+		SharedOptionItems.LastNameField('customer'),
+		SharedOptionItems.LinkedInField('customer'),
+		SharedOptionItems.NotesField('customer'),
+		SharedOptionItems.PhoneField('customer'),
+		SharedOptionItems.TitleField('customer'),
+		SharedOptionItems.TwitterField('customer'),
 	],
 };
 
@@ -423,42 +299,25 @@ export const customerOperations: INodeProperties[] = [
 export const customerFields: INodeProperties[] = [
 	/* -- Required fields -- */
 	{
-		displayName: 'Customer UUID',
-		name: 'customer_uuid',
-		type: 'string',
+		...SharedOptionItems.CustomerUUIDField({
+			location: 'path',
+			pathURL: '=/customers/{{$value}}',
+		}),
 		required: true,
-		default: '',
-		description: 'The UUID of the customer',
 		displayOptions: {
 			show: {
 				resource: ['customer'],
 				operation: ['get', 'delete', 'update'],
 			},
 		},
-		routing: {
-			request: {
-				url: '=/customers/{{$value}}',
-			},
-		},
 	},
 	{
-		displayName: 'Data Source UUID',
-		name: 'source_uuid',
-		type: 'string',
+		...SharedOptionItems.DataSourceUUIDField({ location: 'body' }),
 		required: true,
-		default: '',
-		description: 'The UUID of the source',
 		displayOptions: {
 			show: {
 				resource: ['customer'],
 				operation: ['create'],
-			},
-		},
-		routing: {
-			request: {
-				body: {
-					data_source_uuid: '={{$value}}',
-				},
 			},
 		},
 	},
@@ -499,7 +358,7 @@ export const customerFields: INodeProperties[] = [
 		options: [
 			SharedOptionItems.BillingSystemField,
 			SharedOptionItems.CursorField,
-			SharedOptionItems.DataSourceUUIDField,
+			SharedOptionItems.DataSourceUUIDField({ location: 'qs' }),
 			SharedOptionItems.ExternalIDField,
 			SharedOptionItems.PerPageField,
 			{
