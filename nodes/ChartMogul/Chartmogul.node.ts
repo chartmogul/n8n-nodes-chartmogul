@@ -5,6 +5,9 @@ import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
 import { planFields, planOperations } from './PlanFunctions';
 import { sourceFields, sourceOperations } from './SourceFunctions';
+import { noteFields, noteOperations } from './NoteFunctions';
+import { taskFields, taskOperations } from './TaskFunctions';
+import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -43,8 +46,11 @@ export class Chartmogul implements INodeType {
 					{ name: 'Account', value: 'account' },
 					{ name: 'Contact', value: 'contact' },
 					{ name: 'Customer', value: 'customer' },
+					{ name: 'Note and Call Log', value: 'notes' },
+					{ name: 'Opportunity', value: 'opportunity' },
 					{ name: 'Plan', value: 'plan' },
 					{ name: 'Source', value: 'source' },
+					{ name: 'Task', value: 'task' },
 				],
 				default: 'account',
 			},
@@ -56,11 +62,20 @@ export class Chartmogul implements INodeType {
 			...customerOperations,
 			...customerFields,
 
+			...noteOperations,
+			...noteFields,
+
+			...opportunityOperations,
+			...opportunityFields,
+
 			...planOperations,
 			...planFields,
 
 			...sourceOperations,
 			...sourceFields,
+
+			...taskOperations,
+			...taskFields,
 		],
 	};
 }

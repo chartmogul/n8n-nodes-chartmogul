@@ -213,10 +213,22 @@ export const planFields: INodeProperties[] = [
 		},
 		options: [
 			SharedOptionItems.BillingSystemField,
-			SharedOptionItems.CursorField,
 			SharedOptionItems.DataSourceUUIDField({ location: 'qs' }),
 			SharedOptionItems.ExternalIDField,
-			SharedOptionItems.PerPageField,
 		],
+	},
+	{
+		displayName: 'Pagination',
+		name: 'pagination',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['plan'],
+				operation: ['list'],
+			},
+		},
+		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 ];

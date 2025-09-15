@@ -87,29 +87,23 @@ export const sourceFields: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Source UUID',
-		name: 'source_uuid',
-		type: 'string',
+		...SharedOptionItems.DataSourceUUIDField({
+			location: 'path',
+			pathURL: '=/data_sources/{{$value}}',
+		}),
 		required: true,
-		default: '',
-		description: 'The UUID of the source',
 		displayOptions: {
 			show: {
 				resource: ['source'],
 				operation: ['get', 'delete'],
 			},
 		},
-		routing: {
-			request: {
-				url: '=/data_sources/{{$value}}',
-			},
-		},
 	},
 
 	/* -- Optional fields -- */
 	{
-		displayName: 'Additional Fields',
-		name: 'additionalFields',
+		displayName: 'Filter Options',
+		name: 'filterOptions',
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},

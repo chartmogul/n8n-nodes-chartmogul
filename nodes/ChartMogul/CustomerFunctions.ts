@@ -357,10 +357,8 @@ export const customerFields: INodeProperties[] = [
 		},
 		options: [
 			SharedOptionItems.BillingSystemField,
-			SharedOptionItems.CursorField,
 			SharedOptionItems.DataSourceUUIDField({ location: 'qs' }),
 			SharedOptionItems.ExternalIDField,
-			SharedOptionItems.PerPageField,
 			{
 				displayName: 'Status',
 				name: 'status',
@@ -379,6 +377,20 @@ export const customerFields: INodeProperties[] = [
 				routing: { request: { qs: { status: '={{$value}}' } } },
 			},
 		],
+	},
+	{
+		displayName: 'Pagination',
+		name: 'pagination',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['list'],
+			},
+		},
+		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 	{
 		displayName: 'Additional Fields',
@@ -408,7 +420,7 @@ export const customerFields: INodeProperties[] = [
 		],
 	},
 	{
-		displayName: 'Additional Fields',
+		displayName: 'Update Options',
 		name: 'additionalFields',
 		type: 'collection',
 		placeholder: 'Add Field',
