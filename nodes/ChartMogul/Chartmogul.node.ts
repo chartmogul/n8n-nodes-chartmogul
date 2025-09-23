@@ -8,6 +8,7 @@ import { sourceFields, sourceOperations } from './SourceFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
+import { metricOperations, metricFields } from './MetricFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -46,6 +47,7 @@ export class Chartmogul implements INodeType {
 					{ name: 'Account', value: 'account' },
 					{ name: 'Contact', value: 'contact' },
 					{ name: 'Customer', value: 'customer' },
+					{ name: 'Metric', value: 'metric' },
 					{ name: 'Note and Call Log', value: 'notes' },
 					{ name: 'Opportunity', value: 'opportunity' },
 					{ name: 'Plan', value: 'plan' },
@@ -61,6 +63,9 @@ export class Chartmogul implements INodeType {
 
 			...customerOperations,
 			...customerFields,
+
+			...metricOperations,
+			...metricFields,
 
 			...noteOperations,
 			...noteFields,
