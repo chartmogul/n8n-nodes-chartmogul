@@ -240,6 +240,16 @@ export const customerOperations: INodeProperties[] = [
 		},
 		options: [
 			{
+				name: 'Add Contact to Customer',
+				value: 'add_contact',
+				action: 'Add a contact to a customer',
+				routing: {
+					request: {
+						method: 'POST',
+					},
+				},
+			},
+			{
 				name: 'Create a Customer',
 				value: 'create',
 				action: 'Create a customer',
@@ -261,6 +271,26 @@ export const customerOperations: INodeProperties[] = [
 				},
 			},
 			{
+				name: "List Customer's Activities",
+				value: 'list_activities',
+				action: 'Returns a list of activities for a given customer',
+				routing: {
+					request: {
+						method: 'GET',
+					},
+				},
+			},
+			{
+				name: "List Customer's Invoices",
+				value: 'list_invoices',
+				action: 'Returns a list of invoices for a given customer',
+				routing: {
+					request: {
+						method: 'GET',
+					},
+				},
+			},
+			{
 				name: 'List Customers',
 				value: 'list',
 				action: 'List all customers',
@@ -272,12 +302,45 @@ export const customerOperations: INodeProperties[] = [
 				},
 			},
 			{
+				name: 'List Customers by Email',
+				value: 'list_by_email',
+				action: 'List customers by email',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/customer/search',
+					},
+				},
+			},
+			{
+				name: 'Merge Customers',
+				value: 'merge',
+				action: 'Merge customers',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '/customers/merges',
+					},
+				},
+			},
+			{
 				name: 'Retrieve a Customer',
 				value: 'get',
 				action: 'Retrieve a customer',
 				routing: {
 					request: {
 						method: 'GET',
+					},
+				},
+			},
+			{
+				name: 'Unmerge Customers',
+				value: 'unmerge',
+				action: 'Unmerge customers',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '/customers/unmerges',
 					},
 				},
 			},
@@ -342,6 +405,285 @@ export const customerFields: INodeProperties[] = [
 			},
 		},
 	},
+	{
+		displayName: 'Merge Using',
+		name: 'merge_using',
+		type: 'options',
+		required: true,
+		default: 'customer_uuid_merge',
+		description: 'Choose how to merge the customers',
+		options: [
+			{
+				name: 'Customer UUID',
+				value: 'customer_uuid_merge',
+			},
+			{
+				name: 'Data Source UUID & External ID',
+				value: 'data_source_uuid_external_id_merge',
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['merge'],
+			},
+		},
+	},
+	{
+		displayName: 'Merge From',
+		name: 'merge_from',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Merge from this customer',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['merge'],
+				merge_using: ['customer_uuid_merge'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					from: {
+						customer_uuid: '={{$value}}',
+					},
+				},
+			},
+		},
+	},
+	{
+		displayName: 'Merge Into',
+		name: 'merge_into',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Merge into this customer',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['merge'],
+				merge_using: ['customer_uuid_merge'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					into: {
+						customer_uuid: '={{$value}}',
+					},
+				},
+			},
+		},
+	},
+	{
+		displayName: 'Merge From',
+		name: 'merge_from',
+		type: 'fixedCollection',
+		default: {},
+		description: 'Merge from this customer',
+		required: true,
+		options: [
+			{
+				name: 'mergeFrom',
+				displayName: 'Merge From',
+				values: [
+					{
+						displayName: 'Data Source UUID',
+						name: 'data_source_uuid',
+						type: 'string',
+						description: 'Data Source UUID of the customer to merge from',
+						default: '',
+					},
+					{
+						displayName: 'External ID',
+						name: 'external_id',
+						type: 'string',
+						description: 'External ID of the customer to merge from',
+						default: '',
+					},
+				],
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['merge'],
+				merge_using: ['data_source_uuid_external_id_merge'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					from: {
+						data_source_uuid: '={{$value.mergeFrom.data_source_uuid}}',
+						external_id: '={{$value.mergeFrom.external_id}}',
+					},
+				},
+			},
+		},
+	},
+	{
+		displayName: 'Merge Into',
+		name: 'merge_into',
+		type: 'fixedCollection',
+		default: {},
+		description: 'Merge into this customer',
+		required: true,
+		options: [
+			{
+				name: 'mergeInto',
+				displayName: 'Merge Into',
+				values: [
+					{
+						displayName: 'Data Source UUID',
+						name: 'data_source_uuid',
+						type: 'string',
+						description: 'Data Source UUID of the customer to merge into',
+						default: '',
+					},
+					{
+						displayName: 'External ID',
+						name: 'external_id',
+						type: 'string',
+						description: 'External ID of the customer to merge into',
+						default: '',
+					},
+				],
+			},
+		],
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['merge'],
+				merge_using: ['data_source_uuid_external_id_merge'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					into: {
+						data_source_uuid: '={{$value.mergeInto.data_source_uuid}}',
+						external_id: '={{$value.mergeInto.external_id}}',
+					},
+				},
+			},
+		},
+	},
+	{
+		...SharedOptionItems.CustomerUUIDField({
+			location: 'body',
+			description: 'ChartMogul UUID of the customer to unmerge',
+		}),
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['unmerge'],
+			},
+		},
+	},
+	{
+		...SharedOptionItems.DataSourceUUIDField({
+			location: 'body',
+			description: 'Data Source UUID of the customer you want to unmerge into their own record',
+		}),
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['unmerge'],
+			},
+		},
+	},
+	{
+		displayName: 'External ID',
+		name: 'external_id',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'External ID of the customer you want to unmerge into their own record',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['unmerge'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					external_id: '={{$value}}',
+				},
+			},
+		},
+	},
+	{
+		...SharedOptionItems.CustomerUUIDField({
+			location: 'path',
+			pathURL: '=/customers/{{$value}}/contacts',
+			description: 'ChartMogul UUID of the customer to add the contact to',
+		}),
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['add_contact'],
+			},
+		},
+	},
+	{
+		...SharedOptionItems.DataSourceUUIDField('body'),
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['add_contact'],
+			},
+		},
+	},
+	{
+		...SharedOptionItems.CustomerUUIDField({
+			location: 'path',
+			pathURL: '=/customers/{{$value}}/activities',
+		}),
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['list_activities'],
+			},
+		},
+	},
+	{
+		...SharedOptionItems.CustomerUUIDField({
+			location: 'path',
+			pathURL: '=/customers/{{$value}}/invoices',
+		}),
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['list_invoices'],
+			},
+		},
+	},
+	{
+		displayName: 'Email',
+		name: 'email',
+		type: 'string',
+		placeholder: 'name@email.com',
+		default: '',
+		description: 'Email address of the customer to search for',
+		required: true,
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['list_by_email'],
+			},
+		},
+		routing: { request: { qs: { email: '={{$value}}' } } },
+	},
 	/* -- Optional fields -- */
 	{
 		displayName: 'Filter Options',
@@ -377,20 +719,6 @@ export const customerFields: INodeProperties[] = [
 				routing: { request: { qs: { status: '={{$value}}' } } },
 			},
 		],
-	},
-	{
-		displayName: 'Pagination',
-		name: 'pagination',
-		type: 'collection',
-		placeholder: 'Add Field',
-		default: {},
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['list'],
-			},
-		},
-		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 	{
 		displayName: 'Additional Fields',
@@ -446,5 +774,67 @@ export const customerFields: INodeProperties[] = [
 			WebsiteURLField,
 			ZipCodeField,
 		],
+	},
+	{
+		displayName: 'Objects to Move to New Customer',
+		name: 'move_to_new_customer',
+		type: 'multiOptions',
+		options: [
+			{ name: 'Tasks', value: 'tasks' },
+			{ name: 'Opportunities', value: 'opportunities' },
+			{ name: 'Notes and Call Logs', value: 'notes' },
+		],
+		default: [],
+		description: 'Objects to move to the new customer after unmerging',
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['unmerge'],
+			},
+		},
+		routing: {
+			request: {
+				body: {
+					move_to_new_customer: '={{$value}}',
+				},
+			},
+		},
+	},
+	{
+		displayName: 'Additional Fields',
+		name: 'additionalFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['add_contact'],
+			},
+		},
+		options: [
+			SharedOptionItems.FirstNameField('contact'),
+			SharedOptionItems.LastNameField('contact'),
+			SharedOptionItems.EmailField('contact'),
+			SharedOptionItems.PhoneField('contact'),
+			SharedOptionItems.TitleField('contact'),
+			SharedOptionItems.LinkedInField('contact'),
+			SharedOptionItems.TwitterField('contact'),
+			SharedOptionItems.NotesField('contact'),
+		],
+	},
+	{
+		displayName: 'Pagination',
+		name: 'pagination',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['customer'],
+				operation: ['list', 'list_activities', 'list_invoices', 'list_by_email'],
+			},
+		},
+		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 ];
