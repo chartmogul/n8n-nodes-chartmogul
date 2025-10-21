@@ -6,10 +6,12 @@ import { customerFields, customerOperations } from './CustomerFunctions';
 import { planFields, planOperations } from './PlanFunctions';
 import { sourceFields, sourceOperations } from './SourceFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
-import { taskFields, taskOperations } from './TaskFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
 import { metricOperations, metricFields } from './MetricFunctions';
 import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
+import { taskFields, taskOperations } from './TaskFunctions';
+import { transactionFields, transactionOperations } from './TransactionFunctions';
+import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -54,7 +56,9 @@ export class Chartmogul implements INodeType {
 					{ name: 'Plan', value: 'plan' },
 					{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
+					{ name: 'Subscription', value: 'subscription' },
 					{ name: 'Task', value: 'task' },
+					{ name: 'Transaction', value: 'transaction' },
 				],
 				default: 'account',
 			},
@@ -84,8 +88,14 @@ export class Chartmogul implements INodeType {
 			...sourceOperations,
 			...sourceFields,
 
+			...subscriptionOperations,
+			...subscriptionFields,
+
 			...taskOperations,
 			...taskFields,
+
+			...transactionOperations,
+			...transactionFields,
 		],
 	};
 }
