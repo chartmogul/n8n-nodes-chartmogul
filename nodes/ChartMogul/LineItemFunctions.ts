@@ -95,8 +95,97 @@ const EventOrderField: INodeProperties = {
 	name: 'event_order',
 	type: 'number',
 	default: 0,
-	description: 'A numeric value that determines the sequence in which events are processed when multiple events occur at the same timestamp',
+	description:
+		'A numeric value that determines the sequence in which events are processed when multiple events occur at the same timestamp',
 	routing: { request: { body: { event_order: '={{$value}}' } } },
+};
+
+const QuantityField: INodeProperties = {
+	displayName: 'Quantity',
+	name: 'quantity',
+	type: 'number',
+	default: 1,
+	description: 'The quantity/seats of the product billed in the line item',
+	routing: { request: { body: { quantity: '={{$value}}' } } },
+};
+
+// Subscription Line Item Fields
+const SubscriptionExternalIdField: INodeProperties = {
+	displayName: 'Subscription External ID',
+	name: 'subscription_external_id',
+	type: 'string',
+	default: '',
+	description: 'A reference identifier for the subscription in your system',
+	routing: { request: { body: { subscription_external_id: '={{$value}}' } } },
+};
+
+const SubscriptionSetExternalIdField: INodeProperties = {
+	displayName: 'Subscription Set External ID',
+	name: 'subscription_set_external_id',
+	type: 'string',
+	default: '',
+	description: 'A reference identifier for a set of subscriptions in order to group several subscriptions into one set',
+	routing: { request: { body: { subscription_set_external_id: '={{$value}}' } } },
+};
+
+const PlanUUIDField: INodeProperties = {
+	displayName: 'Plan UUID',
+	name: 'plan_uuid',
+	type: 'string',
+	default: '',
+	description: 'The ChartMogul UUID of the plan associated with the subscription',
+	routing: { request: { body: { plan_uuid: '={{$value}}' } } },
+};
+
+const ServicePeriodStartField: INodeProperties = {
+	displayName: 'Service Period Start',
+	name: 'service_period_start',
+	type: 'dateTime',
+	default: '',
+	description: 'The start date of the service period for the subscription line item',
+	routing: { request: { body: { service_period_start: '={{$value}}' } } },
+};
+
+const ServicePeriodEndField: INodeProperties = {
+	displayName: 'Service Period End',
+	name: 'service_period_end',
+	type: 'dateTime',
+	default: '',
+	description: 'The end date of the service period for the subscription line item',
+	routing: { request: { body: { service_period_end: '={{$value}}' } } },
+};
+
+const ProratedField: INodeProperties = {
+	displayName: 'Prorated',
+	name: 'prorated',
+	type: 'boolean',
+	default: false,
+	description: 'Whether the subscription line item amount is prorated',
+	routing: { request: { body: { prorated: '={{$value}}' } } },
+};
+
+const ProrationTypeField: INodeProperties = {
+	displayName: 'Proration Type',
+	name: 'proration_type',
+	type: 'options',
+	default: 'differential',
+	options: [
+		{ name: 'Differential', value: 'differential' },
+		{ name: 'Full', value: 'full' },
+		{ name: 'Differential MRR', value: 'differential_mrr' }
+	],
+	routing: { request: { body: { proration_type: '={{$value}}' } } },
+};
+
+// One-Time Line Item Fields
+
+const DescriptionField: INodeProperties = {
+	displayName: 'Description',
+	name: 'description',
+	type: 'string',
+	default: '',
+	description: 'The description of the line item',
+	routing: { request: { body: { description: '={{$value}}' } } },
 };
 
 export const lineitemOperations: INodeProperties[] = [
@@ -161,5 +250,109 @@ export const lineitemOperations: INodeProperties[] = [
 ];
 
 export const lineitemFields: INodeProperties[] = [
-
+	{
+		...HandleAsUserEditField,
+		displayOptions: {
+			show: {
+				resource: ['line_item'],
+				operation: ['create', 'update'],
+			},
+		},
+	},
+	{
+		displayName: 'Invoice UUID',
+		name: 'invoice_uuid',
+		type: 'string',
+		default: '',
+		description: 'The UUID of the Invoice to which the Line Item belongs',
+		displayOptions: {
+			show: {
+				resource: ['line_item'],
+				operation: ['create'],
+			},
+		},
+		required: true,
+		routing: {
+			request: {
+				url: '=/invoices/{{$value}}/line_items',
+			},
+		},
+	},
+	{
+		...TypeField,
+		displayOptions: {
+			show: {
+				resource: ['line_item'],
+				operation: ['create'],
+			},
+		},
+	},
+	{
+		...AmountInCentsField,
+		displayOptions: {
+			show: {
+				resource: ['line_item'],
+				operation: ['create', ''],
+			},
+		},
+	},
+	{
+		displayName: 'Subscription Line Item Fields',
+		name: 'subscriptionLineItemFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['line_item'],
+				operation: ['create'],
+				type: ['subscription'],
+			},
+		},
+		options: [
+			SubscriptionExternalIdField,
+			SubscriptionSetExternalIdField,
+			PlanUUIDField,
+			ServicePeriodStartField,
+			ServicePeriodEndField,
+			ProratedField,
+			ProrationTypeField,
+		],
+	},
+	{
+		...DescriptionField,
+		displayOptions: {
+			show: {
+				resource: ['line_item'],
+				operation: ['create'],
+				type: ['one_time'],
+			},
+		},
+	},
+	{
+		displayName: 'Additional Fields',
+		name: 'additionalFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['line_item'],
+				operation: ['create'],
+			},
+		},
+		options: [
+			ExternalIDField,
+			QuantityField,
+			DiscountAmountInCentsField,
+			DiscountCodeField,
+			DiscountDescriptionField,
+			TaxAmountInCentsField,
+			TransactionFeeInCentsField,
+			TransactionFeeCurrencyField,
+			EventOrderField,
+			// BalanceTransferField could be added here in the future
+			// AccountCodeField could be added here in the future
+		],
+	},
 ];
