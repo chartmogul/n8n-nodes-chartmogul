@@ -188,7 +188,7 @@ const StatusField: INodeProperties = {
 	],
 	default: 'New Lead',
 	description: "The customer's status",
-	hint: "You can only set a customer's lead status. Other statuses are automatically assigned\.",
+	hint: "You can only set a customer's lead status. Other statuses are automatically assigned.",
 	routing: { request: { body: { status: '={{$value}}' } } },
 };
 

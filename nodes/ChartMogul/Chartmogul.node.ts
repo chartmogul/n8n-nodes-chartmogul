@@ -1,4 +1,4 @@
-import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
 import { accountOperations } from './AccountFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
@@ -26,14 +26,10 @@ export class Chartmogul implements INodeType {
 		defaults: {
 			name: 'ChartMogul',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
-		credentials: [
-			{
-				name: 'chartmogulApi',
-				required: true,
-			},
-		],
+		usableAsTool: true,
+		inputs: ['main'],
+		outputs: ['main'],
+		credentials: [{ name: 'chartmogulApi', required: true }],
 		requestDefaults: {
 			baseURL: 'https://api.chartmogul.com/v1',
 			headers: {

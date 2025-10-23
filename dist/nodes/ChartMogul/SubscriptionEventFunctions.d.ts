@@ -1,0 +1,20 @@
+import { INodeProperties } from 'n8n-workflow';
+type Location = 'body' | 'qs' | 'path';
+type FieldArgs = {
+    location: Location;
+    displayName?: string;
+    description?: string;
+    pathURL?: string;
+} | Location;
+export declare const AssigneeField: (args: FieldArgs) => INodeProperties;
+export declare const CustomerExternalIdField: (args: FieldArgs) => INodeProperties;
+export declare const EventDateField: (args: FieldArgs) => INodeProperties;
+export declare const EffectiveDateField: (args: FieldArgs) => INodeProperties;
+export declare const ExternalIdField: (args: FieldArgs) => INodeProperties;
+export declare const IdField: (args: FieldArgs) => INodeProperties;
+export declare const SubscriptionExternalIdField: (args: FieldArgs) => INodeProperties;
+export declare const PlanExternalIdField: (args: FieldArgs) => INodeProperties;
+export declare const EventTypeField: (args: FieldArgs) => INodeProperties;
+export declare const eventOperations: INodeProperties[];
+export declare const eventFields: INodeProperties[];
+export {};
