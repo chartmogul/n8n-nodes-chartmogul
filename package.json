@@ -1,55 +1,37 @@
 {
   "name": "n8n-nodes-chartmogul",
   "version": "0.1.0",
-  "description": "n8n node to interact with ChartMogul API",
-  "keywords": [
-    "n8n-community-node-package"
-  ],
+  "description": "",
   "license": "MIT",
-  "homepage": "https://www.chartmogul.com",
-  "author": {
-    "name": "ChartMogul",
-    "email": "support@chartmogul.com"
-  },
+  "homepage": "",
+  "keywords": ["n8n-community-node-package"],
+  "author": { "name": "Gef", "email": "gef@chartmogul.com" },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chartmogul/n8n-nodes-chartmogul.git"
+    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
   },
-  "engines": {
-    "node": ">=20.15"
-  },
-  "main": "index.js",
   "scripts": {
-    "build": "npx rimraf dist && tsc && gulp build:icons",
-    "dev": "tsc --watch",
-    "format": "prettier nodes credentials --write",
-    "lint": "eslint nodes credentials package.json",
-    "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes credentials package.json",
-    "clean": "rimraf node_modules build dist .next",
-    "rebuild": "npm run clean && npm install && npm run build"
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "n8n-node dev",
+    "lint": "n8n-node lint",
+    "lint:fix": "n8n-node lint --fix",
+    "release": "n8n-node release",
+    "prepublishOnly": "n8n-node prerelease"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": [
-      "dist/credentials/ChartMogulApi.credentials.js"
-    ],
-    "nodes": [
-      "dist/nodes/ChartMogul/Chartmogul.node.js"
-    ]
+    "strict": true,
+    "credentials": ["dist/credentials/ChartmogulApi.credentials.js"],
+    "nodes": ["dist/nodes/Chartmogul/Chartmogul.node.js"]
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "~8.32.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-n8n-nodes-base": "^1.16.3",
-    "gulp": "^5.0.0",
-    "prettier": "^3.5.3",
-    "typescript": "^5.8.2"
+    "@n8n/node-cli": "*",
+    "eslint": "9.32.0",
+    "prettier": "3.6.2",
+    "release-it": "^19.0.4",
+    "typescript": "5.9.2"
   },
-  "peerDependencies": {
-    "n8n-workflow": "*"
-  }
+  "peerDependencies": { "n8n-workflow": "*" }
 }

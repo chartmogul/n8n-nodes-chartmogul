@@ -1,41 +1,25 @@
-import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
-
-import { accountOperations } from './AccountFunctions';
-import { contactFields, contactOperations } from './ContactFunctions';
-import { customerFields, customerOperations } from './CustomerFunctions';
-import { planFields, planOperations } from './PlanFunctions';
-import { sourceFields, sourceOperations } from './SourceFunctions';
-import { noteFields, noteOperations } from './NoteFunctions';
-import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
-import { metricOperations, metricFields } from './MetricFunctions';
-import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
-import { taskFields, taskOperations } from './TaskFunctions';
-import { transactionFields, transactionOperations } from './TransactionFunctions';
-import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
-import { lineitemFields, lineitemOperations } from './LineItemFunctions';
+import { NodeConnectionType, type INodeType, type INodeTypeDescription } from 'n8n-workflow';
+import { userDescription } from './resources/user';
+import { companyDescription } from './resources/company';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'ChartMogul',
+		displayName: 'Chartmogul',
 		name: 'chartmogul',
-		icon: 'file:chartmogul.svg',
+		icon: { light: 'file:chartmogul.svg', dark: 'file:chartmogul.dark.svg' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with ChartMogul API',
+		description: 'Interact with the Chartmogul API',
 		defaults: {
-			name: 'ChartMogul',
+			name: 'Chartmogul',
 		},
+		usableAsTool: true,
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
-		credentials: [
-			{
-				name: 'chartmogulApi',
-				required: true,
-			},
-		],
+		credentials: [{ name: 'chartmogulApi', required: true }],
 		requestDefaults: {
-			baseURL: 'https://api.chartmogul.com/v1',
+			baseURL: 'https://api.chartmogul.com',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
@@ -48,59 +32,19 @@ export class Chartmogul implements INodeType {
 				type: 'options',
 				noDataExpression: true,
 				options: [
-					{ name: 'Account', value: 'account' },
-					{ name: 'Contact', value: 'contact' },
-					{ name: 'Customer', value: 'customer' },
-					{ name: 'Line Item', value: 'line_item' },
-					{ name: 'Metric', value: 'metric' },
-					{ name: 'Note and Call Log', value: 'notes' },
-					{ name: 'Opportunity', value: 'opportunity' },
-					{ name: 'Plan', value: 'plan' },
-					{ name: 'Plan Group', value: 'plan_group' },
-					{ name: 'Source', value: 'source' },
-					{ name: 'Subscription', value: 'subscription' },
-					{ name: 'Task', value: 'task' },
-					{ name: 'Transaction', value: 'transaction' },
+					{
+						name: 'User',
+						value: 'user',
+					},
+					{
+						name: 'Company',
+						value: 'company',
+					},
 				],
-				default: 'account',
+				default: 'user',
 			},
-			...accountOperations,
-
-			...contactOperations,
-			...contactFields,
-
-			...customerOperations,
-			...customerFields,
-
-			...lineitemOperations,
-			...lineitemFields,
-
-			...metricOperations,
-			...metricFields,
-
-			...noteOperations,
-			...noteFields,
-
-			...opportunityOperations,
-			...opportunityFields,
-
-			...planOperations,
-			...planFields,
-
-			...planGroupOperations,
-			...planGroupFields,
-
-			...sourceOperations,
-			...sourceFields,
-
-			...subscriptionOperations,
-			...subscriptionFields,
-
-			...taskOperations,
-			...taskFields,
-
-			...transactionOperations,
-			...transactionFields,
+			...userDescription,
+			...companyDescription,
 		],
 	};
 }

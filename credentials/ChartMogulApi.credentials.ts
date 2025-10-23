@@ -1,14 +1,18 @@
-import {
+import type {
 	IAuthenticateGeneric,
+	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
-	ICredentialTestRequest,
 } from 'n8n-workflow';
 
-export class ChartMogulApi implements ICredentialType {
+export class ChartmogulApi implements ICredentialType {
 	name = 'chartmogulApi';
-	displayName = 'ChartMogul API';
+
+	displayName = 'Chartmogul API';
+
+	// Link to your community node's README
 	documentationUrl = 'https://dev.chartmogul.com/';
+
 	properties: INodeProperties[] = [
 		{
 			displayName: 'API Key',
@@ -19,9 +23,10 @@ export class ChartMogulApi implements ICredentialType {
 			},
 			default: '',
 			required: true,
-			description: 'Your ChartMogul API Key',
+			description: 'Your Chartmogul API Key',
 		},
 	];
+
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
@@ -31,6 +36,7 @@ export class ChartMogulApi implements ICredentialType {
 			},
 		},
 	};
+
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: 'https://api.chartmogul.com/v1',
