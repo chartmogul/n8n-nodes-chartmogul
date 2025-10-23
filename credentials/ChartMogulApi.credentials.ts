@@ -1,5 +1,6 @@
 import type {
 	IAuthenticateGeneric,
+	Icon,
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
@@ -9,18 +10,17 @@ export class ChartmogulApi implements ICredentialType {
 	name = 'chartmogulApi';
 
 	displayName = 'Chartmogul API';
-
-	// Link to your community node's README
+	
 	documentationUrl = 'https://dev.chartmogul.com/';
+	
+	icon?: Icon | undefined = 'file:chartmogul.svg';
 
 	properties: INodeProperties[] = [
 		{
 			displayName: 'API Key',
 			name: 'apiKey',
 			type: 'string',
-			typeOptions: {
-				password: true,
-			},
+			typeOptions: { password: true },
 			default: '',
 			required: true,
 			description: 'Your Chartmogul API Key',
@@ -32,7 +32,7 @@ export class ChartmogulApi implements ICredentialType {
 		properties: {
 			auth: {
 				username: '={{$credentials.apiKey}}',
-				password: '={{$credentials.apiKey}}',
+				password: '',
 			},
 		},
 	};
