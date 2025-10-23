@@ -4,7 +4,7 @@ exports.ChartmogulApi = void 0;
 class ChartmogulApi {
     constructor() {
         this.name = 'chartmogulApi';
-        this.displayName = 'Chartmogul API';
+        this.displayName = 'ChartMogul API';
         this.documentationUrl = 'https://dev.chartmogul.com/';
         this.icon = 'file:chartmogul.svg';
         this.properties = [
@@ -15,7 +15,7 @@ class ChartmogulApi {
                 typeOptions: { password: true },
                 default: '',
                 required: true,
-                description: 'Your Chartmogul API Key',
+                description: 'Your ChartMogul API Key',
             },
         ];
         this.authenticate = {

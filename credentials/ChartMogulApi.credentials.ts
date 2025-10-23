@@ -9,7 +9,7 @@ import type {
 export class ChartmogulApi implements ICredentialType {
 	name = 'chartmogulApi';
 
-	displayName = 'Chartmogul API';
+	displayName = 'ChartMogul API';
 	
 	documentationUrl = 'https://dev.chartmogul.com/';
 	
@@ -23,7 +23,7 @@ export class ChartmogulApi implements ICredentialType {
 			typeOptions: { password: true },
 			default: '',
 			required: true,
-			description: 'Your Chartmogul API Key',
+			description: 'Your ChartMogul API Key',
 		},
 	];
 

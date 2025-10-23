@@ -1,0 +1,462 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "delete",
+        "plan_uuid": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        272,
+        -688
+      ],
+      "id": "8bcb77fb-6142-4900-8652-bf86fcba535b",
+      "name": "Delete a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "update",
+        "plan_uuid": "={{ $json.uuid }}",
+        "additionalFields": {
+          "name": "n8n_updated",
+          "interval_count": 3,
+          "interval_unit": "year"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        48,
+        -688
+      ],
+      "id": "9caec62c-f560-4d59-ad19-af44fb22ef86",
+      "name": "Update a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "get",
+        "plan_uuid": "={{ $json.plans[0].uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -688
+      ],
+      "id": "34a74f13-9ca7-4ded-a908-5e4cbf2d6df3",
+      "name": "Retrieve a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {
+          "externalId": "n8n_testing"
+        },
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -688
+      ],
+      "id": "63b3b033-5d0f-473a-8b56-d14a4ffcfb56",
+      "name": "List all plans",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "ds_45d411ee-219b-11f0-ac9b-eb8ffba6f14b",
+        "name": "n8n_testing",
+        "additionalFields": {
+          "externalId": "n8n_testing"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        -688
+      ],
+      "id": "89597775-8df6-4c5f-bcab-9245140ce5d4",
+      "name": "Create a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -848,
+        -592
+      ],
+      "id": "725639d0-379a-4de2-bf8f-687d5f07ca42",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        -880
+      ],
+      "id": "45be64c0-cca6-4d1b-888b-975a86ca20a8",
+      "name": "Get account details",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "create",
+        "data_source_uuid": "ds_45d411ee-219b-11f0-ac9b-eb8ffba6f14b",
+        "external_id": "merge1",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        -496
+      ],
+      "id": "bc557ef3-7e09-433e-b823-2ff828873429",
+      "name": "Create a customer",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "create",
+        "data_source_uuid": "ds_45d411ee-219b-11f0-ac9b-eb8ffba6f14b",
+        "external_id": "merge2",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -496
+      ],
+      "id": "4e481747-385c-47af-95bb-20910f64b9c6",
+      "name": "Create a customer 2",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "merge",
+        "merge_from": "={{ $('Create a customer').item.json.uuid }}",
+        "merge_into": "={{ $('Create a customer 2').item.json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -496
+      ],
+      "id": "ceeee5f8-334a-478a-81bc-fb2709680c01",
+      "name": "Merge two customers",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "create",
+        "data_source_uuid": "ds_45d411ee-219b-11f0-ac9b-eb8ffba6f14b",
+        "external_id": "merge11",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -624,
+        -304
+      ],
+      "id": "5ff527ef-b5b2-49f0-861b-1ba0bcad9da4",
+      "name": "Create a customer1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "create",
+        "data_source_uuid": "ds_45d411ee-219b-11f0-ac9b-eb8ffba6f14b",
+        "external_id": "merge12",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        -304
+      ],
+      "id": "39c61abe-f6d0-4685-ad72-e58843d63b8e",
+      "name": "Create a customer ",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "merge",
+        "merge_using": "data_source_uuid_external_id_merge",
+        "merge_from": {
+          "mergeFrom": {
+            "data_source_uuid": "={{ $json.data_source_uuid }}",
+            "external_id": "={{ $json.external_id }}"
+          }
+        },
+        "merge_into": {
+          "mergeInto": {
+            "data_source_uuid": "={{ $('Create a customer1').item.json.data_source_uuid }}",
+            "external_id": "={{ $('Create a customer1').item.json.external_id }}"
+          }
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        -304
+      ],
+      "id": "dace5aa4-0dac-49dd-a087-bdb8b2f7c7ce",
+      "name": "Merge two customers1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "unmerge",
+        "customer_uuid": "={{ $('Create a customer1').item.json.uuid }}",
+        "data_source_uuid": "={{ $('Create a customer ').item.json.data_source_uuid }}",
+        "external_id": "={{ $('Create a customer1').item.json.external_id }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -304
+      ],
+      "id": "3b0459ef-eda1-416a-81b1-740ff6596497",
+      "name": "Unmerge customers",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "cbdf3jH8cviaB3mP",
+          "name": "ChartMogul account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Update a plan": {
+      "main": [
+        [
+          {
+            "node": "Delete a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a plan": {
+      "main": [
+        [
+          {
+            "node": "Update a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans": {
+      "main": [
+        [
+          {
+            "node": "Retrieve a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan": {
+      "main": [
+        [
+          {
+            "node": "List all plans",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a customer1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get account details": {
+      "main": [
+        []
+      ]
+    },
+    "Create a customer": {
+      "main": [
+        [
+          {
+            "node": "Create a customer 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a customer 2": {
+      "main": [
+        [
+          {
+            "node": "Merge two customers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a customer1": {
+      "main": [
+        [
+          {
+            "node": "Create a customer ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a customer ": {
+      "main": [
+        [
+          {
+            "node": "Merge two customers1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge two customers1": {
+      "main": [
+        [
+          {
+            "node": "Unmerge customers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "efb6a964-af0e-434f-a366-1b84752f08f0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6416309a0203bd2883861581328a8ff684993b15f020900c78819be49a3f086d"
+  },
+  "id": "i36M7pocEl5FF0Up",
+  "tags": []
+}
