@@ -13,6 +13,7 @@ import { taskFields, taskOperations } from './TaskFunctions';
 import { transactionFields, transactionOperations } from './TransactionFunctions';
 import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
 import { lineitemFields, lineitemOperations } from './LineItemFunctions';
+import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -47,6 +48,7 @@ export class Chartmogul implements INodeType {
 					{ name: 'Account', value: 'account' },
 					{ name: 'Contact', value: 'contact' },
 					{ name: 'Customer', value: 'customer' },
+					{ name: 'Enrichment', value: 'enrichment' },
 					{ name: 'Line Item', value: 'line_item' },
 					{ name: 'Metric', value: 'metric' },
 					{ name: 'Note and Call Log', value: 'notes' },
@@ -85,6 +87,9 @@ export class Chartmogul implements INodeType {
 
 			...planGroupOperations,
 			...planGroupFields,
+
+			...enrichmentOperations,
+			...enrichmentFields,
 
 			...sourceOperations,
 			...sourceFields,
