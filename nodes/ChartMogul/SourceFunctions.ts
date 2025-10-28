@@ -86,11 +86,17 @@ export const sourceFields: INodeProperties[] = [
 			},
 		},
 	},
-	{
-		...SharedOptionItems.DataSourceUUIDField({
-			location: 'path',
-			pathURL: '=/data_sources/{{$value}}',
-		}),
+	{	
+		displayName: 'Data Source UUID',
+		name: 'data_source_uuid',
+		type: 'string',
+		default: '',
+		description: 'ChartMogul UUID of the Data Source',
+		routing: {
+			request: {
+				url: '=/data_sources/{{$value}}',
+			},
+		},
 		required: true,
 		displayOptions: {
 			show: {
@@ -114,12 +120,22 @@ export const sourceFields: INodeProperties[] = [
 			},
 		},
 		options: [
-			SharedOptionItems.NameField({
-				location: 'qs',
-				displayName: 'Data Source Name',
+			{
+				displayName: 'Name',
+				name: 'name',
+				type: 'string',
+				default: '',
 				description: 'Filter results by source name',
-			}),
-			SharedOptionItems.BillingSystemField,
+				routing: { request: { qs: { name: '={{$value}}', }, }, },
+			},
+			{
+				displayName: 'Billing System',
+				name: 'system',
+				type: 'string',
+				default: '',
+				description: 'Filter results by billing system',
+				routing: { request: { qs: { system: '={{$value}}', }, }, },
+			}
 		],
 	},
 ];
