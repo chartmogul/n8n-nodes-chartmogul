@@ -14,6 +14,7 @@ const TaskFunctions_1 = require("./TaskFunctions");
 const TransactionFunctions_1 = require("./TransactionFunctions");
 const SubscriptionFunctions_1 = require("./SubscriptionFunctions");
 const LineItemFunctions_1 = require("./LineItemFunctions");
+const EnrichmentFunctions_1 = require("./EnrichmentFunctions");
 class Chartmogul {
     constructor() {
         this.description = {
@@ -48,6 +49,7 @@ class Chartmogul {
                         { name: 'Account', value: 'account' },
                         { name: 'Contact', value: 'contact' },
                         { name: 'Customer', value: 'customer' },
+                        { name: 'Enrichment', value: 'enrichment' },
                         { name: 'Line Item', value: 'line_item' },
                         { name: 'Metric', value: 'metric' },
                         { name: 'Note and Call Log', value: 'notes' },
@@ -78,6 +80,8 @@ class Chartmogul {
                 ...PlanFunctions_1.planFields,
                 ...PlanGroupFunctions_1.planGroupOperations,
                 ...PlanGroupFunctions_1.planGroupFields,
+                ...EnrichmentFunctions_1.enrichmentOperations,
+                ...EnrichmentFunctions_1.enrichmentFields,
                 ...SourceFunctions_1.sourceOperations,
                 ...SourceFunctions_1.sourceFields,
                 ...SubscriptionFunctions_1.subscriptionOperations,
