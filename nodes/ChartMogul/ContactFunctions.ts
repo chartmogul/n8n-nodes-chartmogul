@@ -184,8 +184,20 @@ export const contactFields: INodeProperties[] = [
 					},
 				},
 			},
-			SharedOptionItems.CursorField,
-			SharedOptionItems.PerPageField,
 		],
+	},
+	{
+		displayName: 'Pagination',
+		name: 'pagination',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['contact'],
+				operation: ['list'],
+			},
+		},
+		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 ];

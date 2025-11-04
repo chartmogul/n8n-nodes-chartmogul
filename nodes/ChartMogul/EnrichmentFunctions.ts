@@ -141,7 +141,7 @@ export const enrichmentFields: INodeProperties[] = [
 		required: true,
 		displayOptions: {
 			show: {
-				resource: ['tag'],
+				resource: ['enrichment'],
 				operation: ['add_tags_by_email', 'add_attributes_by_email'],
 			},
 		},
@@ -173,7 +173,7 @@ export const enrichmentFields: INodeProperties[] = [
 		placeholder: 'Add Attribute',
 		options: [
 			{
-				name: 'attribute',
+				name: 'custom',
 				displayName: 'Attribute',
 				values: [
 					{
@@ -234,7 +234,7 @@ export const enrichmentFields: INodeProperties[] = [
 				operation: ['add_attributes', 'add_attributes_by_email'],
 			},
 		},
-		routing: { request: { body: { custom: '={{$value}}' } } },	
+		routing: { request: { body: '={{$value}}' } },	
 	},
 	{
 		displayName: 'Attributes to Remove',

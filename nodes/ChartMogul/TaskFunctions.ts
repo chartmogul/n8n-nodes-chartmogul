@@ -162,11 +162,26 @@ export const taskFields: INodeProperties[] = [
 		},
 	},
 	{
+		displayName: 'Completed'
+,		name: 'completed',
+		type: 'boolean',
+		default: false,
+		description: 'Whether the task is completed',
+		displayOptions: {
+			show: {
+				resource: ['task'],
+				operation: ['create'],
+			},
+		},
+		routing: { request: { body: { completed: '={{$value}}' } } },
+	},
+	{
 		...CompletedAtField,
 		displayOptions: {
 			show: {
 				resource: ['task'],
 				operation: ['create'],
+				completed: [true],
 			},
 		},
 	},
@@ -211,7 +226,7 @@ export const taskFields: INodeProperties[] = [
 				default: '',
 				description:
 					'Use this parameter to limit your results to tasks due on or after a certain date',
-				routing: { request: { body: { due_date_on_or_after: '={{$value}}' } } },
+				routing: { request: { qs: { due_date_on_or_after: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Due Date On or Before',
@@ -220,7 +235,7 @@ export const taskFields: INodeProperties[] = [
 				default: '',
 				description:
 					'Use this parameter to limit your results to tasks due on or before a certain date',
-				routing: { request: { body: { due_date_on_or_before: '={{$value}}' } } },
+				routing: { request: { qs: { due_date_on_or_before: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Completed',
@@ -228,7 +243,7 @@ export const taskFields: INodeProperties[] = [
 				type: 'boolean',
 				default: false,
 				description: 'Whether the tasks to be fetched are completed (true) or ongoing (false)',
-				routing: { request: { body: { completed: '={{$value}}' } } },
+				routing: { request: { qs: { completed: '={{$value}}' } } },
 			},
 		],
 	},

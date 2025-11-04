@@ -52,7 +52,7 @@ class Chartmogul {
                         { name: 'Enrichment', value: 'enrichment' },
                         { name: 'Line Item', value: 'line_item' },
                         { name: 'Metric', value: 'metric' },
-                        { name: 'Note and Call Log', value: 'notes' },
+                        { name: 'Note and Call Log', value: 'note' },
                         { name: 'Opportunity', value: 'opportunity' },
                         { name: 'Plan', value: 'plan' },
                         { name: 'Plan Group', value: 'plan_group' },

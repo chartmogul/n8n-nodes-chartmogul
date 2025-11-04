@@ -164,6 +164,16 @@ export const noteFields: INodeProperties[] = [
 			},
 		},
 	},
+	{ 
+		...CallDurationField,
+		displayOptions: {
+			show: {
+				resource: ['note'],
+				operation: ['create'],
+				type: ['call'],
+			},
+		},
+	},
 	{
 		displayName: 'Additional Fields',
 		name: 'additionalFields',
@@ -176,7 +186,7 @@ export const noteFields: INodeProperties[] = [
 				operation: ['create'],
 			},
 		},
-		options: [AuthorField('body'), TextField, CallDurationField, CreatedAtField],
+		options: [AuthorField('body'), TextField, CreatedAtField],
 	},
 	{
 		displayName: 'Note UUID',

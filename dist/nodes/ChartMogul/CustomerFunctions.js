@@ -257,7 +257,7 @@ exports.customerOperations = [
             {
                 name: "List Customer's Activities",
                 value: 'list_activities',
-                action: 'Returns a list of activities for a given customer',
+                action: 'List activities of a customer',
                 routing: {
                     request: {
                         method: 'GET',
@@ -267,7 +267,7 @@ exports.customerOperations = [
             {
                 name: "List Customer's Invoices",
                 value: 'list_invoices',
-                action: 'Returns a list of invoices for a given customer',
+                action: 'List invoices of a customer',
                 routing: {
                     request: {
                         method: 'GET',
@@ -292,7 +292,7 @@ exports.customerOperations = [
                 routing: {
                     request: {
                         method: 'GET',
-                        url: '/customer/search',
+                        url: '/customers/search',
                     },
                 },
             },

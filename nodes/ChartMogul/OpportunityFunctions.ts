@@ -345,7 +345,7 @@ export const opportunityFields: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['task'],
+				resource: ['opportunity'],
 				operation: ['list'],
 			},
 		},
@@ -359,7 +359,7 @@ export const opportunityFields: INodeProperties[] = [
 		default: {},
 		displayOptions: {
 			show: {
-				resource: ['task'],
+				resource: ['opportunity'],
 				operation: ['update'],
 			},
 		},

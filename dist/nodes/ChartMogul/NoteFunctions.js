@@ -153,6 +153,16 @@ exports.noteFields = [
         },
     },
     {
+        ...CallDurationField,
+        displayOptions: {
+            show: {
+                resource: ['note'],
+                operation: ['create'],
+                type: ['call'],
+            },
+        },
+    },
+    {
         displayName: 'Additional Fields',
         name: 'additionalFields',
         type: 'collection',
@@ -164,7 +174,7 @@ exports.noteFields = [
                 operation: ['create'],
             },
         },
-        options: [(0, exports.AuthorField)('body'), TextField, CallDurationField, CreatedAtField],
+        options: [(0, exports.AuthorField)('body'), TextField, CreatedAtField],
     },
     {
         displayName: 'Note UUID',

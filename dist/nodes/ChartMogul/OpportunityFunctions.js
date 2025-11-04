@@ -326,7 +326,7 @@ exports.opportunityFields = [
         default: {},
         displayOptions: {
             show: {
-                resource: ['task'],
+                resource: ['opportunity'],
                 operation: ['list'],
             },
         },
@@ -340,7 +340,7 @@ exports.opportunityFields = [
         default: {},
         displayOptions: {
             show: {
-                resource: ['task'],
+                resource: ['opportunity'],
                 operation: ['update'],
             },
         },

@@ -181,9 +181,21 @@ exports.contactFields = [
                     },
                 },
             },
-            SharedOptions_1.SharedOptionItems.CursorField,
-            SharedOptions_1.SharedOptionItems.PerPageField,
         ],
+    },
+    {
+        displayName: 'Pagination',
+        name: 'pagination',
+        type: 'collection',
+        placeholder: 'Add Field',
+        default: {},
+        displayOptions: {
+            show: {
+                resource: ['contact'],
+                operation: ['list'],
+            },
+        },
+        options: [SharedOptions_1.SharedOptionItems.CursorField, SharedOptions_1.SharedOptionItems.PerPageField],
     },
 ];
 //# sourceMappingURL=ContactFunctions.js.map
