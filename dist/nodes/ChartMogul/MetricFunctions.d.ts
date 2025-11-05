@@ -1,3 +1,0 @@
-import { INodeProperties } from 'n8n-workflow';
-export declare const metricOperations: INodeProperties[];
-export declare const metricFields: INodeProperties[];
