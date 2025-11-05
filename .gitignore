@@ -3,3 +3,7 @@ node_modules/
 
 # Build artifacts
 dist/
+
+# IDE and OS specific files
+.DS_Store
+Thumbs.db
