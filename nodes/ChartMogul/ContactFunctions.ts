@@ -7,58 +7,37 @@ export const contactOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['contact'],
-			},
-		},
+		displayOptions: { show: { resource: ['contact'] } },
 		options: [
 			{
 				name: 'Create a Contact',
 				value: 'create',
 				action: 'Create a contact',
-				routing: {
-					request: { method: 'POST', url: '/contacts' },
-				},
+				routing: { request: { method: 'POST', url: '/contacts' } },
 			},
 			{
 				name: 'Delete a Contact',
 				value: 'delete',
 				action: 'Delete a contact',
-				routing: {
-					request: { method: 'DELETE' },
-				},
+				routing: { request: { method: 'DELETE' } },
 			},
 			{
 				name: 'List Contacts',
 				value: 'list',
 				action: 'List contacts',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/contacts',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/contacts' } },
 			},
 			{
 				name: 'Retrieve a Contact',
 				value: 'get',
 				action: 'Retrieve a contact',
-				routing: {
-					request: {
-						method: 'GET',
-					},
-				},
+				routing: { request: { method: 'GET' } },
 			},
 			{
 				name: 'Update a Contact',
 				value: 'update',
 				action: 'Update a contact',
-				routing: {
-					request: {
-						method: 'PATCH',
-					},
-				},
+				routing: { request: { method: 'PATCH' } },
 			},
 		],
 		default: 'get',
@@ -80,11 +59,7 @@ export const contactFields: INodeProperties[] = [
 				operation: ['get', 'delete', 'update'],
 			},
 		},
-		routing: {
-			request: {
-				url: '=/contacts/{{$value}}',
-			},
-		},
+		routing: { request: { url: '=/contacts/{{$value}}' } },
 	},
 	{
 		...SharedOptionItems.DataSourceUUIDField({
@@ -165,11 +140,7 @@ export const contactFields: INodeProperties[] = [
 				default: '',
 				placeholder: 'name@email.com',
 				description: "The contact's email address",
-				routing: {
-					request: {
-						qs: { email: '={{$value}}' },
-					},
-				},
+				routing: { request: { qs: { email: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Customer External ID',
@@ -178,11 +149,7 @@ export const contactFields: INodeProperties[] = [
 				default: '',
 				description:
 					'The unique external identifier of the customer whose contacts you want to retrieve',
-				routing: {
-					request: {
-						qs: { customer_external_id: '={{$value}}' },
-					},
-				},
+				routing: { request: { qs: { customer_external_id: '={{$value}}' } } },
 			},
 		],
 	},

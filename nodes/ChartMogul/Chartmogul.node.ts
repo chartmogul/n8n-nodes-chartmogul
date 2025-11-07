@@ -14,6 +14,7 @@ import { transactionFields, transactionOperations } from './TransactionFunctions
 import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
 import { lineitemFields, lineitemOperations } from './LineItemFunctions';
 import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
+import { invoiceFields, invoiceOperations } from './InvoiceFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -49,6 +50,7 @@ export class Chartmogul implements INodeType {
 					{ name: 'Contact', value: 'contact' },
 					{ name: 'Customer', value: 'customer' },
 					{ name: 'Enrichment', value: 'enrichment' },
+					{ name: 'Invoice', value: 'invoice' },
 					{ name: 'Line Item', value: 'line_item' },
 					{ name: 'Metric', value: 'metric' },
 					{ name: 'Note and Call Log', value: 'note' },
@@ -69,6 +71,9 @@ export class Chartmogul implements INodeType {
 
 			...customerOperations,
 			...customerFields,
+
+			...invoiceOperations,
+			...invoiceFields,
 
 			...lineitemOperations,
 			...lineitemFields,

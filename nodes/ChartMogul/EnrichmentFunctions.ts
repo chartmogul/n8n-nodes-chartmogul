@@ -1,5 +1,4 @@
 import type { INodeProperties } from 'n8n-workflow';
-import { SharedOptionItems } from './SharedOptions';
 
 export const enrichmentOperations: INodeProperties[] = [
 	{
@@ -20,6 +19,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
+						url: '=/customers/{{$parameter.customer_uuid}}/attributes/custom',
 					},
 				},
 			},
@@ -41,6 +41,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
+						url: '=/customers/{{$parameter.customer_uuid}}/attributes/tags',
 					},
 				},
 			},
@@ -62,6 +63,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
+						url: '=/customers/{{$parameter.customer_uuid}}/attributes/custom',
 					},
 				},
 			},
@@ -72,6 +74,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
+						url: '=/customers/{{$parameter.customer_uuid}}/attributes/tags',
 					},
 				},
 			},
@@ -82,6 +85,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
+						url: '=/customers/{{$parameter.customer_uuid}}/attributes',
 					},
 				},
 			},
@@ -93,41 +97,16 @@ export const enrichmentOperations: INodeProperties[] = [
 export const enrichmentFields: INodeProperties[] = [
 	/* -- Required fields -- */
 	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'path',
-			pathURL: '=/customers/{{$value}}/attributes/tags',
-		}),
+		displayName: 'Customer UUID',
+		name: 'customer_uuid',
+		type: 'string',
 		required: true,
+		default: '',
+		description: 'The UUID of the customer',
 		displayOptions: {
 			show: {
 				resource: ['enrichment'],
-				operation: ['add_tags', 'remove_tags'],
-			},
-		},
-	},
-	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'path',
-			pathURL: '=/customers/{{$value}}/attributes',
-		}),
-		required: true,
-		displayOptions: {
-			show: {
-				resource: ['enrichment'],
-				operation: ['get'],
-			},
-		},
-	},
-	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'path',
-			pathURL: '=/customers/{{$value}}/attributes/custom',
-		}),
-		required: true,
-		displayOptions: {
-			show: {
-				resource: ['enrichment'],
-				operation: ['add_attributes', 'remove_attributes'],
+				operation: ['add_attributes', 'add_tags', 'get', 'remove_attributes', 'remove_tags'],
 			},
 		},
 	},
