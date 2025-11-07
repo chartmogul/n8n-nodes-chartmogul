@@ -66,6 +66,9 @@ export class Chartmogul implements INodeType {
 			...customerOperations,
 			...customerFields,
 
+			...enrichmentOperations,
+			...enrichmentFields,
+
 			...metricOperations,
 			...metricFields,
 
@@ -74,9 +77,6 @@ export class Chartmogul implements INodeType {
 
 			...opportunityOperations,
 			...opportunityFields,
-
-			...enrichmentOperations,
-			...enrichmentFields,
 
 			...sourceOperations,
 			...sourceFields,

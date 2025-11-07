@@ -7,11 +7,6 @@ export const sourceOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['source'],
-			},
-		},
 		options: [
 			{
 				name: 'Create a Source',
@@ -39,16 +34,21 @@ export const sourceOperations: INodeProperties[] = [
 				name: 'Retrieve a Source',
 				value: 'get',
 				action: 'Retrieve a source',
-				routing: { request: { method: 'GET', url: '=/data_sources/{{$parameter.dataSourceUUID}}' } },
+				routing: {
+					request: { method: 'GET', url: '=/data_sources/{{$parameter.dataSourceUUID}}' },
+				},
 			},
 			{
 				name: 'Delete a Source',
 				value: 'delete',
 				action: 'Delete a source',
-				routing: { request: { method: 'DELETE', url: '=/data_sources/{{$parameter.dataSourceUUID}}' } },
+				routing: {
+					request: { method: 'DELETE', url: '=/data_sources/{{$parameter.dataSourceUUID}}' },
+				},
 			},
 		],
 		default: 'create',
+		displayOptions: { show: { resource: ['source'] } },
 	},
 ];
 
@@ -63,7 +63,7 @@ export const sourceFields: INodeProperties[] = [
 		displayOptions: { show: { resource: ['source'], operation: ['create'] } },
 		required: true,
 	},
-	{	
+	{
 		displayName: 'Data Source UUID',
 		name: 'dataSourceUUID',
 		type: 'string',
@@ -87,7 +87,7 @@ export const sourceFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'Filter results by source name',
-				routing: { request: { qs: { name: '={{$value}}', }, }, },
+				routing: { request: { qs: { name: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Billing System',
@@ -95,8 +95,8 @@ export const sourceFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'Filter results by billing system',
-				routing: { request: { qs: { system: '={{$value}}', }, }, },
-			}
+				routing: { request: { qs: { system: '={{$value}}' } } },
+			},
 		],
 		displayOptions: { show: { resource: ['source'], operation: ['list'] } },
 	},

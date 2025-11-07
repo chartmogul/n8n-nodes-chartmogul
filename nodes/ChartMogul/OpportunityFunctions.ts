@@ -17,7 +17,7 @@ export const OwnerField = (args: FieldArgs): INodeProperties => {
 		typeof args === 'string'
 			? 'The email address of the ChartMogul user with a CRM seat who is the primary salesperson responsible for this opportunity'
 			: (args.description ??
-				'TThe email address of the ChartMogul user with a CRM seat who is the primary salesperson responsible for this opportunity');
+				'The email address of the ChartMogul user with a CRM seat who is the primary salesperson responsible for this opportunity');
 	const name = 'owner';
 	return {
 		displayName,

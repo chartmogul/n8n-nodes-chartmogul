@@ -6,7 +6,6 @@ export const accountOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: { show: { resource: ['account'] } },
 		options: [
 			{
 				name: 'Get Account Details',
@@ -16,5 +15,6 @@ export const accountOperations: INodeProperties[] = [
 			},
 		],
 		default: 'get',
+		displayOptions: { show: { resource: ['account'] } },
 	},
 ];

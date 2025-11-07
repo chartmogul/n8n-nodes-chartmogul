@@ -62,11 +62,6 @@ export const taskOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['task'],
-			},
-		},
 		options: [
 			{
 				name: 'Create a Task',
@@ -100,6 +95,7 @@ export const taskOperations: INodeProperties[] = [
 			},
 		],
 		default: 'get',
+		displayOptions: { show: { resource: ['task'] } },
 	},
 ];
 

@@ -7,7 +7,6 @@ export const contactOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: { show: { resource: ['contact'] } },
 		options: [
 			{
 				name: 'Create a Contact',
@@ -41,6 +40,7 @@ export const contactOperations: INodeProperties[] = [
 			},
 		],
 		default: 'get',
+		displayOptions: { show: { resource: ['contact'] } },
 	},
 ];
 
@@ -131,7 +131,7 @@ export const contactFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: { show: { resource: ['contact'], operation: ['list'] } },	
+		displayOptions: { show: { resource: ['contact'], operation: ['list'] } },
 		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 ];
