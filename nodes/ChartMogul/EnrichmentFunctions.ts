@@ -1,4 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
+import { SharedOptionItems } from './SharedOptions';
 
 export const enrichmentOperations: INodeProperties[] = [
 	{
@@ -19,7 +20,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/customers/{{$parameter.customer_uuid}}/attributes/custom',
+						url: '=/customers/{{$parameter.customerUUID}}/attributes/custom',
 					},
 				},
 			},
@@ -41,7 +42,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/customers/{{$parameter.customer_uuid}}/attributes/tags',
+						url: '=/customers/{{$parameter.customerUUID}}/attributes/tags',
 					},
 				},
 			},
@@ -63,7 +64,7 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/customers/{{$parameter.customer_uuid}}/attributes/custom',
+						url: '=/customers/{{$parameter.customerUUID}}/attributes/custom',
 					},
 				},
 			},
@@ -74,18 +75,18 @@ export const enrichmentOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/customers/{{$parameter.customer_uuid}}/attributes/tags',
+						url: '=/customers/{{$parameter.customerUUID}}/attributes/tags',
 					},
 				},
 			},
 			{
-				name: 'Retrieve Customer\'s Tags and Attributes',
+				name: "Retrieve Customer's Tags and Attributes",
 				value: 'get',
 				action: 'Retrieve tags and attributes of a customer',
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/customers/{{$parameter.customer_uuid}}/attributes',
+						url: '=/customers/{{$parameter.customerUUID}}/attributes',
 					},
 				},
 			},
@@ -95,20 +96,15 @@ export const enrichmentOperations: INodeProperties[] = [
 ];
 
 export const enrichmentFields: INodeProperties[] = [
-	/* -- Required fields -- */
 	{
-		displayName: 'Customer UUID',
-		name: 'customer_uuid',
-		type: 'string',
-		required: true,
-		default: '',
-		description: 'The UUID of the customer',
+		...SharedOptionItems.CustomerUUIDField,
 		displayOptions: {
 			show: {
 				resource: ['enrichment'],
 				operation: ['add_attributes', 'add_tags', 'get', 'remove_attributes', 'remove_tags'],
 			},
 		},
+		required: true,
 	},
 	{
 		displayName: 'Email',
@@ -117,13 +113,13 @@ export const enrichmentFields: INodeProperties[] = [
 		default: '',
 		placeholder: 'name@email.com',
 		description: 'Email address of the customer',
-		required: true,
 		displayOptions: {
 			show: {
 				resource: ['enrichment'],
 				operation: ['add_tags_by_email', 'add_attributes_by_email'],
 			},
 		},
+		required: true,
 		routing: { request: { body: { email: '={{$value}}' } } },
 	},
 	{
@@ -133,22 +129,21 @@ export const enrichmentFields: INodeProperties[] = [
 		default: '',
 		placeholder: 'vip, important, trial',
 		description: 'Comma-separated list of tags to add or remove',
-		required: true,
 		displayOptions: {
 			show: {
 				resource: ['enrichment'],
 				operation: ['add_tags', 'add_tags_by_email', 'remove_tags'],
 			},
 		},
-		routing: { request: { body: { tags: '={{$value.split(",").map(tag => tag.trim())}}', } } }, 
+		required: true,
+		routing: { request: { body: { tags: '={{$value.split(",").map(tag => tag.trim())}}' } } },
 	},
 	{
 		displayName: 'Custom Attributes',
 		name: 'custom',
 		type: 'fixedCollection',
-		typeOptions: { multipleValues: true, },
+		typeOptions: { multipleValues: true },
 		default: [],
-		required: true,
 		placeholder: 'Add Attribute',
 		options: [
 			{
@@ -181,39 +176,37 @@ export const enrichmentFields: INodeProperties[] = [
 						name: 'value',
 						type: 'boolean',
 						default: false,
-						displayOptions: { show: { type: ['Boolean'], }, },
+						displayOptions: { show: { type: ['Boolean'] } },
 					},
 					{
 						displayName: 'Value',
 						name: 'value',
 						type: 'number',
 						default: 0,
-						displayOptions: { show: { type: ['Decimal', 'Integer'], }, },
+						displayOptions: { show: { type: ['Decimal', 'Integer'] } },
 					},
 					{
 						displayName: 'Value',
 						name: 'value',
 						type: 'string',
 						default: '',
-						displayOptions: { show: { type: ['String'], }, },
+						displayOptions: { show: { type: ['String'] } },
 					},
 					{
 						displayName: 'Value',
 						name: 'value',
 						type: 'dateTime',
 						default: '',
-						displayOptions: { show: { type: ['Timestamp'], }, },
+						displayOptions: { show: { type: ['Timestamp'] } },
 					},
 				],
 			},
 		],
 		displayOptions: {
-			show: {
-				resource: ['enrichment'],
-				operation: ['add_attributes', 'add_attributes_by_email'],
-			},
+			show: { resource: ['enrichment'], operation: ['add_attributes', 'add_attributes_by_email'] },
 		},
-		routing: { request: { body: '={{$value}}' } },	
+		required: true,
+		routing: { request: { body: '={{$value}}' } },
 	},
 	{
 		displayName: 'Attributes to Remove',
@@ -222,13 +215,8 @@ export const enrichmentFields: INodeProperties[] = [
 		default: '',
 		placeholder: 'attribute_key_1, attribute_key_2',
 		description: 'Comma-separated list of custom attribute keys to remove',
+		displayOptions: { show: { resource: ['enrichment'], operation: ['remove_attributes'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['enrichment'],
-				operation: ['remove_attributes'],
-			},
-		},
-		routing: { request: { body: { custom: '={{$value.split(",").map(attr => attr.trim())}}', } } },	
-	}
+		routing: { request: { body: { custom: '={{$value.split(",").map(attr => attr.trim())}}' } } },
+	},
 ];

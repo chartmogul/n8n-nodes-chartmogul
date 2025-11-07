@@ -233,51 +233,34 @@ export const customerOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-			},
-		},
+		displayOptions: { show: { resource: ['customer'] } },
 		options: [
 			{
 				name: 'Add Contact to Customer',
 				value: 'add_contact',
 				action: 'Add a contact to a customer',
 				routing: {
-					request: {
-						method: 'POST',
-					},
+					request: { method: 'POST', url: '=/customers/{{$parameter.customerUUID}}/contacts' },
 				},
 			},
 			{
 				name: 'Create a Customer',
 				value: 'create',
 				action: 'Create a customer',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '/customers',
-					},
-				},
+				routing: { request: { method: 'POST', url: '/customers' } },
 			},
 			{
 				name: 'Delete a Customer',
 				value: 'delete',
 				action: 'Delete a customer',
-				routing: {
-					request: {
-						method: 'DELETE',
-					},
-				},
+				routing: { request: { method: 'DELETE', url: '=/customers/{{$parameter.customerUUID}}' } },
 			},
 			{
 				name: "List Customer's Activities",
 				value: 'list_activities',
 				action: 'List activities of a customer',
 				routing: {
-					request: {
-						method: 'GET',
-					},
+					request: { method: 'GET', url: '=/customers/{{$parameter.customerUUID}}/activities' },
 				},
 			},
 			{
@@ -285,53 +268,32 @@ export const customerOperations: INodeProperties[] = [
 				value: 'list_invoices',
 				action: 'List invoices of a customer',
 				routing: {
-					request: {
-						method: 'GET',
-					},
+					request: { method: 'GET', url: '=/customers/{{$parameter.customerUUID}}/invoices' },
 				},
 			},
 			{
 				name: 'List Customers',
 				value: 'list',
 				action: 'List all customers',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/customers',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/customers' } },
 			},
 			{
 				name: 'List Customers by Email',
 				value: 'list_by_email',
 				action: 'List customers by email',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/customers/search',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/customers/search' } },
 			},
 			{
 				name: 'Merge Customers',
 				value: 'merge',
 				action: 'Merge customers',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '/customers/merges',
-					},
-				},
+				routing: { request: { method: 'POST', url: '/customers/merges' } },
 			},
 			{
 				name: 'Retrieve a Customer',
 				value: 'get',
 				action: 'Retrieve a customer',
-				routing: {
-					request: {
-						method: 'GET',
-					},
-				},
+				routing: { request: { method: 'GET', url: '=/customers/{{$parameter.customerUUID}}' } },
 			},
 			{
 				name: 'Unmerge Customers',
@@ -341,6 +303,7 @@ export const customerOperations: INodeProperties[] = [
 					request: {
 						method: 'POST',
 						url: '/customers/unmerges',
+						body: { customer_uuid: '={{$parameter.customerUUID}}' },
 					},
 				},
 			},
@@ -348,11 +311,7 @@ export const customerOperations: INodeProperties[] = [
 				name: 'Update a Customer',
 				value: 'update',
 				action: 'Update a customer',
-				routing: {
-					request: {
-						method: 'PATCH',
-					},
-				},
+				routing: { request: { method: 'PATCH', url: '/customers/{{$parameter.customerUUID}}' } },
 			},
 		],
 		default: 'get',
@@ -362,54 +321,42 @@ export const customerOperations: INodeProperties[] = [
 export const customerFields: INodeProperties[] = [
 	/* -- Required fields -- */
 	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'path',
-			pathURL: '=/customers/{{$value}}',
-		}),
-		required: true,
+		...SharedOptionItems.CustomerUUIDField,
 		displayOptions: {
 			show: {
 				resource: ['customer'],
-				operation: ['get', 'delete', 'update'],
+				operation: [
+					'add_contact',
+					'get',
+					'delete',
+					'list_activities',
+					'list_invoices',
+					'unmerge',
+					'update',
+				],
 			},
 		},
+		required: true,
 	},
 	{
 		...SharedOptionItems.DataSourceUUIDField({ location: 'body' }),
+		displayOptions: { show: { resource: ['customer'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		displayName: 'External ID',
 		name: 'external_id',
 		type: 'string',
-		required: true,
 		default: '',
 		description: 'A unique identifier specified by you, typically from your internal system',
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['create'],
-			},
-		},
-		routing: {
-			request: {
-				body: {
-					external_id: '={{$value}}',
-				},
-			},
-		},
+		displayOptions: { show: { resource: ['customer'], operation: ['create'] } },
+		routing: { request: { body: { external_id: '={{$value}}' } } },
+		required: true,
 	},
 	{
 		displayName: 'Merge Using',
 		name: 'merge_using',
 		type: 'options',
-		required: true,
 		default: 'customer_uuid_merge',
 		description: 'Choose how to merge the customers',
 		options: [
@@ -422,18 +369,13 @@ export const customerFields: INodeProperties[] = [
 				value: 'data_source_uuid_external_id_merge',
 			},
 		],
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['merge'],
-			},
-		},
+		displayOptions: { show: { resource: ['customer'], operation: ['merge'] } },
+		required: true,
 	},
 	{
 		displayName: 'Merge From',
 		name: 'merge_from',
 		type: 'string',
-		required: true,
 		default: '',
 		description: 'Merge from this customer',
 		displayOptions: {
@@ -443,21 +385,13 @@ export const customerFields: INodeProperties[] = [
 				merge_using: ['customer_uuid_merge'],
 			},
 		},
-		routing: {
-			request: {
-				body: {
-					from: {
-						customer_uuid: '={{$value}}',
-					},
-				},
-			},
-		},
+		required: true,
+		routing: { request: { body: { from: { customer_uuid: '={{$value}}' } } } },
 	},
 	{
 		displayName: 'Merge Into',
 		name: 'merge_into',
 		type: 'string',
-		required: true,
 		default: '',
 		description: 'Merge into this customer',
 		displayOptions: {
@@ -467,15 +401,8 @@ export const customerFields: INodeProperties[] = [
 				merge_using: ['customer_uuid_merge'],
 			},
 		},
-		routing: {
-			request: {
-				body: {
-					into: {
-						customer_uuid: '={{$value}}',
-					},
-				},
-			},
-		},
+		routing: { request: { body: { into: { customer_uuid: '={{$value}}' } } } },
+		required: true,
 	},
 	{
 		displayName: 'Merge From',
@@ -483,7 +410,6 @@ export const customerFields: INodeProperties[] = [
 		type: 'fixedCollection',
 		default: {},
 		description: 'Merge from this customer',
-		required: true,
 		options: [
 			{
 				name: 'mergeFrom',
@@ -513,6 +439,7 @@ export const customerFields: INodeProperties[] = [
 				merge_using: ['data_source_uuid_external_id_merge'],
 			},
 		},
+		required: true,
 		routing: {
 			request: {
 				body: {
@@ -530,7 +457,6 @@ export const customerFields: INodeProperties[] = [
 		type: 'fixedCollection',
 		default: {},
 		description: 'Merge into this customer',
-		required: true,
 		options: [
 			{
 				name: 'mergeInto',
@@ -560,6 +486,7 @@ export const customerFields: INodeProperties[] = [
 				merge_using: ['data_source_uuid_external_id_merge'],
 			},
 		},
+		required: true,
 		routing: {
 			request: {
 				body: {
@@ -572,101 +499,32 @@ export const customerFields: INodeProperties[] = [
 		},
 	},
 	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'body',
-			description: 'ChartMogul UUID of the customer to unmerge',
-		}),
-		required: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['unmerge'],
-			},
-		},
-	},
-	{
 		...SharedOptionItems.DataSourceUUIDField({
 			location: 'body',
 			description: 'Data Source UUID of the customer you want to unmerge into their own record',
 		}),
-		required: true,
 		displayOptions: {
 			show: {
 				resource: ['customer'],
 				operation: ['unmerge'],
 			},
 		},
+		required: true,
 	},
 	{
 		displayName: 'External ID',
 		name: 'external_id',
 		type: 'string',
-		required: true,
 		default: '',
 		description: 'External ID of the customer you want to unmerge into their own record',
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['unmerge'],
-			},
-		},
-		routing: {
-			request: {
-				body: {
-					external_id: '={{$value}}',
-				},
-			},
-		},
-	},
-	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'path',
-			pathURL: '=/customers/{{$value}}/contacts',
-			description: 'ChartMogul UUID of the customer to add the contact to',
-		}),
+		displayOptions: { show: { resource: ['customer'], operation: ['unmerge'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['add_contact'],
-			},
-		},
+		routing: { request: { body: { external_id: '={{$value}}' } } },
 	},
 	{
 		...SharedOptionItems.DataSourceUUIDField('body'),
+		displayOptions: { show: { resource: ['customer'], operation: ['add_contact'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['add_contact'],
-			},
-		},
-	},
-	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'path',
-			pathURL: '=/customers/{{$value}}/activities',
-		}),
-		required: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['list_activities'],
-			},
-		},
-	},
-	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'path',
-			pathURL: '=/customers/{{$value}}/invoices',
-		}),
-		required: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['list_invoices'],
-			},
-		},
 	},
 	{
 		displayName: 'Email',
@@ -675,13 +533,8 @@ export const customerFields: INodeProperties[] = [
 		placeholder: 'name@email.com',
 		default: '',
 		description: 'Email address of the customer to search for',
+		displayOptions: { show: { resource: ['customer'], operation: ['list_by_email'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['list_by_email'],
-			},
-		},
 		routing: { request: { qs: { email: '={{$value}}' } } },
 	},
 	/* -- Optional fields -- */
@@ -691,12 +544,6 @@ export const customerFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['list'],
-			},
-		},
 		options: [
 			SharedOptionItems.BillingSystemField,
 			SharedOptionItems.DataSourceUUIDField({ location: 'qs' }),
@@ -719,6 +566,7 @@ export const customerFields: INodeProperties[] = [
 				routing: { request: { qs: { status: '={{$value}}' } } },
 			},
 		],
+		displayOptions: { show: { resource: ['customer'], operation: ['list'] } },
 	},
 	{
 		displayName: 'Additional Fields',
@@ -726,12 +574,6 @@ export const customerFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['create'],
-			},
-		},
 		options: [
 			CityField,
 			CompanyField,
@@ -746,6 +588,7 @@ export const customerFields: INodeProperties[] = [
 			WebsiteURLField,
 			ZipCodeField,
 		],
+		displayOptions: { show: { resource: ['customer'], operation: ['create'] } },
 	},
 	{
 		displayName: 'Update Options',
@@ -753,12 +596,6 @@ export const customerFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['update'],
-			},
-		},
 		options: [
 			CityField,
 			CompanyField,
@@ -774,6 +611,7 @@ export const customerFields: INodeProperties[] = [
 			WebsiteURLField,
 			ZipCodeField,
 		],
+		displayOptions: { show: { resource: ['customer'], operation: ['update'] } },
 	},
 	{
 		displayName: 'Objects to Move to New Customer',
@@ -786,19 +624,8 @@ export const customerFields: INodeProperties[] = [
 		],
 		default: [],
 		description: 'Objects to move to the new customer after unmerging',
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['unmerge'],
-			},
-		},
-		routing: {
-			request: {
-				body: {
-					move_to_new_customer: '={{$value}}',
-				},
-			},
-		},
+		displayOptions: { show: { resource: ['customer'], operation: ['unmerge'] } },
+		routing: { request: { body: { move_to_new_customer: '={{$value}}' } } },
 	},
 	{
 		displayName: 'Additional Fields',
@@ -806,12 +633,6 @@ export const customerFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['customer'],
-				operation: ['add_contact'],
-			},
-		},
 		options: [
 			SharedOptionItems.FirstNameField('contact'),
 			SharedOptionItems.LastNameField('contact'),
@@ -822,6 +643,7 @@ export const customerFields: INodeProperties[] = [
 			SharedOptionItems.TwitterField('contact'),
 			SharedOptionItems.NotesField('contact'),
 		],
+		displayOptions: { show: { resource: ['customer'], operation: ['add_contact'] } },
 	},
 	{
 		displayName: 'Pagination',
@@ -829,12 +651,12 @@ export const customerFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
+		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 		displayOptions: {
 			show: {
 				resource: ['customer'],
 				operation: ['list', 'list_activities', 'list_invoices', 'list_by_email'],
 			},
 		},
-		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 ];

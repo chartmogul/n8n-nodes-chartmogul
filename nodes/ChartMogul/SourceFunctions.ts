@@ -17,29 +17,19 @@ export const sourceOperations: INodeProperties[] = [
 				name: 'Create a Source',
 				value: 'create',
 				action: 'Create a source',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '/data_sources',
-					},
-				},
+				routing: { request: { method: 'POST', url: '/data_sources' } },
 			},
 			{
 				name: 'List Sources',
 				value: 'list',
 				action: 'List all sources',
 				routing: {
-					request: {
-						method: 'GET',
-						url: '/data_sources',
-					},
+					request: { method: 'GET', url: '/data_sources' },
 					output: {
 						postReceive: [
 							{
 								type: 'rootProperty',
-								properties: {
-									property: 'data_sources',
-								},
+								properties: { property: 'data_sources' },
 							},
 						],
 					},
@@ -49,21 +39,13 @@ export const sourceOperations: INodeProperties[] = [
 				name: 'Retrieve a Source',
 				value: 'get',
 				action: 'Retrieve a source',
-				routing: {
-					request: {
-						method: 'GET',
-					},
-				},
+				routing: { request: { method: 'GET', url: '=/data_sources/{{$parameter.dataSourceUUID}}' } },
 			},
 			{
 				name: 'Delete a Source',
 				value: 'delete',
 				action: 'Delete a source',
-				routing: {
-					request: {
-						method: 'DELETE',
-					},
-				},
+				routing: { request: { method: 'DELETE', url: '=/data_sources/{{$parameter.dataSourceUUID}}' } },
 			},
 		],
 		default: 'create',
@@ -78,32 +60,17 @@ export const sourceFields: INodeProperties[] = [
 			displayName: 'Data Source Name',
 			description: 'The desired name for the new data source',
 		}),
+		displayOptions: { show: { resource: ['source'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['source'],
-				operation: ['create'],
-			},
-		},
 	},
 	{	
 		displayName: 'Data Source UUID',
-		name: 'data_source_uuid',
+		name: 'dataSourceUUID',
 		type: 'string',
 		default: '',
 		description: 'ChartMogul UUID of the Data Source',
-		routing: {
-			request: {
-				url: '=/data_sources/{{$value}}',
-			},
-		},
+		displayOptions: { show: { resource: ['source'], operation: ['get', 'delete'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['source'],
-				operation: ['get', 'delete'],
-			},
-		},
 	},
 
 	/* -- Optional fields -- */
@@ -113,12 +80,6 @@ export const sourceFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['source'],
-				operation: ['list'],
-			},
-		},
 		options: [
 			{
 				displayName: 'Name',
@@ -137,5 +98,6 @@ export const sourceFields: INodeProperties[] = [
 				routing: { request: { qs: { system: '={{$value}}', }, }, },
 			}
 		],
+		displayOptions: { show: { resource: ['source'], operation: ['list'] } },
 	},
 ];

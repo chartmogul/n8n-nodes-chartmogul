@@ -95,48 +95,31 @@ export const noteOperations: INodeProperties[] = [
 				name: 'Create a Note or Call Log',
 				value: 'create',
 				action: 'Create a note or call log',
-				routing: {
-					request: { method: 'POST', url: '/customer_notes' },
-				},
+				routing: { request: { method: 'POST', url: '/customer_notes' } },
 			},
 			{
 				name: 'Delete a Note or Call Log',
 				value: 'delete',
 				action: 'Delete a note or call log',
-				routing: {
-					request: { method: 'DELETE' },
-				},
+				routing: { request: { method: 'DELETE', url: '=/customer_notes/{{$parameter.noteUUID}}' } },
 			},
 			{
 				name: 'List Notes and Call Logs',
 				value: 'list',
 				action: 'List notes and call logs',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/customer_notes',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/customer_notes' } },
 			},
 			{
 				name: 'Retrieve a Note or Call Log',
 				value: 'get',
 				action: 'Retrieve a note or call log',
-				routing: {
-					request: {
-						method: 'GET',
-					},
-				},
+				routing: { request: { method: 'GET', url: '=/customer_notes/{{$parameter.noteUUID}}' } },
 			},
 			{
 				name: 'Update a Note or Call Log',
 				value: 'update',
 				action: 'Update a note or call log',
-				routing: {
-					request: {
-						method: 'PATCH',
-					},
-				},
+				routing: { request: { method: 'PATCH', url: '=/customer_notes/{{$parameter.noteUUID}}' } },
 			},
 		],
 		default: 'get',
@@ -145,34 +128,19 @@ export const noteOperations: INodeProperties[] = [
 
 export const noteFields: INodeProperties[] = [
 	{
-		...SharedOptionItems.CustomerUUIDField('body'),
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['create'],
-			},
-		},
+		...SharedOptionItems.CustomerUUIDField,
+		displayOptions: { show: { resource: ['note'], operation: ['create'] } },
 		required: true,
+		routing: { request: { body: { customer_uuid: '={{$value}}' } } },
 	},
 	{
 		...TypeField('body'),
+		displayOptions: { show: { resource: ['note'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['create'],
-			},
-		},
 	},
-	{ 
+	{
 		...CallDurationField,
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['create'],
-				type: ['call'],
-			},
-		},
+		displayOptions: { show: { resource: ['note'], operation: ['create'], type: ['call'] } },
 	},
 	{
 		displayName: 'Additional Fields',
@@ -180,32 +148,17 @@ export const noteFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['create'],
-			},
-		},
 		options: [AuthorField('body'), TextField, CreatedAtField],
+		displayOptions: { show: { resource: ['note'], operation: ['create'] } },
 	},
 	{
 		displayName: 'Note UUID',
-		name: 'note_uuid',
+		name: 'noteUUID',
 		type: 'string',
 		default: '',
 		description: 'The UUID of the Note or Call Log',
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['get', 'delete', 'update'],
-			},
-		},
+		displayOptions: { show: { resource: ['note'], operation: ['get', 'delete', 'update'] } },
 		required: true,
-		routing: {
-			request: {
-				url: '=/customer_notes/{{$value}}',
-			},
-		},
 	},
 	{
 		displayName: 'Filter Options',
@@ -213,13 +166,15 @@ export const noteFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['list'],
+		options: [
+			{
+				...SharedOptionItems.CustomerUUIDField,
+				routing: { request: { qs: { customer_uuid: '={{$value}}' } } },
 			},
-		},
-		options: [SharedOptionItems.CustomerUUIDField('qs'), TypeField('qs'), AuthorField('qs')],
+			TypeField('qs'),
+			AuthorField('qs'),
+		],
+		displayOptions: { show: { resource: ['note'], operation: ['list'] } },
 	},
 	{
 		displayName: 'Pagination',
@@ -227,13 +182,8 @@ export const noteFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['list'],
-			},
-		},
 		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
+		displayOptions: { show: { resource: ['note'], operation: ['list'] } },
 	},
 	{
 		displayName: 'Update Fields',
@@ -241,12 +191,6 @@ export const noteFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['note'],
-				operation: ['update'],
-			},
-		},
 		options: [
 			AuthorField('body'),
 			TextField,
@@ -261,5 +205,6 @@ export const noteFields: INodeProperties[] = [
 				routing: { request: { body: { updated_at: '={{$value}}' } } },
 			},
 		],
+		displayOptions: { show: { resource: ['note'], operation: ['update'] } },
 	},
 ];

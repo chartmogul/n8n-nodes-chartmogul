@@ -6,11 +6,6 @@ export const metricOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['metric'],
-			},
-		},
 		options: [
 			{
 				name: 'All Key Metrics',
@@ -86,6 +81,7 @@ export const metricOperations: INodeProperties[] = [
 			},
 		],
 		default: 'all',
+		displayOptions: { show: { resource: ['metric'] } },
 	},
 ];
 
@@ -96,13 +92,9 @@ export const metricFields: INodeProperties[] = [
 		type: 'dateTime',
 		default: '',
 		description: 'The start date of the required period of data',
-		routing: { request: { qs: { 'start-date': '={{$value}}' } } },
-		displayOptions: {
-			show: {
-				resource: ['metric'],
-			},
-		},
+		displayOptions: { show: { resource: ['metric'] } },
 		required: true,
+		routing: { request: { qs: { 'start-date': '={{$value}}' } } },
 	},
 	{
 		displayName: 'End Date',
@@ -110,13 +102,9 @@ export const metricFields: INodeProperties[] = [
 		type: 'dateTime',
 		default: '',
 		description: 'The end date of the required period of data',
-		routing: { request: { qs: { 'end-date': '={{$value}}' } } },
-		displayOptions: {
-			show: {
-				resource: ['metric'],
-			},
-		},
+		displayOptions: { show: { resource: ['metric'] } },
 		required: true,
+		routing: { request: { qs: { 'end-date': '={{$value}}' } } },
 	},
 	{
 		displayName: 'Reporting Interval',
@@ -130,15 +118,11 @@ export const metricFields: INodeProperties[] = [
 			{ name: 'Year', value: 'year' },
 		],
 		default: 'month',
-		routing: { request: { body: { interval: '={{$value}}' } } },
 		displayOptions: {
-			show: {
-				resource: ['metric'],
-			},
-			hide: {
-				operation: ['ltv'],
-			},
+			show: { resource: ['metric'] },
+			hide: { operation: ['ltv'] },
 		},
+		routing: { request: { body: { interval: '={{$value}}' } } },
 	},
 	{
 		displayName: 'Region',
@@ -147,11 +131,7 @@ export const metricFields: INodeProperties[] = [
 		default: '',
 		description:
 			'A comma-separated list of 2-letter country codes to filter the results to, e.g. US,GB,DE',
-		displayOptions: {
-			show: {
-				resource: ['metric'],
-			},
-		},
+		displayOptions: { show: { resource: ['metric'] } },
 	},
 	{
 		displayName: 'Plans',
@@ -160,10 +140,6 @@ export const metricFields: INodeProperties[] = [
 		default: '',
 		description:
 			'A comma-separated list of plan UUIDs, external IDs or names to filter the results',
-		displayOptions: {
-			show: {
-				resource: ['metric'],
-			},
-		},
+		displayOptions: { show: { resource: ['metric'] } },
 	},
 ];

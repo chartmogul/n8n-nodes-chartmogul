@@ -138,47 +138,34 @@ export const opportunityOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-			},
-		},
+		displayOptions: { show: { resource: ['opportunity'] } },
 		options: [
 			{
 				name: 'Create an Opportunity',
 				value: 'create',
 				action: 'Create an opportunity',
-				routing: {
-					request: { method: 'POST', url: '/opportunities' },
-				},
+				routing: { request: { method: 'POST', url: '/opportunities' } },
 			},
 			{
 				name: 'Delete an Opportunity',
 				value: 'delete',
 				action: 'Delete an opportunity',
 				routing: {
-					request: { method: 'DELETE' },
+					request: { method: 'DELETE', url: '=/opportunities/{{$parameter.opportunityUUID}}' },
 				},
 			},
 			{
 				name: 'List Opportunities',
 				value: 'list',
 				action: 'List opportunities',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/opportunities',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/opportunities' } },
 			},
 			{
 				name: 'Retrieve an Opportunity',
 				value: 'get',
 				action: 'Retrieve an opportunity',
 				routing: {
-					request: {
-						method: 'GET',
-					},
+					request: { method: 'GET', url: '=/opportunities/{{$parameter.opportunityUUID}}' },
 				},
 			},
 			{
@@ -186,9 +173,7 @@ export const opportunityOperations: INodeProperties[] = [
 				value: 'update',
 				action: 'Update an opportunity',
 				routing: {
-					request: {
-						method: 'PATCH',
-					},
+					request: { method: 'PATCH', url: '=/opportunities/{{$parameter.opportunityUUID}}' },
 				},
 			},
 		],
@@ -199,92 +184,48 @@ export const opportunityOperations: INodeProperties[] = [
 export const opportunityFields: INodeProperties[] = [
 	{
 		displayName: 'Opportunity UUID',
-		name: 'opportunity_uuid',
+		name: 'opportunityUUID',
 		type: 'string',
 		default: '',
 		description: 'The UUID of the Opportunity',
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['get', 'delete', 'update'],
-			},
-		},
+		displayOptions: { show: { resource: ['opportunity'], operation: ['get', 'delete', 'update'] } },
 		required: true,
-		routing: {
-			request: {
-				url: '=/opportunities/{{$value}}',
-			},
-		},
 	},
 	{
-		...SharedOptionItems.CustomerUUIDField('body'),
+		...SharedOptionItems.CustomerUUIDField,
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
+		routing: { request: { body: { customer_uuid: '={{$value}}' } } },
 	},
 	{
 		...OwnerField('body'),
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		...PipelineField('body'),
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		...PipelineStageField('body'),
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		...EstimatedCloseDateField,
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		...AmountInCentsField,
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		...CurrencyField,
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		displayName: 'Additional Fields',
@@ -292,12 +233,7 @@ export const opportunityFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['create'],
-			},
-		},
+		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
 		options: [TypeField, ForecastCategoryField, WinLikelihoodField],
 	},
 	{
@@ -306,14 +242,12 @@ export const opportunityFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['list'],
-			},
-		},
+		displayOptions: { show: { resource: ['opportunity'], operation: ['list'] } },
 		options: [
-			SharedOptionItems.CustomerUUIDField('qs'),
+			{
+				...SharedOptionItems.CustomerUUIDField,
+				routing: { request: { qs: { customer_uuid: '={{$value}}' } } },
+			},
 			OwnerField('qs'),
 			PipelineField('qs'),
 			PipelineStageField('qs'),
@@ -338,31 +272,12 @@ export const opportunityFields: INodeProperties[] = [
 		],
 	},
 	{
-		displayName: 'Pagination',
-		name: 'pagination',
-		type: 'collection',
-		placeholder: 'Add Field',
-		default: {},
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['list'],
-			},
-		},
-		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
-	},
-	{
 		displayName: 'Update Fields',
 		name: 'updateOptions',
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['opportunity'],
-				operation: ['update'],
-			},
-		},
+		displayOptions: { show: { resource: ['opportunity'], operation: ['update'] } },
 		options: [
 			OwnerField('body'),
 			PipelineField('body'),
@@ -374,5 +289,14 @@ export const opportunityFields: INodeProperties[] = [
 			ForecastCategoryField,
 			WinLikelihoodField,
 		],
+	},
+	{
+		displayName: 'Pagination',
+		name: 'pagination',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: { show: { resource: ['opportunity'], operation: ['list'] } },
+		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 ];

@@ -19,7 +19,7 @@ export const contactOperations: INodeProperties[] = [
 				name: 'Delete a Contact',
 				value: 'delete',
 				action: 'Delete a contact',
-				routing: { request: { method: 'DELETE' } },
+				routing: { request: { method: 'DELETE', url: '=/contacts/{{$parameter.contact_uuid}}' } },
 			},
 			{
 				name: 'List Contacts',
@@ -31,13 +31,13 @@ export const contactOperations: INodeProperties[] = [
 				name: 'Retrieve a Contact',
 				value: 'get',
 				action: 'Retrieve a contact',
-				routing: { request: { method: 'GET' } },
+				routing: { request: { method: 'GET', url: '=/contacts/{{$parameter.contact_uuid}}' } },
 			},
 			{
 				name: 'Update a Contact',
 				value: 'update',
 				action: 'Update a contact',
-				routing: { request: { method: 'PATCH' } },
+				routing: { request: { method: 'PATCH', url: '=/contacts/{{$parameter.contact_uuid}}' } },
 			},
 		],
 		default: 'get',
@@ -50,42 +50,24 @@ export const contactFields: INodeProperties[] = [
 		displayName: 'Contact UUID',
 		name: 'contact_uuid',
 		type: 'string',
-		required: true,
 		default: '',
 		description: 'The UUID of the contact',
-		displayOptions: {
-			show: {
-				resource: ['contact'],
-				operation: ['get', 'delete', 'update'],
-			},
-		},
-		routing: { request: { url: '=/contacts/{{$value}}' } },
+		displayOptions: { show: { resource: ['contact'], operation: ['get', 'delete', 'update'] } },
+		required: true,
 	},
 	{
 		...SharedOptionItems.DataSourceUUIDField({
 			location: 'body',
 			description: 'The data source UUID where you want to store this contact record',
 		}),
+		displayOptions: { show: { resource: ['contact'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['contact'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
-		...SharedOptionItems.CustomerUUIDField({
-			location: 'body',
-			description: "The ChartMogul UUID of the customer for the contact you're creating",
-		}),
+		...SharedOptionItems.CustomerUUIDField,
+		displayOptions: { show: { resource: ['contact'], operation: ['create'] } },
+		routing: { request: { body: { customer_uuid: '={{$value}}' } } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['contact'],
-				operation: ['create'],
-			},
-		},
 	},
 	/* -- Optional Fields -- */
 	{
@@ -94,12 +76,7 @@ export const contactFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['contact'],
-				operation: ['create', 'update'],
-			},
-		},
+		displayOptions: { show: { resource: ['contact'], operation: ['create', 'update'] } },
 		options: [
 			SharedOptionItems.EmailField('contact'),
 			SharedOptionItems.FirstNameField('contact'),
@@ -126,12 +103,7 @@ export const contactFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['contact'],
-				operation: ['list'],
-			},
-		},
+		displayOptions: { show: { resource: ['contact'], operation: ['list'] } },
 		options: [
 			{
 				displayName: 'Email',
@@ -159,12 +131,7 @@ export const contactFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['contact'],
-				operation: ['list'],
-			},
-		},
+		displayOptions: { show: { resource: ['contact'], operation: ['list'] } },	
 		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 ];

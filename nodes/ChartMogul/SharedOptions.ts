@@ -45,27 +45,6 @@ export const DataSourceUUIDField = (args: FieldArgs): INodeProperties => {
 	};
 };
 
-export const CustomerUUIDField = (args: FieldArgs): INodeProperties => {
-	const location: Location = typeof args === 'string' ? args : args.location;
-	const displayName =
-		typeof args === 'string' ? 'Customer UUID' : (args.displayName ?? 'Customer UUID');
-	const description =
-		typeof args === 'string'
-			? 'ChartMogul UUID of the Customer'
-			: (args.description ?? 'ChartMogul UUID of the Customer');
-	const name = 'customer_uuid';
-	const pathURL = typeof args === 'string' ? undefined : args.pathURL;
-
-	return {
-		displayName,
-		name,
-		type: 'string',
-		default: '',
-		description,
-		routing: { request: toRequest(location, name, pathURL) },
-	};
-};
-
 const BillingSystemField: INodeProperties = {
 	displayName: 'Billing System',
 	name: 'billingSystem',
@@ -83,6 +62,14 @@ const CursorField: INodeProperties = {
 	description:
 		'Set the cursor for use in pagination. To fetch the next page of results, set the cursor to the value of the "cursor" field in the previous response.',
 	routing: { request: { qs: { cursor: '={{$value}}' } } },
+};
+
+const CustomerUUIDField: INodeProperties = {
+	displayName: 'Customer UUID',
+	name: 'customerUUID',
+	type: 'string',
+	default: '',
+	description: 'ChartMogul UUID of the Customer',
 };
 
 const ExternalIDField: INodeProperties = {

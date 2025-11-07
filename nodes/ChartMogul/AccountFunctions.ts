@@ -6,22 +6,13 @@ export const accountOperations: INodeProperties[] = [
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: {
-			show: {
-				resource: ['account'],
-			},
-		},
+		displayOptions: { show: { resource: ['account'] } },
 		options: [
 			{
 				name: 'Get Account Details',
 				value: 'get',
 				action: 'Get account details',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/account',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/account' } },
 			},
 		],
 		default: 'get',

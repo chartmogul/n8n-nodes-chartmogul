@@ -72,48 +72,31 @@ export const taskOperations: INodeProperties[] = [
 				name: 'Create a Task',
 				value: 'create',
 				action: 'Create a task',
-				routing: {
-					request: { method: 'POST', url: '/tasks' },
-				},
+				routing: { request: { method: 'POST', url: '/tasks' } },
 			},
 			{
 				name: 'Delete a Task',
 				value: 'delete',
 				action: 'Delete a task',
-				routing: {
-					request: { method: 'DELETE' },
-				},
+				routing: { request: { method: 'DELETE', url: '=/tasks/{{$parameter.taskUUID}}' } },
 			},
 			{
 				name: 'List Tasks',
 				value: 'list',
 				action: 'List tasks',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/tasks',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/tasks' } },
 			},
 			{
 				name: 'Retrieve a Task',
 				value: 'get',
 				action: 'Retrieve a task',
-				routing: {
-					request: {
-						method: 'GET',
-					},
-				},
+				routing: { request: { method: 'GET', url: '=/tasks/{{$parameter.taskUUID}}' } },
 			},
 			{
 				name: 'Update a Task',
 				value: 'update',
 				action: 'Update a task',
-				routing: {
-					request: {
-						method: 'PATCH',
-					},
-				},
+				routing: { request: { method: 'PATCH', url: '=/tasks/{{$parameter.taskUUID}}' } },
 			},
 		],
 		default: 'get',
@@ -122,87 +105,47 @@ export const taskOperations: INodeProperties[] = [
 
 export const taskFields: INodeProperties[] = [
 	{
-		...SharedOptionItems.CustomerUUIDField('body'),
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['create'],
-			},
-		},
+		...SharedOptionItems.CustomerUUIDField,
+		displayOptions: { show: { resource: ['task'], operation: ['create'] } },
 		required: true,
+		routing: { request: { body: { customer_uuid: '={{$value}}' } } },
 	},
 	{
 		...TaskDetailsField,
+		displayOptions: { show: { resource: ['task'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		...AssigneeField('body'),
+		displayOptions: { show: { resource: ['task'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
 		...DueDateField,
+		displayOptions: { show: { resource: ['task'], operation: ['create'] } },
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['create'],
-			},
-		},
 	},
 	{
-		displayName: 'Completed'
-,		name: 'completed',
+		displayName: 'Completed',
+		name: 'completed',
 		type: 'boolean',
 		default: false,
 		description: 'Whether the task is completed',
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['create'],
-			},
-		},
+		displayOptions: { show: { resource: ['task'], operation: ['create'] } },
 		routing: { request: { body: { completed: '={{$value}}' } } },
 	},
 	{
 		...CompletedAtField,
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['create'],
-				completed: [true],
-			},
-		},
+		displayOptions: { show: { resource: ['task'], operation: ['create'], completed: [true] } },
 	},
 	{
 		displayName: 'Task UUID',
-		name: 'task_uuid',
+		name: 'taskUUID',
 		type: 'string',
 		default: '',
 		description: 'The UUID of the Task',
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['get', 'delete', 'update'],
-			},
-		},
+		displayOptions: { show: { resource: ['task'], operation: ['get', 'delete', 'update'] } },
 		required: true,
-		routing: {
-			request: {
-				url: '=/tasks/{{$value}}',
-			},
-		},
 	},
 	{
 		displayName: 'Filter Options',
@@ -210,15 +153,13 @@ export const taskFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['list'],
-			},
-		},
+		displayOptions: { show: { resource: ['task'], operation: ['list'] } },
 		options: [
-			SharedOptionItems.CustomerUUIDField('qs'),
 			AssigneeField('qs'),
+			{
+				...SharedOptionItems.CustomerUUIDField,
+				routing: { request: { qs: { customer_uuid: '={{$value}}' } } },
+			},
 			{
 				displayName: 'Due Date On or After',
 				name: 'due_date_on_or_after',
@@ -253,12 +194,7 @@ export const taskFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['list'],
-			},
-		},
+		displayOptions: { show: { resource: ['task'], operation: ['list'] } },
 		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
 	},
 	{
@@ -267,12 +203,7 @@ export const taskFields: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add Field',
 		default: {},
-		displayOptions: {
-			show: {
-				resource: ['task'],
-				operation: ['update'],
-			},
-		},
+		displayOptions: { show: { resource: ['task'], operation: ['update'] } },
 		options: [TaskDetailsField, AssigneeField('body'), DueDateField, CompletedAtField],
 	},
 ];

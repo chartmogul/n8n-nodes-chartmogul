@@ -3,18 +3,12 @@ import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 import { accountOperations } from './AccountFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
-import { planFields, planOperations } from './PlanFunctions';
 import { sourceFields, sourceOperations } from './SourceFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
 import { metricOperations, metricFields } from './MetricFunctions';
-import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
-import { transactionFields, transactionOperations } from './TransactionFunctions';
-import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
-import { lineitemFields, lineitemOperations } from './LineItemFunctions';
 import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
-import { invoiceFields, invoiceOperations } from './InvoiceFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -72,12 +66,6 @@ export class Chartmogul implements INodeType {
 			...customerOperations,
 			...customerFields,
 
-			...invoiceOperations,
-			...invoiceFields,
-
-			...lineitemOperations,
-			...lineitemFields,
-
 			...metricOperations,
 			...metricFields,
 
@@ -87,26 +75,14 @@ export class Chartmogul implements INodeType {
 			...opportunityOperations,
 			...opportunityFields,
 
-			...planOperations,
-			...planFields,
-
-			...planGroupOperations,
-			...planGroupFields,
-
 			...enrichmentOperations,
 			...enrichmentFields,
 
 			...sourceOperations,
 			...sourceFields,
 
-			...subscriptionOperations,
-			...subscriptionFields,
-
 			...taskOperations,
 			...taskFields,
-
-			...transactionOperations,
-			...transactionFields,
 		],
 	};
 }
