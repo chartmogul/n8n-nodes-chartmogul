@@ -1,7 +1,5 @@
-# Node modules
 node_modules/
-
-# IDE and OS specific files
+dist/
 .DS_Store
 Thumbs.db
 .vscode/
