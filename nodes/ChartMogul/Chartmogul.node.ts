@@ -3,12 +3,12 @@ import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 import { accountOperations } from './AccountFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
-import { sourceFields, sourceOperations } from './SourceFunctions';
+import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
-import { metricOperations, metricFields } from './MetricFunctions';
+import { sourceFields, sourceOperations } from './SourceFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
-import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
+
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -44,17 +44,10 @@ export class Chartmogul implements INodeType {
 					{ name: 'Contact', value: 'contact' },
 					{ name: 'Customer', value: 'customer' },
 					{ name: 'Enrichment', value: 'enrichment' },
-					{ name: 'Invoice', value: 'invoice' },
-					{ name: 'Line Item', value: 'line_item' },
-					{ name: 'Metric', value: 'metric' },
 					{ name: 'Note and Call Log', value: 'note' },
 					{ name: 'Opportunity', value: 'opportunity' },
-					{ name: 'Plan', value: 'plan' },
-					{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
-					{ name: 'Subscription', value: 'subscription' },
 					{ name: 'Task', value: 'task' },
-					{ name: 'Transaction', value: 'transaction' },
 				],
 				default: 'account',
 			},
@@ -68,9 +61,6 @@ export class Chartmogul implements INodeType {
 
 			...enrichmentOperations,
 			...enrichmentFields,
-
-			...metricOperations,
-			...metricFields,
 
 			...noteOperations,
 			...noteFields,
