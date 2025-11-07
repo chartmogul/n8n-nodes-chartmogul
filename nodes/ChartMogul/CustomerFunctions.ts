@@ -287,7 +287,12 @@ export const customerOperations: INodeProperties[] = [
 				name: 'Merge Customers',
 				value: 'merge',
 				action: 'Merge customers',
-				routing: { request: { method: 'POST', url: '/customers/merges' } },
+				routing: {
+					request: { method: 'POST', url: '/customers/merges' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { merged: true } }}' } }],
+					},
+				},
 			},
 			{
 				name: 'Retrieve a Customer',
@@ -305,13 +310,16 @@ export const customerOperations: INodeProperties[] = [
 						url: '/customers/unmerges',
 						body: { customer_uuid: '={{$parameter.customerUUID}}' },
 					},
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { unmerged: true } }}' } }],
+					},
 				},
 			},
 			{
 				name: 'Update a Customer',
 				value: 'update',
 				action: 'Update a customer',
-				routing: { request: { method: 'PATCH', url: '/customers/{{$parameter.customerUUID}}' } },
+				routing: { request: { method: 'PATCH', url: '=/customers/{{$parameter.customerUUID}}' } },
 			},
 		],
 		default: 'get',

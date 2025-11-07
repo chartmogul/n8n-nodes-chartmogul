@@ -18,7 +18,12 @@ export const contactOperations: INodeProperties[] = [
 				name: 'Delete a Contact',
 				value: 'delete',
 				action: 'Delete a contact',
-				routing: { request: { method: 'DELETE', url: '=/contacts/{{$parameter.contact_uuid}}' } },
+				routing: {
+					request: { method: 'DELETE', url: '=/contacts/{{$parameter.contact_uuid}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
+				},
 			},
 			{
 				name: 'List Contacts',

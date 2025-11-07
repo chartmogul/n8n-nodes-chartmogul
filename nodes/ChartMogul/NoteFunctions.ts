@@ -101,7 +101,12 @@ export const noteOperations: INodeProperties[] = [
 				name: 'Delete a Note or Call Log',
 				value: 'delete',
 				action: 'Delete a note or call log',
-				routing: { request: { method: 'DELETE', url: '=/customer_notes/{{$parameter.noteUUID}}' } },
+				routing: {
+					request: { method: 'DELETE', url: '=/customer_notes/{{$parameter.noteUUID}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
+				},
 			},
 			{
 				name: 'List Notes and Call Logs',

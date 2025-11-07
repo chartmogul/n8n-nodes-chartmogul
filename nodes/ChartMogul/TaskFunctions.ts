@@ -73,7 +73,12 @@ export const taskOperations: INodeProperties[] = [
 				name: 'Delete a Task',
 				value: 'delete',
 				action: 'Delete a task',
-				routing: { request: { method: 'DELETE', url: '=/tasks/{{$parameter.taskUUID}}' } },
+				routing: {
+					request: { method: 'DELETE', url: '=/tasks/{{$parameter.taskUUID}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
+				},
 			},
 			{
 				name: 'List Tasks',

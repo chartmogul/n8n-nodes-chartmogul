@@ -21,12 +21,7 @@ export const sourceOperations: INodeProperties[] = [
 				routing: {
 					request: { method: 'GET', url: '/data_sources' },
 					output: {
-						postReceive: [
-							{
-								type: 'rootProperty',
-								properties: { property: 'data_sources' },
-							},
-						],
+						postReceive: [{ type: 'rootProperty', properties: { property: 'data_sources' } }],
 					},
 				},
 			},
@@ -44,6 +39,9 @@ export const sourceOperations: INodeProperties[] = [
 				action: 'Delete a source',
 				routing: {
 					request: { method: 'DELETE', url: '=/data_sources/{{$parameter.dataSourceUUID}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
 				},
 			},
 		],

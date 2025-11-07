@@ -152,6 +152,9 @@ export const opportunityOperations: INodeProperties[] = [
 				action: 'Delete an opportunity',
 				routing: {
 					request: { method: 'DELETE', url: '=/opportunities/{{$parameter.opportunityUUID}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
 				},
 			},
 			{
