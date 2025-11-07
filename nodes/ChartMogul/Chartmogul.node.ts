@@ -9,7 +9,6 @@ import { opportunityFields, opportunityOperations } from './OpportunityFunctions
 import { sourceFields, sourceOperations } from './SourceFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
 
-
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'ChartMogul',
