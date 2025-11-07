@@ -4,8 +4,13 @@
   "description": "n8n node to interact with ChartMogul API",
   "license": "MIT",
   "homepage": "",
-  "keywords": ["n8n-community-node-package"],
-  "author": { "name": "ChartMogul", "email": "gef@chartmogul.com" },
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "author": {
+    "name": "ChartMogul",
+    "email": "gef@chartmogul.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/chartmogul/n8n-nodes-chartmogul.git"
@@ -19,12 +24,18 @@
     "release": "n8n-node release",
     "prepublishOnly": "n8n-node prerelease"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "n8n": {
     "n8nNodesApiVersion": 1,
     "strict": true,
-    "credentials": ["dist/credentials/ChartmogulApi.credentials.js"],
-    "nodes": ["dist/nodes/Chartmogul/Chartmogul.node.js"]
+    "credentials": [
+      "dist/credentials/ChartmogulApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Chartmogul/Chartmogul.node.js"
+    ]
   },
   "devDependencies": {
     "@n8n/node-cli": "*",
@@ -33,5 +44,7 @@
     "release-it": "^19.0.4",
     "typescript": "5.9.2"
   },
-  "peerDependencies": { "n8n-workflow": "*" }
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
 }
