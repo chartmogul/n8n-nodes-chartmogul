@@ -10,7 +10,6 @@ This is an n8n community node. It lets you interact with the ChartMogul API in y
 * [Operations](#operations)
 * [Credentials](#credentials)
 * [Compatibility](#compatibility)
-* [Usage](#usage)
 * [Resources](#resources)
 * [Version history](#version-history)
 
