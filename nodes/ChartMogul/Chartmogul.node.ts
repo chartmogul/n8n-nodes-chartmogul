@@ -4,13 +4,13 @@ import { accountOperations } from './AccountFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
 import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
+import { metricFields, metricOperations } from './MetricFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
 import { planFields, planOperations } from './PlanFunctions';
 import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
 import { sourceFields, sourceOperations } from './SourceFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
-import { metricFields, metricOperations } from './MetricFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
