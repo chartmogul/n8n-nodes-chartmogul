@@ -44,7 +44,12 @@ export const planOperations: INodeProperties[] = [
 				name: 'Delete a Plan',
 				value: 'delete',
 				action: 'Delete a plan',
-				routing: { request: { method: 'DELETE', url: '=/plans/{{$parameter.planUUID}}' } },
+				routing: {
+					request: { method: 'DELETE', url: '=/plans/{{$parameter.planUUID}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
+				},
 			},
 			{
 				name: 'List Plans',

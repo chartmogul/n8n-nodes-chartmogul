@@ -41,6 +41,9 @@ export const planGroupOperations: INodeProperties[] = [
 				action: 'Delete a plan group',
 				routing: {
 					request: { method: 'DELETE', url: '=/plan_groups/{{$parameter.planGroupUUID}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
 				},
 			},
 			{
