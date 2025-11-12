@@ -253,7 +253,12 @@ export const customerOperations: INodeProperties[] = [
 				name: 'Delete a Customer',
 				value: 'delete',
 				action: 'Delete a customer',
-				routing: { request: { method: 'DELETE', url: '=/customers/{{$parameter.customerUUID}}' } },
+				routing: {
+					request: { method: 'DELETE', url: '=/customers/{{$parameter.customerUUID}}' },
+					output: {
+						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					},
+				},
 			},
 			{
 				name: "List Customer's Activities",
