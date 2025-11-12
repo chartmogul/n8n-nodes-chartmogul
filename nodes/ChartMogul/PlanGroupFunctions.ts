@@ -39,7 +39,9 @@ export const planGroupOperations: INodeProperties[] = [
 				name: 'Delete a Plan Group',
 				value: 'delete',
 				action: 'Delete a plan group',
-				routing: { request: { method: 'DELETE', url: '=/plan_groups/{{$parameter.planGroupUUID}}' } },
+				routing: {
+					request: { method: 'DELETE', url: '=/plan_groups/{{$parameter.planGroupUUID}}' },
+				},
 			},
 			{
 				name: 'List Plan Groups',
@@ -51,7 +53,8 @@ export const planGroupOperations: INodeProperties[] = [
 				name: 'List Plans in a Plan Group',
 				value: 'list_contents',
 				action: 'List all plans in a plan group',
-				routing: { request: { method: 'GET', url: '=/plan_groups/{{$parameter.planGroupUUID}}/plans' },
+				routing: {
+					request: { method: 'GET', url: '=/plan_groups/{{$parameter.planGroupUUID}}/plans' },
 				},
 			},
 			{
@@ -64,7 +67,9 @@ export const planGroupOperations: INodeProperties[] = [
 				name: 'Update a Plan Group',
 				value: 'update',
 				action: 'Update a plan group',
-				routing: { request: { method: 'PATCH', url: '=/plan_groups/{{$parameter.planGroupUUID}}' } },
+				routing: {
+					request: { method: 'PATCH', url: '=/plan_groups/{{$parameter.planGroupUUID}}' },
+				},
 			},
 		],
 		default: 'list',
@@ -79,7 +84,9 @@ export const planGroupFields: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		description: 'The UUID of the plan group',
-		displayOptions: { show: { resource: ['plan_group'], operation: ['get', 'delete', 'update', 'list_contents'] } },
+		displayOptions: {
+			show: { resource: ['plan_group'], operation: ['get', 'delete', 'update', 'list_contents'] },
+		},
 		required: true,
 	},
 	{
