@@ -6,6 +6,8 @@ import { customerFields, customerOperations } from './CustomerFunctions';
 import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
+import { planFields, planOperations } from './PlanFunctions';
+import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
 import { sourceFields, sourceOperations } from './SourceFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
 
@@ -45,6 +47,8 @@ export class Chartmogul implements INodeType {
 					{ name: 'Enrichment', value: 'enrichment' },
 					{ name: 'Note and Call Log', value: 'note' },
 					{ name: 'Opportunity', value: 'opportunity' },
+					{ name: 'Plan', value: 'plan' },
+					{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
 					{ name: 'Task', value: 'task' },
 				],
@@ -66,6 +70,12 @@ export class Chartmogul implements INodeType {
 
 			...opportunityOperations,
 			...opportunityFields,
+
+			...planOperations,
+			...planFields,
+
+			...planGroupOperations,
+			...planGroupFields,
 
 			...sourceOperations,
 			...sourceFields,
