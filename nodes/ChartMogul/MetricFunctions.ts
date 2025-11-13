@@ -112,6 +112,7 @@ export const metricFields: INodeProperties[] = [
 		description:
 			'A comma-separated list of 2-letter country codes to filter the results to, e.g. US,GB,DE',
 		displayOptions: { show: { resource: ['metric'] } },
+		routing: { request: { qs: { geo: '={{$value}}' } } },
 	},
 	{
 		displayName: 'Plans',
@@ -121,5 +122,6 @@ export const metricFields: INodeProperties[] = [
 		description:
 			'A comma-separated list of plan UUIDs, external IDs or names to filter the results',
 		displayOptions: { show: { resource: ['metric'] } },
+		routing: { request: { qs: { plans: '={{$value}}' } } },
 	},
 ];
