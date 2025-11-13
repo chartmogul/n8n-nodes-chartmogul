@@ -273,7 +273,7 @@ export const customerOperations: INodeProperties[] = [
 				value: 'list_invoices',
 				action: 'List invoices of a customer',
 				routing: {
-					request: { method: 'GET', url: '=/customers/{{$parameter.customerUUID}}/invoices' },
+					request: { method: 'GET', url: '=/import/customers/{{$parameter.customerUUID}}/invoices' },
 				},
 			},
 			{
