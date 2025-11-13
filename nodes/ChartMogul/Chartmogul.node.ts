@@ -4,6 +4,7 @@ import { accountOperations } from './AccountFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
 import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
+import { invoiceFields, invoiceOperations } from './InvoiceFunctions';
 import { metricFields, metricOperations } from './MetricFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
@@ -11,6 +12,7 @@ import { planFields, planOperations } from './PlanFunctions';
 import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
 import { sourceFields, sourceOperations } from './SourceFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
+import { transactionFields, transactionOperations } from './TransactionFunctions';
 
 export class Chartmogul implements INodeType {
 	description: INodeTypeDescription = {
@@ -46,6 +48,7 @@ export class Chartmogul implements INodeType {
 					{ name: 'Contact', value: 'contact' },
 					{ name: 'Customer', value: 'customer' },
 					{ name: 'Enrichment', value: 'enrichment' },
+					{ name: 'Invoice', value: 'invoice' },
 					{ name: 'Metric', value: 'metric' },
 					{ name: 'Note and Call Log', value: 'note' },
 					{ name: 'Opportunity', value: 'opportunity' },
@@ -53,6 +56,7 @@ export class Chartmogul implements INodeType {
 					{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
 					{ name: 'Task', value: 'task' },
+					{ name: 'Transaction', value: 'transaction' },
 				],
 				default: 'account',
 			},
@@ -66,6 +70,9 @@ export class Chartmogul implements INodeType {
 
 			...enrichmentOperations,
 			...enrichmentFields,
+
+			...invoiceOperations,
+			...invoiceFields,
 
 			...metricOperations,
 			...metricFields,
@@ -87,6 +94,9 @@ export class Chartmogul implements INodeType {
 
 			...taskOperations,
 			...taskFields,
+
+			...transactionOperations,
+			...transactionFields,
 		],
 	};
 }
