@@ -24,7 +24,7 @@ export const subscriptionOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/customers/{{$parameter.customerUUID}}/connect_subscriptions'
+						url: '=/customers/{{$parameter.customerUUID}}/connect_subscriptions',
 					},
 					output: {
 						postReceive: [{ type: 'set', properties: { value: '={{ { connected: true } }}' } }],
@@ -96,7 +96,7 @@ export const subscriptionFields: INodeProperties[] = [
 		],
 		displayOptions: { show: { resource: ['subscription'], operation: ['connect', 'disconnect'] } },
 		required: true,
-		routing: { request: { body: '={{ { subscriptions: $value.subscription } }}' } } ,
+		routing: { request: { body: '={{ { subscriptions: $value.subscription } }}' } },
 	},
 	{
 		displayName: 'Pagination',
