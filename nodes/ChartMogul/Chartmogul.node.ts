@@ -11,6 +11,7 @@ import { opportunityFields, opportunityOperations } from './OpportunityFunctions
 import { planFields, planOperations } from './PlanFunctions';
 import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
 import { sourceFields, sourceOperations } from './SourceFunctions';
+import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
 import { transactionFields, transactionOperations } from './TransactionFunctions';
 
@@ -55,6 +56,7 @@ export class Chartmogul implements INodeType {
 					{ name: 'Plan', value: 'plan' },
 					{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
+					{ name: 'Subscription', value: 'subscription' },
 					{ name: 'Task', value: 'task' },
 					{ name: 'Transaction', value: 'transaction' },
 				],
@@ -91,6 +93,9 @@ export class Chartmogul implements INodeType {
 
 			...sourceOperations,
 			...sourceFields,
+
+			...subscriptionOperations,
+			...subscriptionFields,
 
 			...taskOperations,
 			...taskFields,
