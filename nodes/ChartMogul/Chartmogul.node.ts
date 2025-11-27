@@ -4,7 +4,9 @@ import { accountOperations } from './AccountFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
 import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
+import { eventFields, eventOperations } from './SubscriptionEventFunctions';
 import { invoiceFields, invoiceOperations } from './InvoiceFunctions';
+import { lineItemFields, lineItemOperations } from './LineItemFunctions';
 import { metricFields, metricOperations } from './MetricFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
@@ -49,7 +51,9 @@ export class Chartmogul implements INodeType {
 					{ name: 'Contact', value: 'contact' },
 					{ name: 'Customer', value: 'customer' },
 					{ name: 'Enrichment', value: 'enrichment' },
+					{ name: 'Event', value: 'event' },
 					{ name: 'Invoice', value: 'invoice' },
+					{ name: 'Line Item', value: 'line_item' },
 					{ name: 'Metric', value: 'metric' },
 					{ name: 'Note and Call Log', value: 'note' },
 					{ name: 'Opportunity', value: 'opportunity' },
@@ -73,8 +77,14 @@ export class Chartmogul implements INodeType {
 			...enrichmentOperations,
 			...enrichmentFields,
 
+			...eventOperations,
+			...eventFields,
+
 			...invoiceOperations,
 			...invoiceFields,
+			
+			...lineItemOperations,
+			...lineItemFields,
 
 			...metricOperations,
 			...metricFields,

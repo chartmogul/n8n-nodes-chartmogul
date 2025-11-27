@@ -34,7 +34,7 @@ const HandleAsUserEditField: INodeProperties = {
 	type: 'boolean',
 	default: false,
 	description:
-		'Whether to handle the transaction as a user edit to an existing transaction from automatic sources (e.g. Stripe, Chargebee, Recurly, etc.)',
+		'Whether to handle as a user edit to an existing entry from automatic sources (e.g. Stripe, Chargebee, Recurly, etc.)',
 };
 
 const ResultField: INodeProperties = {
