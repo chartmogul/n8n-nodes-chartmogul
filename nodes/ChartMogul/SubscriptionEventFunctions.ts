@@ -56,6 +56,14 @@ const EffectiveDateField: INodeProperties = {
 	description: 'The effective date of the subscription event',
 };
 
+const ExternalIDField: INodeProperties = {
+	displayName: 'External ID',
+	name: 'external_id',
+	type: 'string',
+	default: '',
+	description: 'The external ID of the subscription event',
+};
+
 const HandleAsUserEditField: INodeProperties = {
 	displayName: 'Handle As User Edit',
 	name: 'handle_as_user_edit',
@@ -63,6 +71,14 @@ const HandleAsUserEditField: INodeProperties = {
 	default: false,
 	description:
 		'Whether to handle as a user edit to an existing entry from automatic sources (e.g. Stripe, Chargebee, Recurly, etc.)',
+};
+
+const PlanExtnernalIDField: INodeProperties = {
+	displayName: 'Plan External ID',
+	name: 'plan_external_id',
+	type: 'string',
+	default: '',
+	description: 'The external ID of the plan associated with the subscription event',
 };
 
 const SubscriptionExternalIDField: INodeProperties = {
@@ -179,13 +195,7 @@ export const eventFields: INodeProperties[] = [
 			},
 		},
 		options: [
-			{
-				displayName: 'Plan External ID',
-				name: 'plan_external_id',
-				type: 'string',
-				default: '',
-				routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } },
-			},
+			{ ...PlanExtnernalIDField, routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } }, },
 			{
 				displayName: 'Currency',
 				name: 'currency',
@@ -235,13 +245,7 @@ export const eventFields: INodeProperties[] = [
 				default: '',
 				routing: { request: { body: { subscription_event: { subscription_set_external_id: '={{$value}}' } } } },
 			},
-			{
-				displayName: 'External ID',
-				name: 'external_id',
-				type: 'string',
-				default: '',
-				description: 'The external ID of the subscription event',
-				routing: { request: { body: { subscription_event: { external_id: '={{$value}}' } } } },	
+			{ ...ExternalIDField, routing: { request: { body: { subscription_event: { external_id: '={{$value}}' } } } },	
 			},
 			{
 				displayName: 'Event Order',
@@ -253,6 +257,40 @@ export const eventFields: INodeProperties[] = [
 				routing: { request: { body: { subscription_event: { event_order: '={{$value}}' } } } },
 			}
 			],
+	},
+	{
+		displayName: 'Filter Options',
+		name: 'filterOptions',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: { show: { resource: ['event'], operation: ['list'] } },
+		options: [
+			{ ...ExternalIDField, routing: { request: { qs: { external_id: '={{$value}}' } } }, },
+			{ ...CustomerExternalIDField, routing: { request: { qs: { customer_external_id: '={{$value}}' } } }, },
+			{ ...DataSourceUUIDField, routing: { request: { qs: { data_source_uuid: '={{$value}}' } } }, },
+			{ ...SubscriptionExternalIDField, routing: { request: { qs: { subscription_external_id: '={{$value}}' } } }, },
+			{ ...EventTypeField, routing: { request: { qs: { event_type: '={{$value}}' } } }, },
+			{ ...EventDateField, routing: { request: { qs: { event_date: '={{$value}}' } } }, },
+			{ ...EffectiveDateField, routing: { request: { qs: { effective_date: '={{$value}}' } } }, },
+			{ ...PlanExtnernalIDField, routing: { request: { qs: { plan_external_id: '={{$value}}' } } }, },
+			{ 
+				displayName: 'Include Edit History',
+				name: 'include_edit_histories',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include edit histories in the response',
+				routing: { request: { qs: { include_edit_histories: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Include Disabled Events',
+				name: 'with_disabled',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include disabled events in the response',
+				routing: { request: { qs: { with_disabled: '={{$value}}' } } },
+			}
+		]
 	},
 	{
 		displayName: 'Pagination',
