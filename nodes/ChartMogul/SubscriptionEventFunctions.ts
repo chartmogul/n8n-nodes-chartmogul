@@ -48,7 +48,6 @@ const EventDateField: INodeProperties = {
 	description: 'The date of the subscription event',
 };
 
-
 const EffectiveDateField: INodeProperties = {
 	displayName: 'Effective Date',
 	name: 'effective_date',
@@ -96,6 +95,53 @@ const SubscriptionExternalIDField: INodeProperties = {
 	type: 'string',
 	default: '',
 	description: 'The external ID of the subscription associated with the event',
+};
+
+const CurrencyField: INodeProperties = {
+	displayName: 'Currency',
+	name: 'currency',
+	type: 'string',
+	default: '',
+	placeholder: 'USD',
+};
+
+const AmountInCentsField: INodeProperties = {
+	displayName: 'Amount In Cents',
+	name: 'amount_in_cents',
+	type: 'number',
+	default: 0,
+};
+
+const QuantityField: INodeProperties = {
+	displayName: 'Quantity',
+	name: 'quantity',
+	type: 'number',
+	default: 1,
+};
+
+const SubscriptionSetExternalIDField: INodeProperties = {
+	displayName: 'Subscription Set External ID',
+	name: 'subscription_set_external_id',
+	type: 'string',
+	default: '',
+	description: 'The external ID of the subscription set associated with the event',
+};
+
+const TaxAmountInCentsField: INodeProperties = {
+	displayName: 'Tax Amount In Cents',
+	name: 'tax_amount_in_cents',
+	type: 'number',
+	default: 0,
+	description: 'The tax amount in cents associated with the subscription event',
+};
+
+const EventOrderField: INodeProperties = {
+	displayName: 'Event Order',
+	name: 'event_order',
+	type: 'number',
+	default: 0,
+	description:
+		'A numeric value that determines the sequence in which events are processed when multiple events occur at the same timestamp',
 };
 
 export const eventOperations: INodeProperties[] = [
@@ -213,7 +259,6 @@ export const eventFields: INodeProperties[] = [
 		...EventIDField,
 		displayOptions: { show: { resource: ['event'], operation: ['disable'] } },
 		required: true,
-		routing: { request: { body: { subscription_event: { id: '={{$value}}' } } } },
 	},
 	{
 		...ExternalIDField,
@@ -251,25 +296,15 @@ export const eventFields: INodeProperties[] = [
 				routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } },
 			},
 			{
-				displayName: 'Currency',
-				name: 'currency',
-				type: 'string',
-				default: '',
-				placeholder: 'USD',
+				...CurrencyField,
 				routing: { request: { body: { subscription_event: { currency: '={{$value}}' } } } },
 			},
 			{
-				displayName: 'Amount In Cents',
-				name: 'amount_in_cents',
-				type: 'number',
-				default: 0,
+				...AmountInCentsField,
 				routing: { request: { body: { subscription_event: { amount_in_cents: '={{$value}}' } } } },
 			},
 			{
-				displayName: 'Quantity',
-				name: 'quantity',
-				type: 'number',
-				default: 1,
+				...QuantityField,
 				routing: { request: { body: { subscription_event: { quantity: '={{$value}}' } } } },
 			},
 		],
@@ -307,10 +342,7 @@ export const eventFields: INodeProperties[] = [
 		displayOptions: { show: { resource: ['event'], operation: ['create'] } },
 		options: [
 			{
-				displayName: 'Subscription Set External ID',
-				name: 'subscription_set_external_id',
-				type: 'string',
-				default: '',
+				...SubscriptionSetExternalIDField,
 				routing: {
 					request: {
 						body: { subscription_event: { subscription_set_external_id: '={{$value}}' } },
@@ -322,13 +354,14 @@ export const eventFields: INodeProperties[] = [
 				routing: { request: { body: { subscription_event: { external_id: '={{$value}}' } } } },
 			},
 			{
-				displayName: 'Event Order',
-				name: 'event_order',
-				type: 'number',
-				default: 0,
-				description:
-					'A numeric value that determines the sequence in which events are processed when multiple events occur at the same timestamp',
+				...EventOrderField,
 				routing: { request: { body: { subscription_event: { event_order: '={{$value}}' } } } },
+			},
+			{
+				...TaxAmountInCentsField,
+				routing: {
+					request: { body: { subscription_event: { tax_amount_in_cents: '={{$value}}' } } },
+				},
 			},
 		],
 	},
@@ -372,6 +405,72 @@ export const eventFields: INodeProperties[] = [
 				default: false,
 				description: 'Whether to include disabled events in the response',
 				routing: { request: { qs: { with_disabled: '={{$value}}' } } },
+			},
+		],
+	},
+	{
+		displayName: 'Update Fields',
+		name: 'updateFields',
+		type: 'collection',
+		placeholder: 'Add Field',
+		default: {},
+		displayOptions: { show: { resource: ['event'], operation: ['update'] } },
+		options: [
+			{
+				...CustomerExternalIDField,
+				routing: { request: { body: { subscription_event: { id: '={{$value}}' } } } },
+			},
+			{
+				...EventTypeField,
+				routing: { request: { body: { subscription_event: { event_type: '={{$value}}' } } } },
+			},
+			{
+				...EventDateField,
+				routing: { request: { body: { subscription_event: { event_date: '={{$value}}' } } } },
+			},
+			{
+				...EffectiveDateField,
+				routing: { request: { body: { subscription_event: { effective_date: '={{$value}}' } } } },
+			},
+			{
+				...SubscriptionExternalIDField,
+				routing: {
+					request: { body: { subscription_event: { subscription_external_id: '={{$value}}' } } },
+				},
+			},
+			{
+				...PlanExtnernalIDField,
+				routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } },
+			},
+			{
+				...CurrencyField,
+				routing: { request: { body: { subscription_event: { currency: '={{$value}}' } } } },
+			},
+			{
+				...AmountInCentsField,
+				routing: { request: { body: { subscription_event: { amount_in_cents: '={{$value}}' } } } },
+			},
+			{
+				...QuantityField,
+				routing: { request: { body: { subscription_event: { quantity: '={{$value}}' } } } },
+			},
+			{
+				...SubscriptionSetExternalIDField,
+				routing: {
+					request: {
+						body: { subscription_event: { subscription_set_external_id: '={{$value}}' } },
+					},
+				},
+			},
+			{
+				...TaxAmountInCentsField,
+				routing: {
+					request: { body: { subscription_event: { tax_amount_in_cents: '={{$value}}' } } },
+				},
+			},
+			{
+				...EventOrderField,
+				routing: { request: { body: { subscription_event: { event_order: '={{$value}}' } } } },
 			},
 		],
 	},
