@@ -48,6 +48,7 @@ const EventDateField: INodeProperties = {
 	description: 'The date of the subscription event',
 };
 
+
 const EffectiveDateField: INodeProperties = {
 	displayName: 'Effective Date',
 	name: 'effective_date',
@@ -62,6 +63,14 @@ const ExternalIDField: INodeProperties = {
 	type: 'string',
 	default: '',
 	description: 'The external ID of the subscription event',
+};
+
+const EventIDField: INodeProperties = {
+	displayName: 'Event ID',
+	name: 'eventId',
+	type: 'string',
+	default: '',
+	description: 'The ID of the subscription event',
 };
 
 const HandleAsUserEditField: INodeProperties = {
@@ -107,7 +116,15 @@ export const eventOperations: INodeProperties[] = [
 				name: 'Delete a Subscription Event',
 				value: 'delete',
 				action: 'Delete a subscription event',
-				routing: { request: { method: 'DELETE' } },
+				routing: { request: { method: 'DELETE', url: '/subscription_events' } },
+			},
+			{
+				name: 'Disable a Subscription Event',
+				value: 'disable',
+				action: 'Disable a subscription event',
+				routing: {
+					request: { method: 'PATCH', url: '=/subscription_events/{{$parameter.eventId}}/disable' },
+				},
 			},
 			{
 				name: 'List Subscription Events',
@@ -116,23 +133,28 @@ export const eventOperations: INodeProperties[] = [
 				routing: { request: { method: 'GET', url: '/subscription_events' } },
 			},
 			{
-				name: 'Retrieve a Subscription Event',
-				value: 'get',
-				action: 'Retrieve a subscription event',
-				routing: { request: { method: 'GET' } },
-			},
-			{
 				name: 'Update a Subscription Event',
 				value: 'update',
 				action: 'Update a subscription event',
-				routing: { request: { method: 'PATCH' } },
+				routing: { request: { method: 'PATCH', url: '/subscription_events' } },
 			},
 		],
-		default: 'get',
+		default: 'create',
 	},
 ];
 
 export const eventFields: INodeProperties[] = [
+	{
+		displayName: 'Target Subscription Event Using',
+		name: 'updateUsing',
+		type: 'options',
+		options: [
+			{ name: 'Event ID', value: 'eventId' },
+			{ name: 'External ID and Data Source UUID', value: 'externalIdandDataSourceUUID' },
+		],
+		default: 'externalIdandDataSourceUUID',
+		displayOptions: { show: { resource: ['event'], operation: ['delete', 'update'] } },
+	},
 	{
 		...HandleAsUserEditField,
 		displayOptions: { show: { resource: ['event'], operation: ['create', 'update'] } },
@@ -140,7 +162,10 @@ export const eventFields: INodeProperties[] = [
 	},
 	{
 		...DataSourceUUIDField,
-		displayOptions: { show: { resource: ['event'], operation: ['create'] } },
+		displayOptions: {
+			show: { resource: ['event'], operation: ['create', 'delete', 'update'] },
+			hide: { updateUsing: ['eventId'] },
+		},
 		required: true,
 		routing: { request: { body: { subscription_event: { data_source_uuid: '={{$value}}' } } } },
 	},
@@ -177,6 +202,32 @@ export const eventFields: INodeProperties[] = [
 		},
 	},
 	{
+		...EventIDField,
+		displayOptions: {
+			show: { resource: ['event'], operation: ['delete', 'update'], updateUsing: ['eventId'] },
+		},
+		required: true,
+		routing: { request: { body: { subscription_event: { id: '={{$value}}' } } } },
+	},
+	{
+		...EventIDField,
+		displayOptions: { show: { resource: ['event'], operation: ['disable'] } },
+		required: true,
+		routing: { request: { body: { subscription_event: { id: '={{$value}}' } } } },
+	},
+	{
+		...ExternalIDField,
+		displayOptions: {
+			show: {
+				resource: ['event'],
+				operation: ['delete', 'update'],
+				updateUsing: ['externalIdandDataSourceUUID'],
+			},
+		},
+		required: true,
+		routing: { request: { body: { subscription_event: { external_id: '={{$value}}' } } } },
+	},
+	{
 		displayName: 'Required Subscription Event Fields',
 		name: 'requiredSubscriptionEventFields',
 		type: 'collection',
@@ -195,7 +246,10 @@ export const eventFields: INodeProperties[] = [
 			},
 		},
 		options: [
-			{ ...PlanExtnernalIDField, routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } }, },
+			{
+				...PlanExtnernalIDField,
+				routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } },
+			},
 			{
 				displayName: 'Currency',
 				name: 'currency',
@@ -226,9 +280,23 @@ export const eventFields: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		description: 'The ID of the event being retracted',
-		displayOptions: { show: { resource: ['event'], operation: ['create'], event_type: ['subscription_event_retracted'] } },
+		displayOptions: {
+			show: {
+				resource: ['event'],
+				operation: ['create'],
+				event_type: ['subscription_event_retracted'],
+			},
+		},
 		required: true,
 		routing: { request: { body: { retracted_event_id: '={{$value}}' } } },
+	},
+	{
+		displayName: 'Disable',
+		name: 'disabled',
+		type: 'boolean',
+		default: false,
+		displayOptions: { show: { resource: ['event'], operation: ['disable'] } },
+		routing: { request: { body: { disabled: '={{$value}}' } } },
 	},
 	{
 		displayName: 'Additional Event Fields',
@@ -243,9 +311,15 @@ export const eventFields: INodeProperties[] = [
 				name: 'subscription_set_external_id',
 				type: 'string',
 				default: '',
-				routing: { request: { body: { subscription_event: { subscription_set_external_id: '={{$value}}' } } } },
+				routing: {
+					request: {
+						body: { subscription_event: { subscription_set_external_id: '={{$value}}' } },
+					},
+				},
 			},
-			{ ...ExternalIDField, routing: { request: { body: { subscription_event: { external_id: '={{$value}}' } } } },	
+			{
+				...ExternalIDField,
+				routing: { request: { body: { subscription_event: { external_id: '={{$value}}' } } } },
 			},
 			{
 				displayName: 'Event Order',
@@ -255,8 +329,8 @@ export const eventFields: INodeProperties[] = [
 				description:
 					'A numeric value that determines the sequence in which events are processed when multiple events occur at the same timestamp',
 				routing: { request: { body: { subscription_event: { event_order: '={{$value}}' } } } },
-			}
-			],
+			},
+		],
 	},
 	{
 		displayName: 'Filter Options',
@@ -266,15 +340,24 @@ export const eventFields: INodeProperties[] = [
 		default: {},
 		displayOptions: { show: { resource: ['event'], operation: ['list'] } },
 		options: [
-			{ ...ExternalIDField, routing: { request: { qs: { external_id: '={{$value}}' } } }, },
-			{ ...CustomerExternalIDField, routing: { request: { qs: { customer_external_id: '={{$value}}' } } }, },
-			{ ...DataSourceUUIDField, routing: { request: { qs: { data_source_uuid: '={{$value}}' } } }, },
-			{ ...SubscriptionExternalIDField, routing: { request: { qs: { subscription_external_id: '={{$value}}' } } }, },
-			{ ...EventTypeField, routing: { request: { qs: { event_type: '={{$value}}' } } }, },
-			{ ...EventDateField, routing: { request: { qs: { event_date: '={{$value}}' } } }, },
-			{ ...EffectiveDateField, routing: { request: { qs: { effective_date: '={{$value}}' } } }, },
-			{ ...PlanExtnernalIDField, routing: { request: { qs: { plan_external_id: '={{$value}}' } } }, },
-			{ 
+			{ ...ExternalIDField, routing: { request: { qs: { external_id: '={{$value}}' } } } },
+			{
+				...CustomerExternalIDField,
+				routing: { request: { qs: { customer_external_id: '={{$value}}' } } },
+			},
+			{ ...DataSourceUUIDField, routing: { request: { qs: { data_source_uuid: '={{$value}}' } } } },
+			{
+				...SubscriptionExternalIDField,
+				routing: { request: { qs: { subscription_external_id: '={{$value}}' } } },
+			},
+			{ ...EventTypeField, routing: { request: { qs: { event_type: '={{$value}}' } } } },
+			{ ...EventDateField, routing: { request: { qs: { event_date: '={{$value}}' } } } },
+			{ ...EffectiveDateField, routing: { request: { qs: { effective_date: '={{$value}}' } } } },
+			{
+				...PlanExtnernalIDField,
+				routing: { request: { qs: { plan_external_id: '={{$value}}' } } },
+			},
+			{
 				displayName: 'Include Edit History',
 				name: 'include_edit_histories',
 				type: 'boolean',
@@ -289,8 +372,8 @@ export const eventFields: INodeProperties[] = [
 				default: false,
 				description: 'Whether to include disabled events in the response',
 				routing: { request: { qs: { with_disabled: '={{$value}}' } } },
-			}
-		]
+			},
+		],
 	},
 	{
 		displayName: 'Pagination',
