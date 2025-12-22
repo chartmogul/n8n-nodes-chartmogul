@@ -43,7 +43,7 @@ export const activitiesOperations: INodeProperties[] = [
 				name: 'Create an Activities Export',
 				value: 'create',
 				action: 'Create an activities export',
-				routing: { request: { method: 'GET', url: '/activities_export' } },
+				routing: { request: { method: 'POST', url: '/activities_export' } },
 			},
 			{
 				name: 'List Activities',
@@ -68,21 +68,18 @@ export const activitiesFields: INodeProperties[] = [
 	//         activities: create
 	// --------------------------------------------------------
 	{
-		...StartDateField,
+		displayName: 'Filter Options',
+		name: 'filterOptions',
+		type: 'collection',
+		placeholder: 'Add Filter Option',
+		default: {},
+		options: [
+			{ ...StartDateField, routing: { request: { body: { 'start-date': '={{$value}}' } } } },
+			{ ...EndDateField, routing: { request: { body: { 'end-date': '={{$value}}' } } } },
+			{ ...TypeField, routing: { request: { body: { type: '={{$value}}' } } } },
+		],
 		displayOptions: { show: { resource: ['activities'], operation: ['create'] } },
-		routing: { request: { body: { 'start-date': '={{$value}}' } } },
 	},
-	{
-		...EndDateField,
-		displayOptions: { show: { resource: ['activities'], operation: ['create'] } },
-		routing: { request: { body: { 'end-date': '={{$value}}' } } },
-	},
-	{
-		...TypeField,
-		displayOptions: { show: { resource: ['activities'], operation: ['create'] } },
-		routing: { request: { body: { type: '={{$value}}' } } },
-	},
-
 	// ----------------------------------------------------------
 	//         activities: get
 	// --------------------------------------------------------
@@ -93,6 +90,7 @@ export const activitiesFields: INodeProperties[] = [
 		default: '',
 		description: 'The ID of the activities export to retrieve',
 		displayOptions: { show: { resource: ['activities'], operation: ['get'] } },
+		required: true,
 	},
 
 	// ----------------------------------------------------------
@@ -118,7 +116,7 @@ export const activitiesFields: INodeProperties[] = [
 				],
 				default: '-date',
 				routing: { request: { qs: { order: '={{$value}}' } } },
-			}
+			},
 		],
 		displayOptions: { show: { resource: ['activities'], operation: ['list'] } },
 	},
