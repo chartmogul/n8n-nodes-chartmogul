@@ -89,22 +89,23 @@ export const invoiceOperations: INodeProperties[] = [
 						method: 'POST',
 						url: '=/import/customers/{{$parameter.customerUUID}}/invoices',
 						body: `={{ (() => {
-							const inv = { ...( $parameter.invoice || {} ) };
+							const inv = { ...($parameter.invoice ?? {}) };
+
 							inv.external_id = $parameter.externalId;
 							inv.date = new Date($parameter.date).toISOString().split('T')[0];
 							inv.currency = $parameter.currency;
 
-							const item = inv.line_items || {};
-							const items = [];
-							if (item.one_time.length > 0) {
-								items.push(...item.one_time);
-							}
-							if (item.subscription.length > 0) {
-								items.push(...item.subscription);
-							}
-							inv.line_items = items;		
+							const li = $parameter.line_items || {};
+							const oneTime = Array.isArray(li.one_time) ? li.one_time : [];
+  							const subscription = Array.isArray(li.subscription) ? li.subscription : [];
 							
+							inv.line_items = [...oneTime, ...subscription];	
 
+							const tx = $parameter.transactions || {};
+							const transactions = Array.isArray(tx.transaction) ? tx.transaction : [];
+
+							inv.transactions = [...transactions];
+							
 							return { invoices: [ inv ] };
 						})() }}`,
 					},
@@ -180,7 +181,9 @@ export const invoiceFields: INodeProperties[] = [
 		type: 'string',
 		default: '',
 		description: 'ChartMogul UUID of the Invoice',
-		displayOptions: { show: { resource: ['invoice'], operation: ['delete', 'disable', 'get', 'update'] } },
+		displayOptions: {
+			show: { resource: ['invoice'], operation: ['delete', 'disable', 'get', 'update'] },
+		},
 		required: true,
 	},
 	{
@@ -240,15 +243,44 @@ export const invoiceFields: INodeProperties[] = [
 				displayName: 'One Time',
 				name: 'one_time',
 				values: [
+					// Account Code can be placed here if needed in the future
+					{ displayName: 'Amount in Cents', name: 'amount_in_cents', type: 'number', default: 0 },
+					{ displayName: 'Description', name: 'description', type: 'string', default: '' },
 					{
-						displayName: 'Amount in Cents',
-						name: 'amount_in_cents',
+						displayName: 'Discount Amount in Cents',
+						name: 'discount_amount_in_cents',
 						type: 'number',
 						default: 0,
-						required: true,
 					},
-					{ displayName: 'Description', name: 'description', type: 'string', default: '' },
+					{ displayName: 'Discount Code', name: 'discount_code', type: 'string', default: '' },
+					{
+						displayName: 'Discount Description',
+						name: 'discount_description',
+						type: 'string',
+						default: '',
+					},
+					{ displayName: 'Event Order', name: 'event_order', type: 'number', default: 0 },
+					{ displayName: 'External ID', name: 'external_id', type: 'string', default: '' },
 					{ displayName: 'Quantity', name: 'quantity', type: 'number', default: 1 },
+					{
+						displayName: 'Tax Amount in Cents',
+						name: 'tax_amount_in_cents',
+						type: 'number',
+						default: 0,
+					},
+					{
+						displayName: 'Transaction Fee Currency',
+						name: 'transaction_fees_currency',
+						type: 'string',
+						default: '',
+						placeholder: 'USD',
+					},
+					{
+						displayName: 'Transaction Fee in Cents',
+						name: 'transaction_fees_in_cents',
+						type: 'number',
+						default: 0,
+					},
 					{ displayName: 'Type', name: 'type', type: 'hidden', default: 'one_time' },
 				],
 			},
@@ -256,15 +288,141 @@ export const invoiceFields: INodeProperties[] = [
 				displayName: 'Subscription',
 				name: 'subscription',
 				values: [
+					{ displayName: 'Amount in Cents', name: 'amount_in_cents', type: 'number', default: 0 },
+					{ displayName: 'Cancelled At', name: 'canceled_at', type: 'dateTime', default: '' },
+					{ displayName: 'Description', name: 'description', type: 'string', default: '' },
+					{
+						displayName: 'Discount Amount in Cents',
+						name: 'discount_amount_in_cents',
+						type: 'number',
+						default: 0,
+					},
+					{ displayName: 'Discount Code', name: 'discount_code', type: 'string', default: '' },
+					{
+						displayName: 'Discount Description',
+						name: 'discount_description',
+						type: 'string',
+						default: '',
+					},
+					{ displayName: 'Event Order', name: 'event_order', type: 'number', default: 0 },
+					{ displayName: 'External ID', name: 'external_id', type: 'string', default: '' },
+					{ displayName: 'Plan UUID', name: 'plan_uuid', type: 'string', default: '' },
+					{ displayName: 'Prorated', name: 'prorated', type: 'boolean', default: false },
+					{
+						displayName: 'Proration Type',
+						name: 'proration_type',
+						type: 'options',
+						options: [
+							{ name: 'Differential', value: 'differential' },
+							{ name: 'Differential MRR', value: 'differential_mrr' },
+							{ name: 'Full', value: 'full' },
+						],
+						default: 'differential',
+					},
+					{ displayName: 'Quantity', name: 'quantity', type: 'number', default: 1 },
+					{
+						displayName: 'Service Period End',
+						name: 'service_period_end',
+						type: 'dateTime',
+						default: '',
+					},
+					{
+						displayName: 'Service Period Start',
+						name: 'service_period_start',
+						type: 'dateTime',
+						default: '',
+					},
+					{
+						displayName: 'Subscription External ID',
+						name: 'subscription_external_id',
+						type: 'string',
+						default: '',
+					},
+					{
+						displayName: 'Subscription Set External ID',
+						name: 'subscription_set_external_id',
+						type: 'string',
+						default: '',
+					},
+					{
+						displayName: 'Tax Amount in Cents',
+						name: 'tax_amount_in_cents',
+						type: 'number',
+						default: 0,
+					},
+					{
+						displayName: 'Transaction Fee Currency',
+						name: 'transaction_fees_currency',
+						type: 'string',
+						default: '',
+						placeholder: 'USD',
+					},
+					{
+						displayName: 'Transaction Fee in Cents',
+						name: 'transaction_fees_in_cents',
+						type: 'number',
+						default: 0,
+					},
+					{ displayName: 'Type', name: 'type', type: 'hidden', default: 'one_time' },
+				],
+			},
+		],
+	},
+	{
+		displayName: 'Transactions',
+		name: 'transactions',
+		type: 'fixedCollection',
+		placeholder: 'Add Transaction',
+		typeOptions: { multipleValues: true },
+		default: {},
+		displayOptions: { show: { resource: ['invoice'], operation: ['create'] } },
+		options: [
+			{
+				displayName: 'Transaction',
+				name: 'transaction',
+				values: [
 					{
 						displayName: 'Amount in Cents',
 						name: 'amount_in_cents',
 						type: 'number',
-						default: 0,
+						default: null,
+						description:
+							'The amount paid/refunded for this invoice. If this field is left empty it will default to full amount of the invoice. The sum of the partial payments/refunds should not exceed the invoiced amount.',
 					},
-					//	{ displayName: 'Description', name: 'description', type: 'string', default: '' },
-					//	{ displayName: 'Quantity', name: 'quantity', type: 'number', default: 1 },
-					{ displayName: 'Type', name: 'type', type: 'hidden', default: 'subscription' },
+					{
+						displayName: 'Result',
+						name: 'result',
+						type: 'options',
+						default: 'successful',
+						options: [
+							{ name: 'Successful', value: 'successful' },
+							{ name: 'Failed', value: 'failed' },
+						],
+					},
+					{
+						displayName: 'Transaction Date',
+						name: 'date',
+						type: 'dateTime',
+						default: '',
+						description: 'The date when the transaction occurred',
+					},
+					{
+						displayName: 'Transaction External ID',
+						name: 'external_id',
+						type: 'string',
+						default: '',
+						description: 'The external ID of the transaction',
+					},
+					{
+						displayName: 'Type',
+						name: 'type',
+						type: 'options',
+						default: 'payment',
+						options: [
+							{ name: 'Payment', value: 'payment' },
+							{ name: 'Refund', value: 'refund' },
+						],
+					},
 				],
 			},
 		],
@@ -365,7 +523,10 @@ export const invoiceFields: INodeProperties[] = [
 			{ ...DueDateField, routing: { request: { body: { due_date: '={{$value}}' } } } },
 			{ ...DateField, routing: { request: { body: { date: '={{$value}}' } } } },
 			{ ...CurrencyField, routing: { request: { body: { currency: '={{$value}}' } } } },
-			{ ...CollectionMethodField, routing: { request: { body: { collection_method: '={{$value}}' } } } },
+			{
+				...CollectionMethodField,
+				routing: { request: { body: { collection_method: '={{$value}}' } } },
+			},
 		],
 	},
 ];
