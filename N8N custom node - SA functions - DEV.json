@@ -1,0 +1,1298 @@
+{
+  "name": "N8N custom node - SA functions",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "delete",
+        "planUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2256,
+        -352
+      ],
+      "id": "f03179f6-0ef6-41b9-9d9a-f8145d2d1760",
+      "name": "Delete a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "update",
+        "planUUID": "={{ $json.uuid }}",
+        "additionalFields": {
+          "name": "n8n_updated",
+          "interval_count": 3,
+          "interval_unit": "year"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -352
+      ],
+      "id": "4e62caae-0c08-4d63-9158-459cb323eb32",
+      "name": "Update a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "get",
+        "planUUID": "={{ $json.plans[0].uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        -352
+      ],
+      "id": "4a1fa448-2f83-464d-a240-a2df0b4261ff",
+      "name": "Retrieve a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {},
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        912,
+        -256
+      ],
+      "id": "9e9bcb1c-17cd-4170-b417-896b9aee296a",
+      "name": "List all plans",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "n8n_testing",
+        "additionalFields": {
+          "externalId": "n8n-testing"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        240,
+        -256
+      ],
+      "id": "c8486618-f315-43c1-8006-efddb6b7a871",
+      "name": "Create a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        224
+      ],
+      "id": "ddea8551-04d0-4d12-9df8-2adc48b5f6e4",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "operation": "create",
+        "data_source_uuid": "={{ $json.uuid }}",
+        "external_id": "=n8n_merge_into",
+        "additionalFields": {
+          "city": "Los Angeles",
+          "company": "Test Company",
+          "country": "US",
+          "custom": {
+            "custom": [
+              {
+                "key": "Account_manager",
+                "value": "Jose"
+              },
+              {
+                "key": "Age",
+                "type": "Integer",
+                "value": 21
+              }
+            ]
+          },
+          "free_trial_started_at": "2025-10-01T00:00:00",
+          "lead_created_at": "2025-09-15T00:00:00",
+          "owner": "gef+test@chartmogul.com",
+          "primary_contact": {
+            "email": "nick@chartmogul.com",
+            "first_name": "Nick",
+            "last_name": "Franklin",
+            "linked_in": "https://www.linkedin.com/in/nickfranklin/",
+            "notes": "This is a note",
+            "phone": "+639171234567",
+            "title": "CEO",
+            "twitter": "https://x.com/ChartMogul"
+          },
+          "state": "CA",
+          "tags": "vip, important, tag1",
+          "website_url": "https://hmge.io",
+          "zip_code": "90210"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        240,
+        224
+      ],
+      "id": "16008fd6-5b66-4ae8-9a3b-177a9d0814b0",
+      "name": "Create a customer",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "name": "n8n_testing_sa",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        16,
+        32
+      ],
+      "id": "4598eadf-cdb7-4faf-bb1d-ea906ab21839",
+      "name": "Create a source1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "n8n-testing-year",
+        "additionalFields": {
+          "externalId": "n8n-testing-year"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        464,
+        -256
+      ],
+      "id": "c3703a9e-1bbc-44db-8ea9-4e4920dafe0c",
+      "name": "Create a plan1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "n8n-testing-week",
+        "interval_count": 7,
+        "interval_unit": "day",
+        "additionalFields": {
+          "externalId": "n8n-testing-week"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        688,
+        -256
+      ],
+      "id": "4fa9909a-4336-4c54-95be-1cbbd8f31e41",
+      "name": "Create a plan2",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {
+          "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}"
+        },
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        -352
+      ],
+      "id": "e3c0e13a-b00f-4c64-b1cd-4e0284350983",
+      "name": "List all plans1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {
+          "billingSystem": "Custom",
+          "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}"
+        },
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        -352
+      ],
+      "id": "3591dd9b-c6bd-43a9-8f08-f0ad1d455e17",
+      "name": "List all plans2",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {
+          "billingSystem": "Custom",
+          "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+          "externalId": "n8n-testing-week"
+        },
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        -352
+      ],
+      "id": "efc9b886-57cf-492a-8dfc-6756cd39b50b",
+      "name": "List all plans3",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {},
+        "pagination": {
+          "cursor": "={{ $json.cursor }}",
+          "perPage": 10
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        -160
+      ],
+      "id": "0dc93724-ff12-4c2a-856b-aff7b842728b",
+      "name": "List all plans4",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "list",
+        "filterOptions": {
+          "name": "n8n_testing_sa",
+          "system": "Custom"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        32
+      ],
+      "id": "73eb58ed-9f91-43aa-8751-987d34af9a39",
+      "name": "List all sources3",
+      "alwaysOutputData": true,
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "delete",
+        "dataSourceUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        32
+      ],
+      "id": "2bd5984f-83c4-43ef-814a-c63a2451f82d",
+      "name": "Delete a source1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        32
+      ],
+      "id": "4db47aac-3b15-41ec-b31e-5e5a5f2fc366",
+      "name": "Wait",
+      "webhookId": "c7255dee-bc9f-4202-9630-fb1bb5b79fb7"
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "={{ 'grouped_plan_' + $now}}",
+        "additionalFields": {
+          "externalId": "={{ 'grouped_plan_' + $now}}"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        240,
+        32
+      ],
+      "id": "5b634e0b-31e3-425c-8929-a7bbe472fb91",
+      "name": "Create a plan3",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "={{ 'grouped_plan_' + $now}}",
+        "additionalFields": {
+          "externalId": "={{ 'grouped_plan_' + $now}}"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        464,
+        32
+      ],
+      "id": "fecab76c-333e-4df9-881d-87951fce7a26",
+      "name": "Create a plan4",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "={{ 'grouped_plan_' + $now}}",
+        "additionalFields": {
+          "externalId": "={{ 'grouped_plan_' + $now}}"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        688,
+        32
+      ],
+      "id": "b43cfa35-cf8e-4dbe-8749-11c0f820d69d",
+      "name": "Create a plan5",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "create",
+        "name": "n8n_plan_group",
+        "plans": [
+          "={{ $('Create a plan3').item.json.uuid }}",
+          "={{ $('Create a plan4').item.json.uuid }}"
+        ],
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        912,
+        32
+      ],
+      "id": "2f854889-f31a-4d89-bbe2-140581bddb7e",
+      "name": "Create a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        32
+      ],
+      "id": "b9ea95a9-8600-4f9b-8d09-323d2d7aebee",
+      "name": "List all plan groups",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "pagination": {
+          "cursor": "={{ $json.cursor }}",
+          "perPage": 1
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        128
+      ],
+      "id": "8affdf41-1fed-4f94-a204-b278bce682d3",
+      "name": "List all plan groups1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "get",
+        "planGroupUUID": "={{ $json.plan_groups[0].uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1360,
+        -64
+      ],
+      "id": "950ba7e2-e363-4b12-afbe-6b6e7eb5e654",
+      "name": "Retrieve a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "list_contents",
+        "planGroupUUID": "={{ $json.uuid }}",
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        -64
+      ],
+      "id": "a138184b-4a02-4477-aca8-4a46fda1efe1",
+      "name": "List all plans in a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "update",
+        "planGroupUUID": "={{ $('Retrieve a plan group').item.json.uuid }}",
+        "updateOptions": {
+          "name": "updated_n8n_name_group",
+          "plans": [
+            "={{ $('Create a plan5').item.json.uuid }}",
+            "={{ $('Create a plan3').item.json.uuid }}",
+            "={{ $('Create a plan4').item.json.uuid }}"
+          ]
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        -64
+      ],
+      "id": "60d40d7a-93e7-405d-84e0-8b07431055ae",
+      "name": "Update a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "list_contents",
+        "planGroupUUID": "={{ $('Retrieve a plan group').item.json.uuid }}",
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -64
+      ],
+      "id": "4f2d2cc0-614a-4b2b-b582-42671747ff0b",
+      "name": "List all plans in a plan group1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "delete",
+        "planGroupUUID": "={{ $('Create a plan group').item.json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2256,
+        -64
+      ],
+      "id": "2e11660e-a9af-41c6-9189-d08ce9530e8e",
+      "name": "Delete a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "plans": "gold_monthly",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        416
+      ],
+      "id": "abf8179d-f201-4c66-a3b0-0f321c6246a9",
+      "name": "Get all key metrics",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "arr",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        416
+      ],
+      "id": "499a2228-cfe9-447a-bfbd-e2852be83752",
+      "name": "Get ARR",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "arpa",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        416
+      ],
+      "id": "46620b11-d9fb-4f60-aec5-d51d1ee4627e",
+      "name": "Get ARPA",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "asp",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        16,
+        416
+      ],
+      "id": "a2a60337-f328-4f86-8629-cea08da77b31",
+      "name": "Get ASP",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "customer-churn-rate",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        240,
+        416
+      ],
+      "id": "3b9fd976-cb5c-41f8-9e4d-5b59aa6e56e3",
+      "name": "Get customer churn rate",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "customer-count",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        464,
+        416
+      ],
+      "id": "f000f867-01f5-4763-bcfd-9daa883f55e2",
+      "name": "Get customer count",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "ltv",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        688,
+        416
+      ],
+      "id": "a60546a7-5a18-4c9d-bd12-75fad6ca7981",
+      "name": "Get LTV",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "mrr",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        912,
+        416
+      ],
+      "id": "3fea4b8b-727c-46e5-a397-f9747538b094",
+      "name": "Get MRR",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "metric",
+        "operation": "mrr-churn-rate",
+        "start-date": "2025-01-01T00:00:00",
+        "end-date": "[DateTime: 2025-11-12T00:00:00.000-05:00]",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        416
+      ],
+      "id": "527acfb1-c5cb-4749-ba0a-8eeacf3a20cc",
+      "name": "Get MRR churn rate",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Update a plan": {
+      "main": [
+        [
+          {
+            "node": "Delete a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a plan": {
+      "main": [
+        [
+          {
+            "node": "Update a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans": {
+      "main": [
+        [
+          {
+            "node": "List all plans1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List all plans4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan": {
+      "main": [
+        [
+          {
+            "node": "Create a plan1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get all key metrics",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List all sources3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a customer": {
+      "main": [
+        []
+      ]
+    },
+    "Create a source1": {
+      "main": [
+        [
+          {
+            "node": "Create a plan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a customer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a plan3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan1": {
+      "main": [
+        [
+          {
+            "node": "Create a plan2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan2": {
+      "main": [
+        [
+          {
+            "node": "List all plans",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans1": {
+      "main": [
+        [
+          {
+            "node": "List all plans2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans2": {
+      "main": [
+        [
+          {
+            "node": "List all plans3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans4": {
+      "main": [
+        []
+      ]
+    },
+    "List all sources3": {
+      "main": [
+        [
+          {
+            "node": "Delete a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans3": {
+      "main": [
+        [
+          {
+            "node": "Retrieve a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete a source1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Create a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan3": {
+      "main": [
+        [
+          {
+            "node": "Create a plan4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan4": {
+      "main": [
+        [
+          {
+            "node": "Create a plan5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan5": {
+      "main": [
+        [
+          {
+            "node": "Create a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan group": {
+      "main": [
+        [
+          {
+            "node": "List all plan groups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plan groups": {
+      "main": [
+        [
+          {
+            "node": "List all plan groups1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Retrieve a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a plan group": {
+      "main": [
+        [
+          {
+            "node": "List all plans in a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans in a plan group": {
+      "main": [
+        [
+          {
+            "node": "Update a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a plan group": {
+      "main": [
+        [
+          {
+            "node": "List all plans in a plan group1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans in a plan group1": {
+      "main": [
+        [
+          {
+            "node": "Delete a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get all key metrics": {
+      "main": [
+        [
+          {
+            "node": "Get ARR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ARR": {
+      "main": [
+        [
+          {
+            "node": "Get ARPA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ARPA": {
+      "main": [
+        [
+          {
+            "node": "Get ASP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get ASP": {
+      "main": [
+        [
+          {
+            "node": "Get customer churn rate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get customer churn rate": {
+      "main": [
+        [
+          {
+            "node": "Get customer count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get customer count": {
+      "main": [
+        [
+          {
+            "node": "Get LTV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get LTV": {
+      "main": [
+        [
+          {
+            "node": "Get MRR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get MRR": {
+      "main": [
+        [
+          {
+            "node": "Get MRR churn rate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3c963738-1360-4c3c-ae63-c49b56e9be9b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "15c1156919666d818137e4d1695c7042c0c055e4c762cb38235990ec95b20192"
+  },
+  "id": "WqBwfdVXrXSPT1pm",
+  "tags": []
+}
