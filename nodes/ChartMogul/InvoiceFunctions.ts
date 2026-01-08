@@ -89,24 +89,41 @@ export const invoiceOperations: INodeProperties[] = [
 						method: 'POST',
 						url: '=/import/customers/{{$parameter.customerUUID}}/invoices',
 						body: `={{ (() => {
+							const clean = (v) => {
+								if (Array.isArray(v)) {
+								const arr = v.map(clean).filter(x => x != null && x !== '');
+								return arr.length ? arr : undefined;
+								}
+								if (v && typeof v === 'object') {
+								const o = Object.fromEntries(
+									Object.entries(v)
+									.map(([k, val]) => [k, clean(val)])
+									.filter(([, val]) => val !== undefined && val !== null && val !== '')
+								);
+								return Object.keys(o).length ? o : undefined;
+								}
+								return (v === '' || v == null) ? undefined : v;
+							};
+
 							const inv = { ...($parameter.invoice ?? {}) };
 
 							inv.external_id = $parameter.externalId;
-							inv.date = new Date($parameter.date).toISOString().split('T')[0];
+							inv.date = $parameter.date;
 							inv.currency = $parameter.currency;
 
 							const li = $parameter.line_items || {};
 							const oneTime = Array.isArray(li.one_time) ? li.one_time : [];
   							const subscription = Array.isArray(li.subscription) ? li.subscription : [];
 							
-							inv.line_items = [...oneTime, ...subscription];	
+							inv.line_items = clean([...oneTime, ...subscription]) ?? [];	
 
 							const tx = $parameter.transactions || {};
 							const transactions = Array.isArray(tx.transaction) ? tx.transaction : [];
 
-							inv.transactions = [...transactions];
-							
-							return { invoices: [ inv ] };
+							inv.transactions = clean(transactions) ?? [];
+
+							const cleanedInv = clean(inv);
+							return { invoices: cleanedInv ? [cleanedInv] : [] };
 						})() }}`,
 					},
 				},
@@ -363,7 +380,7 @@ export const invoiceFields: INodeProperties[] = [
 						type: 'number',
 						default: 0,
 					},
-					{ displayName: 'Type', name: 'type', type: 'hidden', default: 'one_time' },
+					{ displayName: 'Type', name: 'type', type: 'hidden', default: 'subscription' },
 				],
 			},
 		],
