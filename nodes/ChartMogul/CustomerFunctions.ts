@@ -253,12 +253,7 @@ export const customerOperations: INodeProperties[] = [
 				name: 'Delete a Customer',
 				value: 'delete',
 				action: 'Delete a customer',
-				routing: {
-					request: { method: 'DELETE', url: '=/customers/{{$parameter.customerUUID}}' },
-					output: {
-						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
-					},
-				},
+				routing: { request: { method: 'DELETE', url: '=/customers/{{$parameter.customerUUID}}' } },
 			},
 			{
 				name: "List Customer's Activities",
@@ -273,7 +268,7 @@ export const customerOperations: INodeProperties[] = [
 				value: 'list_invoices',
 				action: 'List invoices of a customer',
 				routing: {
-					request: { method: 'GET', url: '=/import/customers/{{$parameter.customerUUID}}/invoices' },
+					request: { method: 'GET', url: '=/customers/{{$parameter.customerUUID}}/invoices' },
 				},
 			},
 			{

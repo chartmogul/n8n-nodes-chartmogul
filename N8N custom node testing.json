@@ -1,16 +1,154 @@
 {
-  "name": "N8N custom node - CRM Functions",
+  "name": "N8N custom node testing",
   "nodes": [
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "delete",
+        "plan_uuid": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        3552,
+        -352
+      ],
+      "id": "f03179f6-0ef6-41b9-9d9a-f8145d2d1760",
+      "name": "Delete a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "update",
+        "plan_uuid": "={{ $json.uuid }}",
+        "additionalFields": {
+          "name": "n8n_updated",
+          "interval_count": 3,
+          "interval_unit": "year"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        3328,
+        -352
+      ],
+      "id": "4e62caae-0c08-4d63-9158-459cb323eb32",
+      "name": "Update a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "get",
+        "plan_uuid": "={{ $json.plans[0].uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        3104,
+        -352
+      ],
+      "id": "4a1fa448-2f83-464d-a240-a2df0b4261ff",
+      "name": "Retrieve a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {},
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2208,
+        -184
+      ],
+      "id": "9e9bcb1c-17cd-4170-b417-896b9aee296a",
+      "name": "List all plans",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "n8n_testing",
+        "additionalFields": {
+          "externalId": "n8n-testing"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        -184
+      ],
+      "id": "c8486618-f315-43c1-8006-efddb6b7a871",
+      "name": "Create a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
     {
       "parameters": {},
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
         -256,
-        848
+        800
       ],
-      "id": "bb209457-4d2b-461c-bd35-5b754c0e641d",
+      "id": "ddea8551-04d0-4d12-9df8-2adc48b5f6e4",
       "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        800
+      ],
+      "id": "3334ca92-5b6a-4522-ae1d-f67660f8c296",
+      "name": "Get account details",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
     },
     {
       "parameters": {
@@ -59,9 +197,9 @@
       "typeVersion": 1,
       "position": [
         1536,
-        672
+        896
       ],
-      "id": "a53402aa-0f6f-4e2d-bf4d-dd73eb58fecd",
+      "id": "16008fd6-5b66-4ae8-9a3b-177a9d0814b0",
       "name": "Create a customer",
       "credentials": {
         "chartmogulApi": {
@@ -80,9 +218,9 @@
       "typeVersion": 1,
       "position": [
         -32,
-        1040
+        992
       ],
-      "id": "4fe1f5ec-7f4c-45c1-ba51-e4040447ad13",
+      "id": "92bd1c29-f251-4ff4-950a-089456e5ddc4",
       "name": "Create a source",
       "credentials": {
         "chartmogulApi": {
@@ -102,9 +240,9 @@
       "typeVersion": 1,
       "position": [
         192,
-        1040
+        992
       ],
-      "id": "ff874c30-79fd-4ea1-8f2f-b35e4ea761a5",
+      "id": "3ae95021-59ab-40ec-8baa-0671c490356b",
       "name": "List all sources",
       "credentials": {
         "chartmogulApi": {
@@ -126,9 +264,9 @@
       "typeVersion": 1,
       "position": [
         640,
-        1040
+        992
       ],
-      "id": "ca76dc24-1c6c-41fd-8605-f8a8132ba80d",
+      "id": "74fea3cc-4e67-4018-bb40-8714dbe0500b",
       "name": "List all sources1",
       "executeOnce": true,
       "credentials": {
@@ -149,9 +287,9 @@
       "typeVersion": 1,
       "position": [
         416,
-        1040
+        992
       ],
-      "id": "40a90c13-593a-4573-813a-c234ae7e4e45",
+      "id": "c57231a0-843d-4616-9b3e-ceda077d2259",
       "name": "List all sources2",
       "executeOnce": true,
       "credentials": {
@@ -165,16 +303,16 @@
       "parameters": {
         "resource": "source",
         "operation": "get",
-        "dataSourceUUID": "={{ $json.uuid }}",
+        "data_source_uuid": "={{ $json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         864,
-        1040
+        992
       ],
-      "id": "b31a9f9f-8480-4378-9d71-912b1706e45f",
+      "id": "ed0ef382-b2b8-4a45-bb72-86b0bcba7336",
       "name": "Retrieve a source",
       "credentials": {
         "chartmogulApi": {
@@ -187,16 +325,16 @@
       "parameters": {
         "resource": "source",
         "operation": "delete",
-        "dataSourceUUID": "={{ $json.uuid }}",
+        "data_source_uuid": "={{ $json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         1088,
-        1040
+        992
       ],
-      "id": "879a1b39-f53f-4be9-8b4e-1dea76ca83fb",
+      "id": "4da05ab1-e31e-475a-a670-ed592e52cf75",
       "name": "Delete a source",
       "credentials": {
         "chartmogulApi": {
@@ -208,17 +346,171 @@
     {
       "parameters": {
         "resource": "source",
-        "name": "n8n_testing_crm",
+        "name": "n8n_testing_all",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         1312,
-        1040
+        992
       ],
-      "id": "f82f1803-8ed5-4fc9-a81d-184b57557c58",
+      "id": "4598eadf-cdb7-4faf-bb1d-ea906ab21839",
       "name": "Create a source1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "n8n-testing-year",
+        "additionalFields": {
+          "externalId": "n8n-testing-year"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        -184
+      ],
+      "id": "c3703a9e-1bbc-44db-8ea9-4e4920dafe0c",
+      "name": "Create a plan1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "n8n-testing-week",
+        "interval_count": 7,
+        "interval_unit": "day",
+        "additionalFields": {
+          "externalId": "n8n-testing-week"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1984,
+        -184
+      ],
+      "id": "4fa9909a-4336-4c54-95be-1cbbd8f31e41",
+      "name": "Create a plan2",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {
+          "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}"
+        },
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2432,
+        -352
+      ],
+      "id": "e3c0e13a-b00f-4c64-b1cd-4e0284350983",
+      "name": "List all plans1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {
+          "billingSystem": "Custom",
+          "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}"
+        },
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2656,
+        -352
+      ],
+      "id": "3591dd9b-c6bd-43a9-8f08-f0ad1d455e17",
+      "name": "List all plans2",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {
+          "billingSystem": "Custom",
+          "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+          "externalId": "n8n-testing-week"
+        },
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        -352
+      ],
+      "id": "efc9b886-57cf-492a-8dfc-6756cd39b50b",
+      "name": "List all plans3",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "additionalFields": {},
+        "pagination": {
+          "cursor": "={{ $json.cursor }}",
+          "perPage": 10
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2432,
+        -160
+      ],
+      "id": "0dc93724-ff12-4c2a-856b-aff7b842728b",
+      "name": "List all plans4",
       "credentials": {
         "chartmogulApi": {
           "id": "NHUGm0eoh0CYBFLu",
@@ -231,7 +523,7 @@
         "resource": "source",
         "operation": "list",
         "filterOptions": {
-          "name": "n8n_testing_crm",
+          "name": "n8n_testing_all",
           "system": "Custom"
         },
         "requestOptions": {}
@@ -240,9 +532,9 @@
       "typeVersion": 1,
       "position": [
         -32,
-        656
+        608
       ],
-      "id": "8a4e4fc3-268c-4e14-a57b-f1a067de9667",
+      "id": "73eb58ed-9f91-43aa-8751-987d34af9a39",
       "name": "List all sources3",
       "credentials": {
         "chartmogulApi": {
@@ -255,16 +547,16 @@
       "parameters": {
         "resource": "source",
         "operation": "delete",
-        "dataSourceUUID": "={{ $json.uuid }}",
+        "data_source_uuid": "={{ $json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         192,
-        656
+        608
       ],
-      "id": "3a13d665-c105-4aef-9a43-69c4af9305dd",
+      "id": "2bd5984f-83c4-43ef-814a-c63a2451f82d",
       "name": "Delete a source1",
       "credentials": {
         "chartmogulApi": {
@@ -275,17 +567,286 @@
     },
     {
       "parameters": {
-        "resource": "customer",
-        "customerUUID": "={{ $json.uuid }}",
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "={{ 'grouped_plan_' + $now}}",
+        "additionalFields": {
+          "externalId": "={{ 'grouped_plan_' + $now}}"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1536,
+        32
+      ],
+      "id": "ad2702f5-943d-4afb-aa1d-0f3cfd6ac36d",
+      "name": "Create a plan3",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "={{ 'grouped_plan_' + $now}}",
+        "additionalFields": {
+          "externalId": "={{ 'grouped_plan_' + $now}}"
+        },
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         1760,
-        192
+        32
       ],
-      "id": "920104b7-95c0-4fcf-9535-e57edd21f69f",
+      "id": "48b4529d-2db0-4045-aa0c-39980eb1a169",
+      "name": "Create a plan4",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "={{ 'grouped_plan_' + $now}}",
+        "additionalFields": {
+          "externalId": "={{ 'grouped_plan_' + $now}}"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1984,
+        32
+      ],
+      "id": "96758ac0-c411-4904-b0a1-f343c0c3708c",
+      "name": "Create a plan5",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "create",
+        "name": "n8n_plan_group",
+        "plans": [
+          "={{ $('Create a plan3').item.json.uuid }}",
+          "={{ $('Create a plan4').item.json.uuid }}"
+        ],
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2208,
+        32
+      ],
+      "id": "17847d20-5ba0-4eb6-bd74-ece59f663377",
+      "name": "Create a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2432,
+        32
+      ],
+      "id": "29a910f3-6d51-4b43-8a62-a6d2306a7653",
+      "name": "List all plan groups",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "pagination": {
+          "cursor": "={{ $json.cursor }}",
+          "perPage": 1
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2656,
+        128
+      ],
+      "id": "a31bb53a-e4c7-44b5-818d-c96f80288c0e",
+      "name": "List all plan groups1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "get",
+        "plan_group_uuid": "={{ $('Create a plan group').item.json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2656,
+        -64
+      ],
+      "id": "6d464c40-cdaa-4441-8bdf-1e6f5f4759c0",
+      "name": "Retrieve a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "list_contents",
+        "plan_group_uuid": "={{ $('Create a plan group').item.json.uuid }}",
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        -64
+      ],
+      "id": "eaf29c7b-e34f-4aff-8ba3-d74d83dd8c14",
+      "name": "List all plans in a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "update",
+        "plan_group_uuid": "={{ $('Create a plan group').item.json.uuid }}",
+        "updateOptions": {
+          "name": "updated_n8n_name_group",
+          "plans": [
+            "={{ $('Create a plan5').item.json.uuid }}",
+            "={{ $('Create a plan3').item.json.uuid }}",
+            "={{ $('Create a plan4').item.json.uuid }}"
+          ]
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        3104,
+        -64
+      ],
+      "id": "28d68559-2add-4ea1-98e8-9cef5b41e665",
+      "name": "Update a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "list_contents",
+        "plan_group_uuid": "={{ $('Create a plan group').item.json.uuid }}",
+        "pagination": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        3328,
+        -64
+      ],
+      "id": "a6240c21-0aeb-4ca6-ab58-76423b01be23",
+      "name": "List all plans in a plan group1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan_group",
+        "operation": "delete",
+        "plan_group_uuid": "={{ $('Create a plan group').item.json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        3552,
+        -64
+      ],
+      "id": "33c092a6-e493-4b98-914c-b7913872055e",
+      "name": "Delete a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "NHUGm0eoh0CYBFLu",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "customer",
+        "customer_uuid": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        416
+      ],
+      "id": "53bc3b54-7ca6-425b-917a-be0d9b1e6555",
       "name": "Retrieve a customer",
       "credentials": {
         "chartmogulApi": {
@@ -311,9 +872,9 @@
       "typeVersion": 1,
       "position": [
         1984,
-        192
+        416
       ],
-      "id": "7e9cb175-6834-4ba4-b3b6-a0ae235b709b",
+      "id": "e95c9cc1-62a8-44f6-9aa9-e09005d7a09c",
       "name": "List all customers",
       "credentials": {
         "chartmogulApi": {
@@ -342,9 +903,9 @@
       "typeVersion": 1,
       "position": [
         2208,
-        320
+        536
       ],
-      "id": "4dd59275-9e86-46ea-81b8-bee883d8d6b7",
+      "id": "f85d24b7-76fe-4e54-9c1f-493942d7425a",
       "name": "List all customers1",
       "credentials": {
         "chartmogulApi": {
@@ -365,9 +926,9 @@
       "typeVersion": 1,
       "position": [
         1536,
-        944
+        1160
       ],
-      "id": "57d2893e-cf09-4e61-9100-646bc99512e3",
+      "id": "48cf743b-9a32-46a7-8825-8071b53ede36",
       "name": "List customers by email",
       "credentials": {
         "chartmogulApi": {
@@ -380,7 +941,7 @@
       "parameters": {
         "resource": "customer",
         "operation": "update",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "additionalFields": {
           "company": "New Company Name"
         },
@@ -390,9 +951,9 @@
       "typeVersion": 1,
       "position": [
         2208,
-        96
+        320
       ],
-      "id": "30ed4b49-5aee-4cff-8cb4-0716243ca4ef",
+      "id": "1cf64ff7-ee94-46a2-b2d6-85fc7473f1bb",
       "name": "Update a customer",
       "credentials": {
         "chartmogulApi": {
@@ -409,11 +970,11 @@
       "typeVersion": 1.1,
       "position": [
         416,
-        656
+        608
       ],
-      "id": "6357552c-1bd6-4738-859f-beebfefe7e27",
+      "id": "4db47aac-3b15-41ec-b31e-5e5a5f2fc366",
       "name": "Wait",
-      "webhookId": "01514fa7-2dac-44aa-bf6a-504c535b1f77"
+      "webhookId": "c7255dee-bc9f-4202-9630-fb1bb5b79fb7"
     },
     {
       "parameters": {
@@ -428,9 +989,9 @@
       "typeVersion": 1,
       "position": [
         1536,
-        1136
+        1352
       ],
-      "id": "62cb5d91-64f1-448e-9a58-ce42357b3934",
+      "id": "18233fd1-b107-466f-a063-68525213b5c6",
       "name": "Create a customer 3",
       "credentials": {
         "chartmogulApi": {
@@ -443,7 +1004,7 @@
       "parameters": {
         "resource": "customer",
         "operation": "add_contact",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "data_source_uuid": "={{ $('Create a customer').item.json.data_source_uuid }}",
         "additionalFields": {
           "first_name": "John",
@@ -461,9 +1022,9 @@
       "typeVersion": 1,
       "position": [
         2432,
-        96
+        320
       ],
-      "id": "7d31edda-e793-426c-9765-d8126842639f",
+      "id": "424ef3f1-9b6b-4ef1-8f16-4729b10c995d",
       "name": "Add a contact to a customer",
       "credentials": {
         "chartmogulApi": {
@@ -476,16 +1037,16 @@
       "parameters": {
         "resource": "customer",
         "operation": "delete",
-        "customerUUID": "={{ $json.uuid }}",
+        "customer_uuid": "={{ $json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         1760,
-        1136
+        1352
       ],
-      "id": "bff49ab2-9afb-4706-8681-c29977adb8fd",
+      "id": "7cd269c3-6a11-4594-9403-a05e44abf16a",
       "name": "Delete a customer",
       "credentials": {
         "chartmogulApi": {
@@ -507,9 +1068,9 @@
       "typeVersion": 1,
       "position": [
         2656,
-        96
+        320
       ],
-      "id": "3bf40688-7bb1-4222-b254-d0739c2870a3",
+      "id": "06562f51-85a3-4189-ba49-251a8f724a4d",
       "name": "Create a customer2",
       "credentials": {
         "chartmogulApi": {
@@ -530,9 +1091,9 @@
       "typeVersion": 1,
       "position": [
         2880,
-        96
+        320
       ],
-      "id": "380f4c7f-2e58-4fed-b6c6-4c10f16ad97f",
+      "id": "808e21ea-7f17-46e5-ac72-d1b8563b0017",
       "name": "Merge customers",
       "credentials": {
         "chartmogulApi": {
@@ -554,9 +1115,9 @@
       "typeVersion": 1,
       "position": [
         1536,
-        1328
+        1544
       ],
-      "id": "f54ce9c7-518b-4ac5-b022-4aa66df90cf6",
+      "id": "7f805fd3-0817-4c31-9a43-62c2ed5a09aa",
       "name": "Create a customer3",
       "credentials": {
         "chartmogulApi": {
@@ -578,9 +1139,9 @@
       "typeVersion": 1,
       "position": [
         1760,
-        1328
+        1544
       ],
-      "id": "acacd67a-7a53-45a4-a3b1-2659dd26625e",
+      "id": "70d20aab-e516-4238-9dcc-c7be741e2110",
       "name": "Create a customer4",
       "credentials": {
         "chartmogulApi": {
@@ -612,9 +1173,9 @@
       "typeVersion": 1,
       "position": [
         1984,
-        1328
+        1544
       ],
-      "id": "f8bfcd0f-ed5d-404f-8996-d45ff6d5992d",
+      "id": "df93324b-501e-41cf-9e21-065555e32098",
       "name": "Merge customers1",
       "credentials": {
         "chartmogulApi": {
@@ -627,7 +1188,7 @@
       "parameters": {
         "resource": "task",
         "operation": "create",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "task_details": "Task to delete",
         "assignee": "gef+test@chartmogul.com",
         "due_date": "2025-10-31T00:00:00",
@@ -637,9 +1198,9 @@
       "typeVersion": 1,
       "position": [
         3104,
-        96
+        320
       ],
-      "id": "d3041e70-93d2-4555-aa41-6ad1242da8bd",
+      "id": "9a0b8637-b3c1-4c42-b0c2-0dd82586f1aa",
       "name": "Create a task",
       "credentials": {
         "chartmogulApi": {
@@ -652,7 +1213,7 @@
       "parameters": {
         "resource": "task",
         "operation": "create",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "task_details": "Task to update",
         "assignee": "gef+test@chartmogul.com",
         "due_date": "2025-10-28T00:00:00",
@@ -662,9 +1223,9 @@
       "typeVersion": 1,
       "position": [
         3328,
-        96
+        320
       ],
-      "id": "adf6d233-f28f-490b-aa8d-3ff4bc255a76",
+      "id": "4ccf87d4-4dc1-4035-8305-2eea568a4a97",
       "name": "Create a task1",
       "credentials": {
         "chartmogulApi": {
@@ -685,9 +1246,9 @@
       "typeVersion": 1,
       "position": [
         3552,
-        96
+        320
       ],
-      "id": "41d62e25-361a-4e63-be83-3c38d854bb5f",
+      "id": "8e6da571-be37-4c88-9557-cb545d487932",
       "name": "List tasks",
       "credentials": {
         "chartmogulApi": {
@@ -711,9 +1272,9 @@
       "typeVersion": 1,
       "position": [
         3776,
-        96
+        320
       ],
-      "id": "338e493f-5472-4034-aa51-f61ef4a42d10",
+      "id": "6133c481-a21d-4686-adef-6b7666ad5b87",
       "name": "List tasks1",
       "credentials": {
         "chartmogulApi": {
@@ -727,6 +1288,7 @@
         "resource": "task",
         "operation": "list",
         "filterOptions": {
+          "customer_uuid": "={{ $json.entries[0].customer_uuid }}",
           "assignee": "={{ $json.entries[0].assignee }}",
           "due_date_on_or_after": "2025-10-28T00:00:00",
           "due_date_on_or_before": "2025-10-30T00:00:00",
@@ -739,9 +1301,9 @@
       "typeVersion": 1,
       "position": [
         3776,
-        -96
+        -88
       ],
-      "id": "98649b42-b279-4026-801f-fb4799462ce8",
+      "id": "36b52022-c4df-4786-87d5-2c0bf63db929",
       "name": "List tasks2",
       "credentials": {
         "chartmogulApi": {
@@ -753,16 +1315,16 @@
     {
       "parameters": {
         "resource": "task",
-        "taskUUID": "={{ $json.entries[0].task_uuid }}",
+        "task_uuid": "={{ $('Create a task1').item.json.task_uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         4000,
-        -96
+        -88
       ],
-      "id": "29f058f9-fe81-4f6d-ad11-802d79b902ec",
+      "id": "d9cae7d5-8690-46ae-8f0a-62b3162926f5",
       "name": "Retrieve a task",
       "credentials": {
         "chartmogulApi": {
@@ -775,10 +1337,9 @@
       "parameters": {
         "resource": "task",
         "operation": "update",
-        "taskUUID": "={{ $json.task_uuid }}",
+        "task_uuid": "={{ $('Create a task1').item.json.task_uuid }}",
         "updateOptions": {
-          "task_details": "Updated name",
-          "completed_at": "2025-10-31T00:00:00"
+          "task_details": "Updated name"
         },
         "requestOptions": {}
       },
@@ -786,9 +1347,9 @@
       "typeVersion": 1,
       "position": [
         4224,
-        -96
+        -88
       ],
-      "id": "161a3003-3cbc-4b40-8f64-e3754f8cfd27",
+      "id": "59355872-c0af-4652-8c18-c9dc868d1ccf",
       "name": "Update a task",
       "credentials": {
         "chartmogulApi": {
@@ -806,9 +1367,9 @@
       "typeVersion": 1,
       "position": [
         3776,
-        288
+        512
       ],
-      "id": "1fd7579b-c42d-4b88-bdac-fbe7b16bc89b",
+      "id": "a5c0ca08-d172-40df-873b-eaafc72a735a",
       "name": "Split Out"
     },
     {
@@ -840,25 +1401,25 @@
       "typeVersion": 2.2,
       "position": [
         4000,
-        288
+        512
       ],
-      "id": "85e8c610-512a-476d-bab3-fe52ba6078c7",
+      "id": "eff37118-bd2c-488a-8e06-69e1b0559865",
       "name": "Filter"
     },
     {
       "parameters": {
         "resource": "task",
         "operation": "delete",
-        "taskUUID": "={{ $json.task_uuid }}",
+        "task_uuid": "={{ $json.task_uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         4224,
-        288
+        512
       ],
-      "id": "74001799-48e7-4223-8f5d-dff0694b34d3",
+      "id": "37dcde1d-8e09-4195-8faf-4ed36c82a669",
       "name": "Delete a task",
       "credentials": {
         "chartmogulApi": {
@@ -871,7 +1432,7 @@
       "parameters": {
         "resource": "note",
         "operation": "create",
-        "customerUUID": "={{ $json.uuid }}",
+        "customer_uuid": "={{ $json.uuid }}",
         "additionalFields": {
           "author_email": "gef+test@chartmogul.com",
           "text": "This is a note to be retained",
@@ -883,9 +1444,9 @@
       "typeVersion": 1,
       "position": [
         3104,
-        672
+        896
       ],
-      "id": "6da90ada-21bf-4019-906a-e2be86acdfac",
+      "id": "90289f8b-4bc2-4d97-950d-0703ffbed54d",
       "name": "Create a note or call log",
       "credentials": {
         "chartmogulApi": {
@@ -898,7 +1459,7 @@
       "parameters": {
         "resource": "note",
         "operation": "create",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $json.customer_uuid }}",
         "additionalFields": {
           "author_email": "gef+test@chartmogul.com",
           "text": "This is a note to be deleted",
@@ -910,9 +1471,9 @@
       "typeVersion": 1,
       "position": [
         3328,
-        672
+        896
       ],
-      "id": "bd83bcfd-5720-4ba0-badc-f29891a0982f",
+      "id": "ad501c0f-d86c-4942-9ce2-87de91fff658",
       "name": "Create a note or call log1",
       "credentials": {
         "chartmogulApi": {
@@ -925,7 +1486,7 @@
       "parameters": {
         "resource": "note",
         "operation": "create",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $json.customer_uuid }}",
         "type": "call",
         "call_duration": 420,
         "additionalFields": {
@@ -939,9 +1500,9 @@
       "typeVersion": 1,
       "position": [
         3552,
-        576
+        800
       ],
-      "id": "89d51bde-f001-4bdc-a217-cc19d262414a",
+      "id": "3de84740-02a5-43d6-81b4-fe98d55300a5",
       "name": "Create a note or call log2",
       "credentials": {
         "chartmogulApi": {
@@ -954,16 +1515,16 @@
       "parameters": {
         "resource": "note",
         "operation": "delete",
-        "noteUUID": "={{ $json.uuid }}",
+        "note_uuid": "={{ $json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         3552,
-        768
+        992
       ],
-      "id": "1f4b0f5a-4120-4f86-b617-6229bb066954",
+      "id": "47bb67d9-c64f-42c1-bb08-c14c0a26ba63",
       "name": "Delete a note or call log",
       "credentials": {
         "chartmogulApi": {
@@ -976,7 +1537,7 @@
       "parameters": {
         "resource": "note",
         "operation": "update",
-        "noteUUID": "={{ $json.uuid }}",
+        "note_uuid": "={{ $json.uuid }}",
         "updateOptions": {
           "text": "updated call log",
           "call_duration": 320,
@@ -988,9 +1549,9 @@
       "typeVersion": 1,
       "position": [
         3776,
-        576
+        800
       ],
-      "id": "37f3049e-7f32-4be5-a646-f5eff67a1f43",
+      "id": "598e5d8d-4466-4c5e-aed5-31c64d635001",
       "name": "Update a note or call log",
       "credentials": {
         "chartmogulApi": {
@@ -1002,16 +1563,16 @@
     {
       "parameters": {
         "resource": "note",
-        "noteUUID": "={{ $json.uuid }}",
+        "note_uuid": "={{ $json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         4000,
-        576
+        800
       ],
-      "id": "570ad715-d2ca-4bbc-914a-be82ea86d589",
+      "id": "6f030c10-a6e9-41d1-87e6-285f99d099dc",
       "name": "Retrieve a note or call log",
       "credentials": {
         "chartmogulApi": {
@@ -1034,9 +1595,9 @@
       "typeVersion": 1,
       "position": [
         4224,
-        480
+        704
       ],
-      "id": "994f73dd-7569-4610-af99-8fb9d5bc31bc",
+      "id": "c63586d7-16ff-4545-8b80-844af348ffa9",
       "name": "List notes and call logs",
       "credentials": {
         "chartmogulApi": {
@@ -1050,6 +1611,7 @@
         "resource": "note",
         "operation": "list",
         "filterOptions": {
+          "customer_uuid": "={{ $json.customer_uuid }}",
           "type": "note"
         },
         "pagination": {},
@@ -1059,9 +1621,9 @@
       "typeVersion": 1,
       "position": [
         4224,
-        672
+        896
       ],
-      "id": "f74bf437-bef0-4723-a84a-35c75580d63e",
+      "id": "d2630f21-d113-4576-8d03-3eeaa4b13366",
       "name": "List notes and call logs1",
       "credentials": {
         "chartmogulApi": {
@@ -1074,7 +1636,7 @@
       "parameters": {
         "resource": "opportunity",
         "operation": "create",
-        "customerUUID": "={{ $json.uuid }}",
+        "customer_uuid": "={{ $json.uuid }}",
         "owner": "gef+test@chartmogul.com",
         "pipeline": "New Business",
         "pipeline_stage": "Evaluation",
@@ -1090,9 +1652,9 @@
       "typeVersion": 1,
       "position": [
         3552,
-        992
+        1208
       ],
-      "id": "e755e2b8-df0d-4847-8294-b43e72cd8fd4",
+      "id": "33b29501-5226-40fc-a118-287a2f4fedbd",
       "name": "Create an opportunity",
       "credentials": {
         "chartmogulApi": {
@@ -1105,7 +1667,7 @@
       "parameters": {
         "resource": "opportunity",
         "operation": "create",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "owner": "gef+test@chartmogul.com",
         "pipeline": "Renewals",
         "pipeline_stage": "Negotiation",
@@ -1121,9 +1683,9 @@
       "typeVersion": 1,
       "position": [
         3776,
-        1088
+        1304
       ],
-      "id": "85064b67-5af9-4162-b037-1e78ac00c7f3",
+      "id": "cf904a5c-887b-426e-a5f5-ddb2342deade",
       "name": "Create an opportunity1",
       "credentials": {
         "chartmogulApi": {
@@ -1136,16 +1698,16 @@
       "parameters": {
         "resource": "opportunity",
         "operation": "delete",
-        "opportunityUUID": "={{ $json.uuid }}",
+        "opportunity_uuid": "={{ $json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         4000,
-        1088
+        1304
       ],
-      "id": "ddc818bf-87e4-495a-b543-7780d848f11b",
+      "id": "bfc28951-cc5f-4e69-9884-776e26d285be",
       "name": "Delete an opportunity",
       "credentials": {
         "chartmogulApi": {
@@ -1158,7 +1720,7 @@
       "parameters": {
         "resource": "opportunity",
         "operation": "update",
-        "opportunityUUID": "={{ $json.uuid }}",
+        "opportunity_uuid": "={{ $json.uuid }}",
         "updateOptions": {
           "pipeline_stage": "Negotiation",
           "amount_in_cents": 13000,
@@ -1170,9 +1732,9 @@
       "typeVersion": 1,
       "position": [
         3776,
-        896
+        1112
       ],
-      "id": "3840805e-9cc5-4c15-87a6-e49f93aba818",
+      "id": "a6c794d5-4e27-4bae-b8a4-9b64c58b2269",
       "name": "Update an opportunity",
       "credentials": {
         "chartmogulApi": {
@@ -1185,7 +1747,9 @@
       "parameters": {
         "resource": "opportunity",
         "operation": "list",
-        "filterOptions": {},
+        "filterOptions": {
+          "customer_uuid": "={{ $json.customer_uuid }}"
+        },
         "pagination": {},
         "requestOptions": {}
       },
@@ -1193,9 +1757,9 @@
       "typeVersion": 1,
       "position": [
         4000,
-        896
+        1112
       ],
-      "id": "9c15808a-67a3-4285-9c5d-ef8163310b67",
+      "id": "4fc6ce60-7cd2-464c-b633-8c04819cdd73",
       "name": "List opportunities",
       "credentials": {
         "chartmogulApi": {
@@ -1207,16 +1771,16 @@
     {
       "parameters": {
         "resource": "opportunity",
-        "opportunityUUID": "={{ $json.entries[0].uuid }}",
+        "opportunity_uuid": "={{ $json.entries[0].uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         4224,
-        896
+        1112
       ],
-      "id": "fb0ea213-ffd3-405d-bab9-49c1883a356f",
+      "id": "127ee012-b903-4737-97a7-7c83db89ed63",
       "name": "Retrieve an opportunity",
       "credentials": {
         "chartmogulApi": {
@@ -1235,16 +1799,16 @@
       "typeVersion": 3.2,
       "position": [
         4448,
-        464
+        688
       ],
-      "id": "39586d4b-6570-4788-910f-a79d78a8d18e",
+      "id": "73361d1a-7fb5-4a83-9da3-8663eba1855e",
       "name": "Merge"
     },
     {
       "parameters": {
         "resource": "customer",
         "operation": "unmerge",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "data_source_uuid": "={{ $('Create a customer').item.json.data_source_uuid }}",
         "external_id": "n8n_merge_from",
         "move_to_new_customer": [
@@ -1257,9 +1821,9 @@
       "typeVersion": 1,
       "position": [
         4672,
-        480
+        704
       ],
-      "id": "56fadc6a-f95b-4af9-b056-ad6836401830",
+      "id": "0513d12b-ec71-44c4-a56b-5f8b202c21f4",
       "name": "Unmerge customers",
       "credentials": {
         "chartmogulApi": {
@@ -1272,7 +1836,7 @@
       "parameters": {
         "resource": "enrichment",
         "operation": "add_attributes",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "custom": {
           "custom": [
             {
@@ -1292,9 +1856,9 @@
       "typeVersion": 1,
       "position": [
         4896,
-        320
+        512
       ],
-      "id": "7429681d-3dd5-43b3-8d84-4a1619253f79",
+      "id": "7a0a7b50-5bba-41cc-b3f9-16e5f3733cae",
       "name": "Add custom attributes to a customer",
       "credentials": {
         "chartmogulApi": {
@@ -1322,9 +1886,9 @@
       "typeVersion": 1,
       "position": [
         5568,
-        512
+        704
       ],
-      "id": "47f3d499-d53d-46fd-b1f1-6f822e804ab6",
+      "id": "6f31868e-f831-4b17-9d54-05881b5500a8",
       "name": "Add custom attributes to a customer by email",
       "credentials": {
         "chartmogulApi": {
@@ -1337,7 +1901,7 @@
       "parameters": {
         "resource": "enrichment",
         "operation": "add_tags",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "tags": "vip, master, this is a tag",
         "requestOptions": {}
       },
@@ -1345,9 +1909,9 @@
       "typeVersion": 1,
       "position": [
         5120,
-        320
+        512
       ],
-      "id": "b52053ec-83c5-4ed8-b00d-a60d69bc6cf6",
+      "id": "b6dc7048-b256-4ccd-b1fe-2fba837cd843",
       "name": "Add tags to a customer",
       "credentials": {
         "chartmogulApi": {
@@ -1368,9 +1932,9 @@
       "typeVersion": 1,
       "position": [
         5792,
-        512
+        704
       ],
-      "id": "baf42396-3119-4ccc-9684-a0f477af6131",
+      "id": "c5d9049f-6972-4eaf-a309-ff414a03724f",
       "name": "Add tags to a customer by email",
       "credentials": {
         "chartmogulApi": {
@@ -1382,16 +1946,16 @@
     {
       "parameters": {
         "resource": "enrichment",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "requestOptions": {}
       },
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
         5344,
-        320
+        512
       ],
-      "id": "150300e3-0628-40c1-9619-088a19dcdab4",
+      "id": "fdee95e0-30e2-4a87-a204-be52f98fff1f",
       "name": "Retrieve tags and attributes of a customer",
       "credentials": {
         "chartmogulApi": {
@@ -1404,7 +1968,7 @@
       "parameters": {
         "resource": "enrichment",
         "operation": "remove_attributes",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "custom": "Age",
         "requestOptions": {}
       },
@@ -1412,9 +1976,9 @@
       "typeVersion": 1,
       "position": [
         5568,
-        320
+        512
       ],
-      "id": "53be68f3-887e-4d1e-b5c7-de795cb84796",
+      "id": "ccd07506-2475-4de7-ac58-d13f194b6516",
       "name": "Remove custom attributes from a customer",
       "credentials": {
         "chartmogulApi": {
@@ -1427,7 +1991,7 @@
       "parameters": {
         "resource": "enrichment",
         "operation": "remove_tags",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "tags": "tag1, master",
         "requestOptions": {}
       },
@@ -1435,9 +1999,9 @@
       "typeVersion": 1,
       "position": [
         5792,
-        320
+        512
       ],
-      "id": "7ada9d76-e7cb-4318-a366-43db0b91169a",
+      "id": "9a814637-2946-4ced-abdf-aaf5ca077fea",
       "name": "Remove tags from a customer",
       "credentials": {
         "chartmogulApi": {
@@ -1455,9 +2019,9 @@
       "typeVersion": 3.2,
       "position": [
         6016,
-        480
+        704
       ],
-      "id": "4c58f25e-d4b9-4ba8-a9d4-4b72e49e6bc7",
+      "id": "dce5c131-27ac-462e-9e6a-43e79cc3dac7",
       "name": "Merge1"
     },
     {
@@ -1465,7 +2029,7 @@
         "resource": "contact",
         "operation": "create",
         "data_source_uuid": "={{ $('Create a customer').item.json.data_source_uuid }}",
-        "customerUUID": "={{ $('Create a customer').item.json.uuid }}",
+        "customer_uuid": "={{ $('Create a customer').item.json.uuid }}",
         "additionalFields": {
           "email": "sabrina@example.com",
           "first_name": "Sabrina",
@@ -1476,10 +2040,10 @@
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
-        6240,
-        480
+        6224,
+        704
       ],
-      "id": "4997131a-250b-44bf-b7ca-410cb96a2d49",
+      "id": "3f0e61b3-bf05-49ef-8f13-60b332ba3232",
       "name": "Create a contact",
       "credentials": {
         "chartmogulApi": {
@@ -1502,10 +2066,10 @@
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
-        6464,
-        480
+        6432,
+        704
       ],
-      "id": "361b5380-e11e-4e2e-9795-f508c55c60bd",
+      "id": "a31ac9ef-6f24-4cec-9e39-165d16a3a2e5",
       "name": "List contacts",
       "credentials": {
         "chartmogulApi": {
@@ -1523,10 +2087,10 @@
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
-        6688,
-        480
+        6640,
+        704
       ],
-      "id": "c3c6029c-d461-403a-8b1e-10cc3cfd8d0c",
+      "id": "866a503c-a942-4440-bc13-315a48dca99c",
       "name": "Retrieve a contact",
       "credentials": {
         "chartmogulApi": {
@@ -1548,10 +2112,10 @@
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
-        6912,
-        480
+        6848,
+        704
       ],
-      "id": "51633437-ad50-4ef7-bd25-08c8cb38d9a7",
+      "id": "f8a4e48e-c106-47f6-b0b6-64b85e8dd0e7",
       "name": "Update a contact",
       "credentials": {
         "chartmogulApi": {
@@ -1570,30 +2134,11 @@
       "type": "CUSTOM.chartmogul",
       "typeVersion": 1,
       "position": [
-        7136,
-        480
+        7056,
+        704
       ],
-      "id": "e3a0b080-aae8-470c-895e-a9f9c6f013b3",
+      "id": "0449d405-41ba-49de-aaec-a6e4b03ee4cb",
       "name": "Delete a contact",
-      "credentials": {
-        "chartmogulApi": {
-          "id": "NHUGm0eoh0CYBFLu",
-          "name": "ChartMogul account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "requestOptions": {}
-      },
-      "type": "CUSTOM.chartmogul",
-      "typeVersion": 1,
-      "position": [
-        -32,
-        848
-      ],
-      "id": "acf5b697-c563-41ce-9b34-268bddaf9520",
-      "name": "Get account details",
       "credentials": {
         "chartmogulApi": {
           "id": "NHUGm0eoh0CYBFLu",
@@ -1604,6 +2149,55 @@
   ],
   "pinData": {},
   "connections": {
+    "Update a plan": {
+      "main": [
+        [
+          {
+            "node": "Delete a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a plan": {
+      "main": [
+        [
+          {
+            "node": "Update a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans": {
+      "main": [
+        [
+          {
+            "node": "List all plans1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List all plans4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan": {
+      "main": [
+        [
+          {
+            "node": "Create a plan1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "When clicking ‘Execute workflow’": {
       "main": [
         [
@@ -1613,12 +2207,12 @@
             "index": 0
           },
           {
-            "node": "List all sources3",
+            "node": "Get account details",
             "type": "main",
             "index": 0
           },
           {
-            "node": "Get account details",
+            "node": "List all sources3",
             "type": "main",
             "index": 0
           }
@@ -1644,6 +2238,11 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Get account details": {
+      "main": [
+        []
       ]
     },
     "Create a source": {
@@ -1716,6 +2315,16 @@
       "main": [
         [
           {
+            "node": "Create a plan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a plan3",
+            "type": "main",
+            "index": 0
+          },
+          {
             "node": "Create a customer",
             "type": "main",
             "index": 0
@@ -1738,11 +2347,175 @@
         ]
       ]
     },
+    "Create a plan1": {
+      "main": [
+        [
+          {
+            "node": "Create a plan2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan2": {
+      "main": [
+        [
+          {
+            "node": "List all plans",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans1": {
+      "main": [
+        [
+          {
+            "node": "List all plans2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans2": {
+      "main": [
+        [
+          {
+            "node": "List all plans3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans4": {
+      "main": [
+        []
+      ]
+    },
     "List all sources3": {
       "main": [
         [
           {
             "node": "Delete a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans3": {
+      "main": [
+        [
+          {
+            "node": "Retrieve a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan3": {
+      "main": [
+        [
+          {
+            "node": "Create a plan4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan4": {
+      "main": [
+        [
+          {
+            "node": "Create a plan5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan5": {
+      "main": [
+        [
+          {
+            "node": "Create a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan group": {
+      "main": [
+        [
+          {
+            "node": "List all plan groups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plan groups": {
+      "main": [
+        [
+          {
+            "node": "List all plan groups1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Retrieve a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a plan group": {
+      "main": [
+        [
+          {
+            "node": "List all plans in a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans in a plan group": {
+      "main": [
+        [
+          {
+            "node": "Update a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a plan group": {
+      "main": [
+        [
+          {
+            "node": "List all plans in a plan group1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all plans in a plan group1": {
+      "main": [
+        [
+          {
+            "node": "Delete a plan group",
             "type": "main",
             "index": 0
           }
@@ -1895,12 +2668,12 @@
       "main": [
         [
           {
-            "node": "List tasks2",
+            "node": "List tasks1",
             "type": "main",
             "index": 0
           },
           {
-            "node": "List tasks1",
+            "node": "List tasks2",
             "type": "main",
             "index": 0
           },
@@ -2272,11 +3045,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6bd66718-65a5-4182-b44b-01c87a338be3",
+  "versionId": "a534b5ad-19de-4b2a-926d-97ba6c7aa7cf",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "15c1156919666d818137e4d1695c7042c0c055e4c762cb38235990ec95b20192"
   },
-  "id": "EQL5TLI2i8R3xcBv",
+  "id": "WqBwfdVXrXSPT1pm",
   "tags": []
 }
