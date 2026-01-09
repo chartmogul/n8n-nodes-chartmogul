@@ -34,7 +34,7 @@
       "dist/credentials/ChartmogulApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Chartmogul/Chartmogul.node.js"
+      "dist/nodes/ChartMogul/Chartmogul.node.js"
     ]
   },
   "devDependencies": {
