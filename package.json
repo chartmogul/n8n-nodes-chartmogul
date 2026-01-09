@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-chartmogul",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "n8n node to interact with ChartMogul API",
   "license": "MIT",
   "homepage": "",
@@ -34,11 +34,11 @@
       "dist/credentials/ChartmogulApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Chartmogul/Chartmogul.node.js"
+      "dist/nodes/ChartMogul/Chartmogul.node.js"
     ]
   },
   "devDependencies": {
-    "@n8n/node-cli": "^0.17.0",
+    "@n8n/node-cli": "*",
     "eslint": "9.32.0",
     "prettier": "3.6.2",
     "release-it": "^19.0.4",
