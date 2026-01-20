@@ -15,7 +15,6 @@ export const descriptions: INodeProperties[] = [
 				name: 'Get Account Details',
 				value: 'get',
 				action: 'Get account details',
-				routing: { request: { method: 'GET', url: '/account' } },
 			},
 		],
 		default: 'get',
