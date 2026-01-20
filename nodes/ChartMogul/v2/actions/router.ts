@@ -1,7 +1,9 @@
 import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-workflow';
 
 import { ChartMogul } from './Interfaces';
+
 import * as account from './account';
+import * as source from './source';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
@@ -10,19 +12,21 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 
 	for (let i = 0; i < items.length; i++) {
 		const resource = this.getNodeParameter<ChartMogul>('resource', i);
-		const operation = this.getNodeParameter('operation', i) as string;
+		let operation = this.getNodeParameter('operation', i) as string;
+		if (operation === 'del') {
+			operation = 'delete';
+		} 
 
 		const chartmogul = {
 			resource,
 			operation,
 		} as ChartMogul;
 
-
 		try {
 			if (chartmogul.resource === 'account') {
-				if (chartmogul.operation === 'get') {
-					responseData = await account[chartmogul.operation].execute.call(this);
-				}
+				responseData = await account[chartmogul.operation].execute.call(this);
+			} else if (chartmogul.resource === 'source') {
+				responseData = await source[chartmogul.operation].execute.call(this, i);
 			}
 
 			const executionData = this.helpers.constructExecutionMetaData(
@@ -40,5 +44,5 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 		}
 	}
 
-	return [returnData]
+	return [returnData];
 }

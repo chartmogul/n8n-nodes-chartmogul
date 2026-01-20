@@ -1,6 +1,7 @@
 import type { INodeTypeDescription } from 'n8n-workflow';
 	
 import * as account from './account';
+import * as source from './source';
 
 export const versionDescription: INodeTypeDescription = {
 	displayName: 'ChartMogul',
@@ -29,13 +30,12 @@ export const versionDescription: INodeTypeDescription = {
 			type: 'options',
 			noDataExpression: true,
 			options: [
-				{
-					name: 'Account',
-					value: 'account',
-				},
+				{ name: 'Account', value: 'account' },
+				{ name: 'Source', value: 'source' },
 			],
 			default: 'account',
 		},
 		...account.descriptions,
+		...source.descriptions,
 	],
 };

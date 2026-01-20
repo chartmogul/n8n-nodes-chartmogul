@@ -11,11 +11,7 @@ export const descriptions: INodeProperties[] = [
 		type: 'options',
 		noDataExpression: true,
 		options: [
-			{
-				name: 'Get Account Details',
-				value: 'get',
-				action: 'Get account details',
-			},
+			{ name: 'Get Account Details', value: 'get', action: 'Get account details' },
 		],
 		default: 'get',
 		displayOptions: { show: { resource: ['account'] } },
