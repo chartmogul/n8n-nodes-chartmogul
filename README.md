@@ -57,7 +57,17 @@ This node was developed and tested using N8N version 1.116.2.
 * [ChartMogul Help Center](https://help.chartmogul.com)
 * [ChartMogul Developer Reference](https://dev.chartmogul.com)
   
+## Versioning
+
+This node implements n8n's versioning system to support future updates while maintaining backwards compatibility. The current version is v1.
+
+For detailed information about the versioning structure and how to add new versions, see [VERSIONING.md](VERSIONING.md).
+
 ## Version history
 
-v1.0.0
-Initial Release
+**v1.0.4** (Current)
+- Implemented full versioning structure
+- Reorganized codebase with v1 directory for future version support
+
+**v1.0.0**
+- Initial Release
