@@ -517,7 +517,7 @@ export const invoiceFields: INodeProperties[] = [
 		name: 'status',
 		type: 'options',
 		options: [
-			{ name: 'Wrtitten Off', value: 'written_off' },
+			{ name: 'Written Off', value: 'written_off' },
 			{ name: 'Voided', value: 'voided' },
 		],
 		default: 'written_off',

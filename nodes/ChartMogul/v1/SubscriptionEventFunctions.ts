@@ -81,7 +81,7 @@ const HandleAsUserEditField: INodeProperties = {
 		'Whether to handle as a user edit to an existing entry from automatic sources (e.g. Stripe, Chargebee, Recurly, etc.)',
 };
 
-const PlanExtnernalIDField: INodeProperties = {
+const PlanExternalIDField: INodeProperties = {
 	displayName: 'Plan External ID',
 	name: 'plan_external_id',
 	type: 'string',
@@ -292,7 +292,7 @@ export const eventFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				...PlanExtnernalIDField,
+				...PlanExternalIDField,
 				routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } },
 			},
 			{
@@ -387,7 +387,7 @@ export const eventFields: INodeProperties[] = [
 			{ ...EventDateField, routing: { request: { qs: { event_date: '={{$value}}' } } } },
 			{ ...EffectiveDateField, routing: { request: { qs: { effective_date: '={{$value}}' } } } },
 			{
-				...PlanExtnernalIDField,
+				...PlanExternalIDField,
 				routing: { request: { qs: { plan_external_id: '={{$value}}' } } },
 			},
 			{
@@ -439,7 +439,7 @@ export const eventFields: INodeProperties[] = [
 				},
 			},
 			{
-				...PlanExtnernalIDField,
+				...PlanExternalIDField,
 				routing: { request: { body: { subscription_event: { plan_external_id: '={{$value}}' } } } },
 			},
 			{

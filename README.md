@@ -44,7 +44,7 @@ In ChartMogul, create an API key by navigating to **Profile > View Profile > API
 2. Enter a unique name for the key in the **Name** field.
 3. A **Read & Write** key is required for this node.
 4. Click **Add** to create the key.
-5. Copy your newly created key and add create a ChartMogul credential in N8N
+5. Copy your newly created key and create a ChartMogul credential in N8N
 <img width="776" height="370" alt="image" src="https://github.com/user-attachments/assets/6443c18e-fe9e-4146-a3e1-b4e62862b774" />
 
 ## Compatibility
