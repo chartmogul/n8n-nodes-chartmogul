@@ -3,14 +3,14 @@ import type { IExecuteFunctions, IDataObject, INodeExecutionData } from "n8n-wor
 import { apiRequest } from "../../../transport";
 
 export async function del(this: IExecuteFunctions, index: number): Promise<INodeExecutionData[]> {
-    const dataSourceUUID = this.getNodeParameter('dataSourceUUID', index) as string;
+    const planUUID = this.getNodeParameter('planUUID', index) as string;
 
     const requestMethod = 'DELETE';
-    const endpoint = `data_sources/${dataSourceUUID}`;
+    const endpoint = `plans/${planUUID}`;
     const body = {} as IDataObject;
     const qs = {} as IDataObject;
     
     const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-    return this.helpers.returnJsonArray(responseData as IDataObject[]);
+    return this.helpers.returnJsonArray(responseData as IDataObject);
 }
