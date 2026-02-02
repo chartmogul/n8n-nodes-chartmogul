@@ -22,7 +22,7 @@ export class ChartmogulV1 implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'ChartMogul',
 		name: 'chartmogul',
-		icon: 'file:chartmogul.svg',
+		icon: 'file:../../../icons/chartmogul.svg',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
