@@ -1,6 +1,6 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
-import { accountOperations } from './AccountFunctions';
+
 import { activitiesFields, activitiesOperations } from './ActivitiesFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
@@ -18,13 +18,15 @@ import { subscriptionFields, subscriptionOperations } from './SubscriptionFuncti
 import { taskFields, taskOperations } from './TaskFunctions';
 import { transactionFields, transactionOperations } from './TransactionFunctions';
 
+import * as account from './resources/account';
+
 export class ChartmogulV1 implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'ChartMogul',
 		name: 'chartmogul',
 		icon: 'file:../../../icons/chartmogul.svg',
 		group: ['transform'],
-		version: 1,
+		version: 1.1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Interact with ChartMogul API',
 		defaults: {
@@ -68,7 +70,7 @@ export class ChartmogulV1 implements INodeType {
 				],
 				default: 'account',
 			},
-			...accountOperations,
+			...account.description,
 
 			...activitiesOperations,
 			...activitiesFields,

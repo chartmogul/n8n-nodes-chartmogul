@@ -1,0 +1,62 @@
+{
+  "name": "Account flow test",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a3e1363e-afb3-4ad4-ac06-9dfefdf3871b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "2f0fd2ef-5995-477d-a62c-00693f731bcb",
+      "name": "Get account details",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "rlp1HrhwtWImAo0Z",
+          "name": "ChartMogul account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get account details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "ae8f8109-1a1e-4d98-8c44-5385880b6e92",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d3563edc9be3f814ab0cea2c8399ab13d9eda3e7d2b6884537eebccbeb87e7e6"
+  },
+  "id": "ciSi7wRf7e3ibJhK7vTLM",
+  "tags": []
+}

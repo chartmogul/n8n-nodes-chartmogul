@@ -12,12 +12,12 @@ export class Chartmogul extends VersionedNodeType {
 			icon: 'file:../../../icons/chartmogul.svg',
 			group: ['transform'],
 			description: 'Interact with ChartMogul API',
-			defaultVersion: 1,
+			defaultVersion: 1.1,
 			usableAsTool: true,
 		};
 
 		const nodeVersions: IVersionedNodeType['nodeVersions'] = {
-			1: new ChartmogulV1(),
+			1.1: new ChartmogulV1(),
 		};
 
 		super(nodeVersions, baseDescription);
