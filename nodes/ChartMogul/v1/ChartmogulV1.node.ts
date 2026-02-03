@@ -13,12 +13,12 @@ import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
 import { planFields, planOperations } from './PlanFunctions';
 import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
-import { sourceFields, sourceOperations } from './SourceFunctions';
 import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
 import { transactionFields, transactionOperations } from './TransactionFunctions';
 
 import * as account from './resources/account';
+import * as source from './resources/source';
 
 export class ChartmogulV1 implements INodeType {
 	description: INodeTypeDescription = {
@@ -51,22 +51,22 @@ export class ChartmogulV1 implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					{ name: 'Activity', value: 'activities' },
-					{ name: 'Contact', value: 'contact' },
-					{ name: 'Customer', value: 'customer' },
-					{ name: 'Enrichment', value: 'enrichment' },
-					{ name: 'Event', value: 'event' },
-					{ name: 'Invoice', value: 'invoice' },
-					{ name: 'Line Item', value: 'line_item' },
-					{ name: 'Metric', value: 'metric' },
-					{ name: 'Note and Call Log', value: 'note' },
-					{ name: 'Opportunity', value: 'opportunity' },
-					{ name: 'Plan', value: 'plan' },
-					{ name: 'Plan Group', value: 'plan_group' },
+					//{ name: 'Activity', value: 'activities' },
+					//{ name: 'Contact', value: 'contact' },
+					//{ name: 'Customer', value: 'customer' },
+					//{ name: 'Enrichment', value: 'enrichment' },
+					//{ name: 'Event', value: 'event' },
+					//{ name: 'Invoice', value: 'invoice' },
+					//{ name: 'Line Item', value: 'line_item' },
+					//{ name: 'Metric', value: 'metric' },
+					//{ name: 'Note and Call Log', value: 'note' },
+					//{ name: 'Opportunity', value: 'opportunity' },
+					//{ name: 'Plan', value: 'plan' },
+					//{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
-					{ name: 'Subscription', value: 'subscription' },
-					{ name: 'Task', value: 'task' },
-					{ name: 'Transaction', value: 'transaction' },
+					//{ name: 'Subscription', value: 'subscription' },
+					//{ name: 'Task', value: 'task' },
+					//{ name: 'Transaction', value: 'transaction' },
 				],
 				default: 'account',
 			},
@@ -108,8 +108,7 @@ export class ChartmogulV1 implements INodeType {
 			...planGroupOperations,
 			...planGroupFields,
 
-			...sourceOperations,
-			...sourceFields,
+			...source.description,
 
 			...subscriptionOperations,
 			...subscriptionFields,
