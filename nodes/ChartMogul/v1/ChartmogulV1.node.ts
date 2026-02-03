@@ -11,13 +11,13 @@ import { lineItemFields, lineItemOperations } from './LineItemFunctions';
 import { metricFields, metricOperations } from './MetricFunctions';
 import { noteFields, noteOperations } from './NoteFunctions';
 import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
-import { planFields, planOperations } from './PlanFunctions';
 import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
 import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
 import { taskFields, taskOperations } from './TaskFunctions';
 import { transactionFields, transactionOperations } from './TransactionFunctions';
 
 import * as account from './resources/account';
+import * as plan from './resources/plan';
 import * as source from './resources/source';
 
 export class ChartmogulV1 implements INodeType {
@@ -61,7 +61,7 @@ export class ChartmogulV1 implements INodeType {
 					//{ name: 'Metric', value: 'metric' },
 					//{ name: 'Note and Call Log', value: 'note' },
 					//{ name: 'Opportunity', value: 'opportunity' },
-					//{ name: 'Plan', value: 'plan' },
+					{ name: 'Plan', value: 'plan' },
 					//{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
 					//{ name: 'Subscription', value: 'subscription' },
@@ -102,8 +102,7 @@ export class ChartmogulV1 implements INodeType {
 			...opportunityOperations,
 			...opportunityFields,
 
-			...planOperations,
-			...planFields,
+			...plan.description,
 
 			...planGroupOperations,
 			...planGroupFields,
