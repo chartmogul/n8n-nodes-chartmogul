@@ -24,6 +24,8 @@ export const description: INodeProperties[] = [
 			},
 		],
 		default: 'get',
-		displayOptions: { show: showOnlyForAccount },
+		displayOptions: {
+			show: showOnlyForAccount,
+		},
 	},
 ];

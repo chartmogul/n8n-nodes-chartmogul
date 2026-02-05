@@ -1,7 +1,5 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
-
-import { activitiesFields, activitiesOperations } from './ActivitiesFunctions';
 import { contactFields, contactOperations } from './ContactFunctions';
 import { customerFields, customerOperations } from './CustomerFunctions';
 import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
@@ -17,6 +15,7 @@ import { taskFields, taskOperations } from './TaskFunctions';
 import { transactionFields, transactionOperations } from './TransactionFunctions';
 
 import * as account from './resources/account';
+import * as activities from './resources/activities';
 import * as plan from './resources/plan';
 import * as source from './resources/source';
 
@@ -51,7 +50,7 @@ export class ChartmogulV1 implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					//{ name: 'Activity', value: 'activities' },
+					{ name: 'Activity', value: 'activities' },
 					//{ name: 'Contact', value: 'contact' },
 					//{ name: 'Customer', value: 'customer' },
 					//{ name: 'Enrichment', value: 'enrichment' },
@@ -70,10 +69,9 @@ export class ChartmogulV1 implements INodeType {
 				],
 				default: 'account',
 			},
-			...account.description,
 
-			...activitiesOperations,
-			...activitiesFields,
+			...account.description,
+			...activities.description,
 
 			...contactOperations,
 			...contactFields,
