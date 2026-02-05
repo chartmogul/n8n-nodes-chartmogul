@@ -14,10 +14,11 @@ export const createDescription: INodeProperties[] = [
         required: true,
         default: '',
         routing: {
-            send: {
-                type: 'body',
-                property: 'data_source_uuid',
-            },
+            request: {
+                body: {
+                    data_source_uuid: '={{ $value }}',
+                },
+            }
         },
         displayOptions: {
             show: showOnlyForPlanCreate,
@@ -31,9 +32,10 @@ export const createDescription: INodeProperties[] = [
 		required: true,
 		default: '',
 		routing: {
-			send: {
-				type: 'body',
-				property: 'name',
+			request: {
+				body: {
+					name: '={{ $value }}',
+				},
 			},
 		},
 		displayOptions: {
@@ -61,9 +63,10 @@ export const createDescription: INodeProperties[] = [
             },
         ],
         routing: {
-            send: {
-                type: 'body',
-                property: 'interval_unit',
+            request: {
+                body: {
+                    interval_unit: '={{ $value }}',
+                },
             },
         },
         displayOptions: {
@@ -78,9 +81,10 @@ export const createDescription: INodeProperties[] = [
         required: true,
         default: 1,
         routing: {
-            send: {
-                type: 'body',
-                property: 'interval_count',
+            request: {
+                body: {
+                    interval_count: '={{ $value }}',
+                },
             },
         },
         displayOptions: {
@@ -101,10 +105,11 @@ export const createDescription: INodeProperties[] = [
                 type: 'string',
                 default: '',
                 routing: {
-                    send: {
-                        type: 'body',
-                        property: 'external_id',
-                    }, 
+                    request: {
+                        body: {
+                            external_id: '={{ $value }}',
+                        },
+                    },
                 },
             },
         ],

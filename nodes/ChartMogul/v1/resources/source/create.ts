@@ -14,9 +14,10 @@ export const createDescription: INodeProperties[] = [
 		required: true,
 		default: '',
 		routing: {
-			send: {
-				type: 'body',
-				property: 'name',
+			request: {
+				body: {
+					name: '={{ $value }}',
+				},
 			},
 		},
 		displayOptions: {

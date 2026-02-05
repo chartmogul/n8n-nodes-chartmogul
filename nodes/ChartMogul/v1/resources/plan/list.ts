@@ -14,7 +14,7 @@ export const listDescription: INodeProperties[] = [
 		description: 'Whether to return all results or only up to a given limit',
 		routing: {
 			send: {
-				paginate: '={{$value}}',
+				paginate: '={{ $value }}',
 			},
 		},
 		displayOptions: {
@@ -32,10 +32,10 @@ export const listDescription: INodeProperties[] = [
 		default: 50,
 		description: 'Max number of results to return',
 		routing: {
-			send: {
-				type: 'query',
-				property: 'per_page',
-				value: '={{ $parameter.returnAll ? 200 : $value }}',
+			request: {
+				qs: {
+					per_page: '={{ $parameter.returnAll ? 200 : $value }}',
+				},
 			},
 		},
 		displayOptions: {
@@ -59,9 +59,10 @@ export const listDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'data_source_uuid',
+					request: {
+						qs: {
+							data_source_uuid: '={{ $value }}',
+						},
 					},
 				},
 			},
@@ -72,9 +73,10 @@ export const listDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'external_id',
+					request: {
+						qs: {
+							external_id: '={{ $value }}',
+						},
 					},
 				},
 			},
@@ -85,9 +87,10 @@ export const listDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'system',
+					request: {
+						qs: {
+							system: '={{ $value }}',
+						},
 					},
 				},
 			},

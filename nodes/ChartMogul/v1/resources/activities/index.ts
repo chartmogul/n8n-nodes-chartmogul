@@ -53,7 +53,6 @@ export const description: INodeProperties[] = [
 								request: {
 									qs: {
 										cursor: '={{ $response.body.cursor }}',
-										type: '={{ $request.query.type }}',
 									},
 								},
 							},

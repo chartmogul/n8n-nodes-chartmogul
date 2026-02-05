@@ -21,11 +21,11 @@ export const createDescription: INodeProperties[] = [
 					'Activities whose date is greater than or equal to this value will be returned',
 				default: '',
 				routing: {
-					send: {
-						type: 'body',
-						property: 'start-date',
-						value: '={{ $value.toISOString() }}',
-					},
+					request: {
+						body: {
+							'start-date': '={{ $value.toISOString() }}',
+						},
+					}
 				},
 			},
 			{
@@ -35,11 +35,11 @@ export const createDescription: INodeProperties[] = [
 				description: 'Activities whose date is less than or equal to this value will be returned',
 				default: '',
 				routing: {
-					send: {
-						type: 'body',
-						property: 'end-date',
-						value: '={{ $value.toISOString() }}',
-					},
+					request: {
+						body: {
+							'end-date': '={{ $value.toISOString() }}',
+						},
+					}
 				},
 			},
 			{
@@ -71,10 +71,11 @@ export const createDescription: INodeProperties[] = [
 				],
 				default: 'new_biz',
 				routing: {
-					send: {
-						type: 'body',
-						property: 'type',
-					},
+					request: {
+						body: {
+							type: '={{$value}}',
+						},
+					}
 				},
 			},
 		],

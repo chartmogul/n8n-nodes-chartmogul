@@ -20,9 +20,10 @@ export const listDescription: INodeProperties[] = [
 				default: '',
 				description: 'Filter results by source name',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'name',
+					request: {
+						qs: {
+							name: '={{ $value }}',
+						},
 					},
 				},
 			},
@@ -33,9 +34,10 @@ export const listDescription: INodeProperties[] = [
 				default: '',
 				description: 'Filter results by billing system',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'system',
+					request: {
+						qs: {
+							system: '={{ $value }}',
+						},
 					},
 				},
 			},

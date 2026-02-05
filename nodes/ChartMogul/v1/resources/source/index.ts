@@ -72,7 +72,9 @@ export const description: INodeProperties[] = [
 			},
 		],
 		default: 'create',
-		displayOptions: { show: showOnlyForSource },
+		displayOptions: { 
+			show: showOnlyForSource 
+		},
 	},
 
 	...createDescription,

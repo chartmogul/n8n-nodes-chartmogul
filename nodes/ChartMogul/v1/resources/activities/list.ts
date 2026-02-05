@@ -32,10 +32,10 @@ export const listDescription: INodeProperties[] = [
 		default: 50,
 		description: 'Max number of results to return',
 		routing: {
-			send: {
-				type: 'query',
-				property: 'per_page',
-				value: '={{ $value }}',
+			request: {
+				qs: {
+					per_page: '={{ $value }}',
+				},
 			},
 		},
 		displayOptions: {
@@ -60,10 +60,10 @@ export const listDescription: INodeProperties[] = [
 					'Activities whose date is greater than or equal to this value will be returned',
 				default: '',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'start-date',
-						value: '={{ $value.toISOString() }}',
+					request: {
+						qs: {
+							'start-date': '={{ $value.toISOString() }}',
+						},
 					},
 				},
 			},
@@ -74,10 +74,10 @@ export const listDescription: INodeProperties[] = [
 				description: 'Activities whose date is less than or equal to this value will be returned',
 				default: '',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'end-date',
-						value: '={{ $value.toISOString() }}',
+					request: {
+						qs: {
+							'end-date': '={{ $value.toISOString() }}',
+						},
 					},
 				},
 			},
@@ -110,10 +110,10 @@ export const listDescription: INodeProperties[] = [
 				],
 				default: 'new_biz',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'type',
-						value: '={{ $value }}',
+					request: {
+						qs: {
+							type: '={{ $value }}',
+						},
 					},
 				},
 			},
@@ -134,10 +134,10 @@ export const listDescription: INodeProperties[] = [
 				],
 				default: 'date',
 				routing: {
-					send: {
-						type: 'query',
-						property: 'order',
-						value: '={{ $value }}',
+					request: {
+						qs: {
+							order: '={{ $value }}',
+						},
 					},
 				},
 			},

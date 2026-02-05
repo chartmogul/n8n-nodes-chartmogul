@@ -31,9 +31,10 @@ export const updateDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				routing: {
-					send: {
-						type: 'body',
-						property: 'name',
+					request: {
+						body: {
+							name: '={{ $value }}',
+						},
 					},
 				},
 			},
@@ -57,9 +58,10 @@ export const updateDescription: INodeProperties[] = [
 				],
 				default: 'month',
 				routing: {
-					send: {
-						type: 'body',
-						property: 'interval_unit',
+					request: {
+						body: {
+							interval_unit: '={{ $value }}',
+						},
 					},
 				},
 			},
@@ -73,9 +75,10 @@ export const updateDescription: INodeProperties[] = [
 				},
 				default: 1,
 				routing: {
-					send: {
-						type: 'body',
-						property: 'interval_count',
+					request: {
+						body: {
+							interval_count: '={{ $value }}',
+						},
 					},
 				},
 			},
