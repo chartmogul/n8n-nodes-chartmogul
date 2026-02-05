@@ -1,3 +1,4 @@
+/* eslint-disable @n8n/community-nodes/icon-validation */
 import type {
 	IExecuteFunctions,
 	INodeType,

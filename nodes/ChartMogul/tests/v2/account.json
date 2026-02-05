@@ -1,0 +1,60 @@
+{
+  "name": "account",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ee2e4b81-e8f5-42f8-aa3d-04bdb0078387",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {},
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "56f61390-a64c-4841-bfb2-9e1c2155ffef",
+      "name": "Get account details",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "rlp1HrhwtWImAo0Z",
+          "name": "ChartMogul account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get account details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "945c6556-3583-4786-9c86-5ce5d14c3227",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d3563edc9be3f814ab0cea2c8399ab13d9eda3e7d2b6884537eebccbeb87e7e6"
+  },
+  "id": "lIqcbAzWQPQQOxQ318SZf",
+  "tags": []
+}

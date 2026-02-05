@@ -3,7 +3,7 @@ import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-wor
 
 import { ChartMogul } from './Interfaces';
 
-import * as account from '../account';
+import * as account from './account';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
