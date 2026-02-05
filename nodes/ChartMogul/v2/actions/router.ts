@@ -1,10 +1,9 @@
+/* eslint-disable import-x/no-unresolved */
 import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-workflow';
 
 import { ChartMogul } from './Interfaces';
 
-import * as account from './account';
-import * as source from './source';
-import * as plan from './plan';
+import * as account from '../account';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 	const items = this.getInputData();
@@ -26,11 +25,11 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 		try {
 			if (chartmogul.resource === 'account') {
 				responseData = await account[chartmogul.operation].execute.call(this);
-			} else if (chartmogul.resource === 'source') {
+			} /*else if (chartmogul.resource === 'source') {
 				responseData = await source[chartmogul.operation].execute.call(this, i);
 			} else if (chartmogul.resource === 'plan') {
 				responseData = await plan[chartmogul.operation].execute.call(this, i);
-			}
+			}*/
 
 			const executionData = this.helpers.constructExecutionMetaData(
 				this.helpers.returnJsonArray(responseData),

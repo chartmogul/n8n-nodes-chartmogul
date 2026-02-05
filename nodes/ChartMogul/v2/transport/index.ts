@@ -35,5 +35,27 @@ export async function apiRequest(
         }
     };
 
-    return await this.helpers.httpRequest(options);
+    return await this.helpers.httpRequestWithAuthentication.call(this, 'chartmogulApi', options);
+}
+
+export async function apiRequestAllItems(
+    this: IExecuteFunctions | ILoadOptionsFunctions,
+    method: IHttpRequestMethods,
+    endpoint: string,
+    body: IDataObject = {},
+    query: IDataObject = {},
+) {
+    const returnData: IDataObject[] = [];
+    
+    let responseData;
+    query.cursor = '';
+    query.per_page = 200;
+
+    do {
+        responseData = await apiRequest.call(this, method, endpoint, body, query);
+        query.cursor = responseData.cursor;
+        returnData.push(...responseData.entries);
+    } while (responseData.cursor !== null && responseData.cursor !== undefined && responseData.cursor !== '');
+
+    return returnData;
 }

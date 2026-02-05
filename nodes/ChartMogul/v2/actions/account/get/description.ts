@@ -1,3 +1,4 @@
-import type { AccountProperties } from "../../Interfaces";
+
+import type { AccountProperties } from '../../Interfaces';
 
 export const accountGetDescription: AccountProperties = [];

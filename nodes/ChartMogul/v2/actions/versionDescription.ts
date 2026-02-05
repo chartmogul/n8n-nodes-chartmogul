@@ -1,13 +1,14 @@
-import type { INodeTypeDescription } from 'n8n-workflow';
+/* eslint-disable n8n-nodes-base/node-filename-against-convention */
+import { INodeTypeDescription } from 'n8n-workflow';
 	
 import * as account from './account';
-import * as plan from './plan';
-import * as source from './source';
+//import * as plan from './plan';
+//import * as source from './source';
 
 export const versionDescription: INodeTypeDescription = {
 	displayName: 'ChartMogul',
 	name: 'chartmogul',
-	icon: 'file:chartmogul.svg',
+	icon: 'file:../../../icons/chartmogul.svg',
 	group: ['transform'],
 	version: 2,
 	subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
@@ -32,13 +33,13 @@ export const versionDescription: INodeTypeDescription = {
 			noDataExpression: true,
 			options: [
 				{ name: 'Account', value: 'account' },
-				{ name: 'Plan', value: 'plan' },
-				{ name: 'Source', value: 'source' },
+				//{ name: 'Plan', value: 'plan' },
+				//{ name: 'Source', value: 'source' },
 			],
 			default: 'account',
 		},
 		...account.descriptions,
-		...plan.descriptions,
-		...source.descriptions,
+		//...plan.descriptions,
+		//...source.descriptions,
 	],
 };
