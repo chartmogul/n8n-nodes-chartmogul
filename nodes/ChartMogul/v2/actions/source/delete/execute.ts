@@ -2,17 +2,17 @@ import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-wor
 
 import { apiRequest } from '../../../transport';
 
-export async function get(
+export async function del(
 	this: IExecuteFunctions,
-	//index: number,
+	index: number,
 ): Promise<INodeExecutionData[]> {
 
 	const body = {} as IDataObject;
 	const qs = {} as IDataObject;
-	const requestMethod = 'GET';
-	const endpoint = `account`;
+	const requestMethod = 'DELETE';
+	const endpoint = `data_sources/${this.getNodeParameter('dataSourceUuid', index)}`;
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);
 
-	return this.helpers.returnJsonArray(responseData as IDataObject[]);
+	return this.helpers.returnJsonArray(responseData as IDataObject);
 }
