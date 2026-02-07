@@ -3,6 +3,7 @@ import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-wor
 import { ChartMogul } from './Interfaces';
 
 import * as account from './account';
+import * as activities from './activities';
 import * as source from './source';
 
 export async function router(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -15,7 +16,7 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 		let operation = this.getNodeParameter('operation', i) as string;
 		if (operation === 'del') {
 			operation = 'delete';
-		} 
+		}
 
 		const chartmogul = {
 			resource,
@@ -25,6 +26,8 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 		try {
 			if (chartmogul.resource === 'account') {
 				responseData = await account[chartmogul.operation].execute.call(this);
+			} else if (chartmogul.resource === 'activities') {
+				responseData = await activities[chartmogul.operation].execute.call(this, i);
 			} else if (chartmogul.resource === 'source') {
 				responseData = await source[chartmogul.operation].execute.call(this, i);
 			} /*else if (chartmogul.resource === 'plan') {
