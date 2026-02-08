@@ -10,7 +10,7 @@ export async function create(
 	const body = {} as IDataObject;
 	const qs = {} as IDataObject;
 	const requestMethod = 'POST';
-	const endpoint = `activities_export`;
+	const endpoint = 'activities_export';
 
 	const filterOptions = this.getNodeParameter('filterOptions', index, []) as IDataObject;
 	

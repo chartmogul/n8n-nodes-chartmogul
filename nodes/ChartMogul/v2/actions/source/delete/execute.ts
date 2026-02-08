@@ -2,10 +2,7 @@ import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-wor
 
 import { apiRequest } from '../../../transport';
 
-export async function del(
-	this: IExecuteFunctions,
-	index: number,
-): Promise<INodeExecutionData[]> {
+export async function del(this: IExecuteFunctions, index: number): Promise<INodeExecutionData[]> {
 
 	const body = {} as IDataObject;
 	const qs = {} as IDataObject;

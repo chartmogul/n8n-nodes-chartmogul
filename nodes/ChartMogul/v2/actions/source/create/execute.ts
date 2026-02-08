@@ -10,7 +10,7 @@ export async function create(
 	const body = {} as IDataObject;
 	const qs = {} as IDataObject;
 	const requestMethod = 'POST';
-	const endpoint = `data_sources`;
+	const endpoint = 'data_sources';
 
 	body.name = this.getNodeParameter('name', index);
 

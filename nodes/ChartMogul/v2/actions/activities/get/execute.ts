@@ -9,7 +9,7 @@ export async function get(
 ): Promise<INodeExecutionData[]> {
 	const body = {} as IDataObject;
 	const qs = {} as IDataObject;
-	const requestMethod = 'POST';
+	const requestMethod = 'GET';
 	const endpoint = `activities_export/${this.getNodeParameter('exportId', index)}`;
 
 	const responseData = await apiRequest.call(this, requestMethod, endpoint, body, qs);

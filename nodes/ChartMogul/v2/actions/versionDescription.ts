@@ -2,6 +2,7 @@
 import { INodeTypeDescription } from 'n8n-workflow';
 	
 import * as account from './account';
+import * as activities from './activities';
 //import * as plan from './plan';
 import * as source from './source';
 
@@ -33,6 +34,7 @@ export const versionDescription: INodeTypeDescription = {
 			noDataExpression: true,
 			options: [
 				{ name: 'Account', value: 'account' },
+				{ name: 'Activity', value: 'activities' },
 				//{ name: 'Plan', value: 'plan' },
 				{ name: 'Source', value: 'source' },
 			],
@@ -40,7 +42,7 @@ export const versionDescription: INodeTypeDescription = {
 		},
 
 		...account.descriptions,
-		//...plan.descriptions,
+		...activities.descriptions,
 		...source.descriptions,
 
 	],
