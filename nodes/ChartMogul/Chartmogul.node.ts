@@ -1,35 +1,27 @@
-import type {
-	INodeType,
-	INodeTypeBaseDescription,
-	IVersionedNodeType,
-} from 'n8n-workflow';
-import { ApplicationError } from 'n8n-workflow';
+import type { INodeTypeBaseDescription, IVersionedNodeType } from 'n8n-workflow';
+import { VersionedNodeType } from 'n8n-workflow';
 
 import { ChartmogulV1 } from './v1/ChartmogulV1.node';
+import { ChartmogulV2 } from './v2/ChartmogulV2.node';
 
-export class Chartmogul implements IVersionedNodeType {
-	nodeVersions: IVersionedNodeType['nodeVersions'] = {
-		1: new ChartmogulV1(),
-	};
+export class Chartmogul extends VersionedNodeType {
+	constructor() {
+		const baseDescription: INodeTypeBaseDescription = {
+			displayName: 'ChartMogul',
+			name: 'chartmogul',
+			subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
+			icon: 'file:chartmogul.svg',
+			group: ['transform'],
+			description: 'Interact with ChartMogul API',
+			defaultVersion: 2,
+			usableAsTool: true,
+		};
 
-	currentVersion = 1;
+		const nodeVersions: IVersionedNodeType['nodeVersions'] = {
+			1: new ChartmogulV1(),
+			2: new ChartmogulV2(),
+		};
 
-	description: INodeTypeBaseDescription = {
-		displayName: 'ChartMogul',
-		name: 'chartmogul',
-		icon: 'file:chartmogul.svg',
-		group: ['transform'],
-		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with ChartMogul API',
-		defaultVersion: 1,
-		usableAsTool: true,
-	};
-
-	getNodeType(version?: number): INodeType {
-		const nodeVersion = version ?? this.currentVersion;
-		if (!this.nodeVersions[nodeVersion]) {
-			throw new ApplicationError(`Version ${nodeVersion} of ChartMogul node is not supported`);
-		}
-		return this.nodeVersions[nodeVersion] as INodeType;
+		super(nodeVersions, baseDescription);
 	}
 }
