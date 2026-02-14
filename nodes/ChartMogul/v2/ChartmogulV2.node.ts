@@ -1,7 +1,7 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
 import * as account from './resources/account';
-import * as activities from './resources/activities';
+import * as metric from './resources/metric';
 import * as plan from './resources/plan';
 import * as source from './resources/source';
 
@@ -36,14 +36,14 @@ export class ChartmogulV2 implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					//{ name: 'Activity', value: 'activities' },
+					{ name: 'Metric', value: 'metric' },
 					{ name: 'Plan', value: 'plan' },
 					{ name: 'Source', value: 'source' },
 				],
 				default: 'account',
 			},
 			...account.description,
-			...activities.description,
+			...metric.description,
 			...plan.description,
 			...source.description,
 		],

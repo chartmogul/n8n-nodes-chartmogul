@@ -59,7 +59,7 @@ export const description: INodeProperties[] = [
 						],
 					},
 					send: {
-						paginate: '={{ $parameter.returnAll }}',
+						paginate: '={{ $parameter.returnAll ? true : false }}',
 					},
 					operations: {
 						pagination: {
@@ -70,9 +70,9 @@ export const description: INodeProperties[] = [
 									qs: {
 										per_page: '={{ $parameter.returnAll ? 200 : ($parameter.limit ?? 50) }}',
 										data_source_uuid: '={{ $parameter.filterOptions?.dataSourceUUID || undefined }}',
-										external_id: '={{ $parameter.filterOptions?.externalID      || undefined }}',
-										system: '={{ $parameter.filterOptions?.system          || undefined }}',
-										cursor: '={{ $response.body.cursor }}', // adjust field name if needed
+										external_id: '={{ $parameter.filterOptions?.externalID || undefined }}',
+										system: '={{ $parameter.filterOptions?.system || undefined }}',
+										cursor: '={{ $response.body.cursor }}',
 									},
 								},
 							},
