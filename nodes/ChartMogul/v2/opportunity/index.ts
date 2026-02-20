@@ -1,5 +1,8 @@
 import { INodeProperties } from 'n8n-workflow';
-import { SharedOptionItems } from './SharedOptions';
+import { SharedOptionItems } from '../SharedOptions';
+import { deleteDescription } from './delete';
+import { getDescription } from './get';
+import { createDescription } from './create';
 
 /* -- Reused fields -- */
 type Location = 'body' | 'qs' | 'path';
@@ -132,28 +135,37 @@ const WinLikelihoodField: INodeProperties = {
 	routing: { request: { body: { win_likelihood: '={{$value}}' } } },
 };
 
-export const opportunityOperations: INodeProperties[] = [
+export const opportunityDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
-		displayOptions: { show: { resource: ['opportunity'] } },
+		displayOptions: {
+			show: {
+				resource: ['opportunity']
+			}
+		},
 		options: [
 			{
 				name: 'Create an Opportunity',
 				value: 'create',
 				action: 'Create an opportunity',
-				routing: { request: { method: 'POST', url: '/opportunities' } },
+				routing: {
+					request: {
+						method: 'POST',
+						url: '/opportunities'
+					}
+				},
 			},
 			{
 				name: 'Delete an Opportunity',
 				value: 'delete',
 				action: 'Delete an opportunity',
 				routing: {
-					request: { method: 'DELETE', url: '=/opportunities/{{$parameter.opportunityUUID}}' },
-					output: {
-						postReceive: [{ type: 'set', properties: { value: '={{ { deleted: true } }}' } }],
+					request: {
+						method: 'DELETE',
+						url: '=/opportunities/{{$parameter.opportunityUUID}}'
 					},
 				},
 			},
@@ -161,7 +173,12 @@ export const opportunityOperations: INodeProperties[] = [
 				name: 'List Opportunities',
 				value: 'list',
 				action: 'List opportunities',
-				routing: { request: { method: 'GET', url: '/opportunities' } },
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/opportunities'
+					}
+				},
 			},
 			{
 				name: 'Retrieve an Opportunity',
@@ -182,63 +199,12 @@ export const opportunityOperations: INodeProperties[] = [
 		],
 		default: 'get',
 	},
+	...createDescription,
+	...deleteDescription,
+	...getDescription,
 ];
 
 export const opportunityFields: INodeProperties[] = [
-	{
-		displayName: 'Opportunity UUID',
-		name: 'opportunityUUID',
-		type: 'string',
-		default: '',
-		description: 'The UUID of the Opportunity',
-		displayOptions: { show: { resource: ['opportunity'], operation: ['get', 'delete', 'update'] } },
-		required: true,
-	},
-	{
-		...SharedOptionItems.CustomerUUIDField,
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		required: true,
-		routing: { request: { body: { customer_uuid: '={{$value}}' } } },
-	},
-	{
-		...OwnerField('body'),
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		required: true,
-	},
-	{
-		...PipelineField('body'),
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		required: true,
-	},
-	{
-		...PipelineStageField('body'),
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		required: true,
-	},
-	{
-		...EstimatedCloseDateField,
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		required: true,
-	},
-	{
-		...AmountInCentsField,
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		required: true,
-	},
-	{
-		...CurrencyField,
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		required: true,
-	},
-	{
-		displayName: 'Additional Fields',
-		name: 'additionalFields',
-		type: 'collection',
-		placeholder: 'Add Field',
-		default: {},
-		displayOptions: { show: { resource: ['opportunity'], operation: ['create'] } },
-		options: [TypeField, ForecastCategoryField, WinLikelihoodField],
-	},
 	{
 		displayName: 'Filter Options',
 		name: 'filterOptions',

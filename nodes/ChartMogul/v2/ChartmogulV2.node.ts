@@ -10,7 +10,7 @@ import { invoiceFields, invoiceOperations } from './InvoiceFunctions';
 import { lineItemFields, lineItemOperations } from './LineItemFunctions';
 import { metricDescription } from './metric';
 import { noteDescription } from './note';
-import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
+import { opportunityDescription } from './opportunity';
 import { planDescription } from './plan';
 import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
 import { sourceDescription } from './source';
@@ -91,10 +91,7 @@ export class ChartmogulV2 implements INodeType {
 
 			...metricDescription,
 			...noteDescription,
-
-			...opportunityOperations,
-			...opportunityFields,
-
+			...opportunityDescription,
 			...planDescription,
 
 			...planGroupOperations,
