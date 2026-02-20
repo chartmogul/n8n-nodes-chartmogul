@@ -1,5 +1,4 @@
 import { INodeProperties } from 'n8n-workflow';
-import { SharedOptionItems } from '../SharedOptions';
 import { deleteDescription } from './delete';
 import { getDescription } from './get';
 import { createDescription } from './create';
@@ -214,7 +213,11 @@ export const opportunityFields: INodeProperties[] = [
 		displayOptions: { show: { resource: ['opportunity'], operation: ['list'] } },
 		options: [
 			{
-				...SharedOptionItems.CustomerUUIDField,
+				displayName: 'Customer UUID',
+				name: 'customerUUID',
+				type: 'string',
+				default: '',
+				description: 'ChartMogul UUID of the Customer',
 				routing: { request: { qs: { customer_uuid: '={{$value}}' } } },
 			},
 			OwnerField('qs'),
@@ -266,6 +269,25 @@ export const opportunityFields: INodeProperties[] = [
 		placeholder: 'Add Field',
 		default: {},
 		displayOptions: { show: { resource: ['opportunity'], operation: ['list'] } },
-		options: [SharedOptionItems.CursorField, SharedOptionItems.PerPageField],
+		options: [
+			{
+				displayName: 'Cursor',
+				name: 'cursor',
+				type: 'string',
+				default: '',
+				description:
+					'Set the cursor for use in pagination. To fetch the next page of results, set the cursor to the value of the "cursor" field in the previous response.',
+				routing: { request: { qs: { cursor: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Per Page',
+				name: 'perPage',
+				type: 'number',
+				typeOptions: { minValue: 1, maxValue: 200 },
+				default: 200,
+				description: 'The number of records to return. Default and max is 200.',
+				routing: { request: { qs: { per_page: '={{$value}}' } } },
+			},
+		],
 	},
 ];

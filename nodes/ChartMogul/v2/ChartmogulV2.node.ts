@@ -1,22 +1,22 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
-import { accountDescription} from './account';
+import { accountDescription } from './account';
 import { activitiesDescription } from './activity';
-import { contactFields, contactOperations } from './ContactFunctions';
-import { customerFields, customerOperations } from './CustomerFunctions';
-import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
-import { eventFields, eventOperations } from './SubscriptionEventFunctions';
-import { invoiceFields, invoiceOperations } from './InvoiceFunctions';
-import { lineItemFields, lineItemOperations } from './LineItemFunctions';
+import { contactDescription } from './contact';
+import { customerDescription } from './customer';
+import { enrichmentDescription } from './enrichment';
+import { eventDescription } from './event';
+import { invoiceDescription } from './invoice';
+import { lineItemDescription } from './line_item';
 import { metricDescription } from './metric';
 import { noteDescription } from './note';
-import { opportunityDescription } from './opportunity';
+import { opportunityDescription, opportunityFields } from './opportunity';
 import { planDescription } from './plan';
-import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
+import { planGroupDescription } from './plan_group';
 import { sourceDescription } from './source';
-import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
-import { taskFields, taskOperations } from './TaskFunctions';
-import { transactionFields, transactionOperations } from './TransactionFunctions';
+import { subscriptionDescription } from './subscription';
+import { taskDescription } from './task';
+import { transactionDescription } from './transaction';
 
 export class ChartmogulV2 implements INodeType {
 	description: INodeTypeDescription = {
@@ -70,43 +70,22 @@ export class ChartmogulV2 implements INodeType {
 			},
 			...accountDescription,
 			...activitiesDescription,
-
-			...contactOperations,
-			...contactFields,
-
-			...customerOperations,
-			...customerFields,
-
-			...enrichmentOperations,
-			...enrichmentFields,
-
-			...eventOperations,
-			...eventFields,
-
-			...invoiceOperations,
-			...invoiceFields,
-
-			...lineItemOperations,
-			...lineItemFields,
-
+			...contactDescription,
+			...customerDescription,
+			...enrichmentDescription,
+			...eventDescription,
+			...invoiceDescription,
+			...lineItemDescription,
 			...metricDescription,
 			...noteDescription,
 			...opportunityDescription,
+			...opportunityFields,
 			...planDescription,
-
-			...planGroupOperations,
-			...planGroupFields,
-
+			...planGroupDescription,
 			...sourceDescription,
-
-			...subscriptionOperations,
-			...subscriptionFields,
-
-			...taskOperations,
-			...taskFields,
-
-			...transactionOperations,
-			...transactionFields,
+			...subscriptionDescription,
+			...taskDescription,
+			...transactionDescription,
 		],
 	};
 }
