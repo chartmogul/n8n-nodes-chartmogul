@@ -1,26 +1,29 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-const showOnlyForAccount = {
-	resource: ['account'],
-};
-
-export const description: INodeProperties[] = [
+export const accountDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
+		default: 'get',
 		options: [
 			{
 				name: 'Get Account Details',
 				value: 'get',
 				action: 'Get account details',
-				routing: { request: { method: 'GET', url: '/account', }, },
+				routing: {
+					request: {
+						method: 'GET',
+						url: '/account',
+					},
+				},
 			},
 		],
-		default: 'get',
 		displayOptions: {
-			show: showOnlyForAccount,
+			show: {
+				resource: ['account'],
+			},
 		},
 	},
 ];

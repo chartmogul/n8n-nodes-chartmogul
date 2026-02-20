@@ -1,17 +1,12 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-const showOnlyForSourceList = {
-	resource: ['source'],
-	operation: ['list'],
-};
-
 export const listDescription: INodeProperties[] = [
 	{
 		displayName: 'Filter Options',
 		name: 'filterOptions',
 		type: 'collection',
-		placeholder: 'Add Field',
 		default: {},
+		placeholder: 'Add Field',
 		options: [
 			{
 				displayName: 'Name',
@@ -22,7 +17,7 @@ export const listDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						qs: {
-							name: '={{ $value }}',
+							name: '={{$value}}',
 						},
 					},
 				},
@@ -36,14 +31,17 @@ export const listDescription: INodeProperties[] = [
 				routing: {
 					request: {
 						qs: {
-							system: '={{ $value }}',
+							system: '={{$value}}',
 						},
 					},
 				},
 			},
 		],
 		displayOptions: {
-			show: showOnlyForSourceList,
+			show: {
+				resource: ['source'],
+				operation: ['list'],
+			},
 		},
 	},
 ];

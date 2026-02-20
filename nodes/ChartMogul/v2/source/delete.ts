@@ -1,20 +1,18 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-const showOnlyForSourceDelete = {
-	resource: ['source'],
-	operation: ['delete'],
-};
-
 export const deleteDescription: INodeProperties[] = [
 	{
 		displayName: 'Data Source UUID',
 		name: 'dataSourceUUID',
-		description: 'The UUID of the data source to delete',
 		type: 'string',
-		required: true,
 		default: '',
+		description: 'ChartMogul UUID of the Data Source',
+		required: true,
 		displayOptions: {
-			show: showOnlyForSourceDelete,
+			show: {
+				resource: ['source'],
+				operation: ['delete'],
+			},
 		},
 	},
 ];

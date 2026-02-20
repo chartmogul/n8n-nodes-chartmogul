@@ -1,21 +1,18 @@
 import type { INodeProperties } from 'n8n-workflow';
 
 import { createDescription } from './create';
+import { deleteDescription } from './delete';
 import { getDescription } from './get';
 import { listDescription } from './list';
 import { updateDescription } from './update';
-import { deleteDescription } from './delete';
 
-const showOnlyForPlan = {
-	resource: ['plan'],
-};
-
-export const description: INodeProperties[] = [
+export const planDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
+		default: 'list',
 		options: [
 			{
 				name: 'Create a Plan',
@@ -24,8 +21,8 @@ export const description: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '/plans',
-					},
+						url: '/plans'
+					}
 				},
 			},
 			{
@@ -35,31 +32,32 @@ export const description: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'DELETE',
-						url: '=/plans/{{$parameter.planUUID}}',
+						url: '=/plans/{{$parameter.planUUID}}'
 					},
 				},
 			},
 			{
 				name: 'List Plans',
 				value: 'list',
-				action: 'List all plans',
+				action: 'List plans',
 				routing: {
 					request: {
 						method: 'GET',
 						url: '/plans',
+						qs: {
+							per_page: '={{$parameter.returnAll ? 200 : ($parameter.limit ?? 50)}}',
+							system: '={{$parameter.filterOptions?.billingSystem || undefined}}',
+							data_source_uuid: '={{$parameter.filterOptions?.data_source_uuid || undefined}}',
+							external_id: '={{$parameter.filterOptions?.externalId || undefined}}',
+						}
 					},
 					output: {
-						postReceive: [
-							{
-								type: 'rootProperty',
-								properties: {
-									property: 'plans',
-								},
+						postReceive: [{
+							type: 'rootProperty',
+							properties: {
+								property: 'plans',
 							},
-						],
-					},
-					send: {
-						paginate: '={{ $parameter.returnAll }}',
+						}],
 					},
 					operations: {
 						pagination: {
@@ -68,16 +66,16 @@ export const description: INodeProperties[] = [
 								continue: '={{ !!$response.body.cursor }}',
 								request: {
 									qs: {
-										per_page: '={{ $parameter.returnAll ? 200 : ($parameter.limit ?? 50) }}',
-										data_source_uuid: '={{ $parameter.filterOptions?.dataSourceUUID || undefined }}',
-										external_id: '={{ $parameter.filterOptions?.externalID      || undefined }}',
-										system: '={{ $parameter.filterOptions?.system          || undefined }}',
-										cursor: '={{ $response.body.cursor }}', // adjust field name if needed
-									},
-								},
-							},
-						},
-					},
+										per_page: '={{$parameter.returnAll ? 200 : ($parameter.limit ?? 50)}}',
+										system: '={{$parameter.filterOptions?.billingSystem || undefined}}',
+										data_source_uuid: '={{$parameter.filterOptions?.data_source_uuid || undefined}}',
+										external_id: '={{$parameter.filterOptions?.externalId || undefined}}',
+										cursor: '={{$response.body.cursor}}',
+									}
+								}
+							}
+						}
+					}
 				},
 			},
 			{
@@ -87,8 +85,8 @@ export const description: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/plans/{{$parameter.planUUID}}',
-					},
+						url: '=/plans/{{$parameter.planUUID}}'
+					}
 				},
 			},
 			{
@@ -98,18 +96,20 @@ export const description: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'PATCH',
-						url: '=/plans/{{$parameter.planUUID}}',
-					},
+						url: '=/plans/{{$parameter.planUUID}}'
+					}
 				},
 			},
 		],
-		default: 'list',
-		displayOptions: { show: showOnlyForPlan },
+		displayOptions: {
+			show: {
+				resource: ['plan']
+			}
+		},
 	},
-
 	...createDescription,
+	...deleteDescription,
 	...getDescription,
 	...listDescription,
 	...updateDescription,
-	...deleteDescription,
 ];

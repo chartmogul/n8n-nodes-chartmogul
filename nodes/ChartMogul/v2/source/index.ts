@@ -1,20 +1,17 @@
 import type { INodeProperties } from 'n8n-workflow';
 
 import { createDescription } from './create';
-import { getDescription } from './get';
 import { deleteDescription } from './delete';
+import { getDescription } from './get';
 import { listDescription } from './list';
 
-const showOnlyForSource = {
-	resource: ['source'],
-};
-
-export const description: INodeProperties[] = [
+export const sourceDescription: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
 		type: 'options',
 		noDataExpression: true,
+		default: 'create',
 		options: [
 			{
 				name: 'Create a Source',
@@ -37,14 +34,12 @@ export const description: INodeProperties[] = [
 						url: '/data_sources',
 					},
 					output: {
-						postReceive: [
-							{
-								type: 'rootProperty',
-								properties: {
-									property: 'data_sources',
-								},
+						postReceive: [{
+							type: 'rootProperty',
+							properties: {
+								property: 'data_sources',
 							},
-						],
+						}],
 					},
 				},
 			},
@@ -71,14 +66,15 @@ export const description: INodeProperties[] = [
 				},
 			},
 		],
-		default: 'create',
-		displayOptions: { 
-			show: showOnlyForSource 
+		displayOptions: {
+			show: {
+				resource: ['source'],
+			},
 		},
 	},
 
 	...createDescription,
-	...getDescription,
 	...deleteDescription,
+	...getDescription,
 	...listDescription,
 ];

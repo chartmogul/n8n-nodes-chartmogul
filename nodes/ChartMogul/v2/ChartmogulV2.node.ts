@@ -1,9 +1,22 @@
 import { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
-import * as account from './resources/account';
-import * as activities from './resources/activities';
-import * as plan from './resources/plan';
-import * as source from './resources/source';
+import { accountDescription} from './account';
+import { activitiesDescription } from './activity';
+import { contactFields, contactOperations } from './ContactFunctions';
+import { customerFields, customerOperations } from './CustomerFunctions';
+import { enrichmentFields, enrichmentOperations } from './EnrichmentFunctions';
+import { eventFields, eventOperations } from './SubscriptionEventFunctions';
+import { invoiceFields, invoiceOperations } from './InvoiceFunctions';
+import { lineItemFields, lineItemOperations } from './LineItemFunctions';
+import { metricDescription } from './metric';
+import { noteDescription } from './note';
+import { opportunityFields, opportunityOperations } from './OpportunityFunctions';
+import { planDescription } from './plan';
+import { planGroupFields, planGroupOperations } from './PlanGroupFunctions';
+import { sourceDescription } from './source';
+import { subscriptionFields, subscriptionOperations } from './SubscriptionFunctions';
+import { taskFields, taskOperations } from './TaskFunctions';
+import { transactionFields, transactionOperations } from './TransactionFunctions';
 
 export class ChartmogulV2 implements INodeType {
 	description: INodeTypeDescription = {
@@ -36,16 +49,67 @@ export class ChartmogulV2 implements INodeType {
 				noDataExpression: true,
 				options: [
 					{ name: 'Account', value: 'account' },
-					//{ name: 'Activity', value: 'activities' },
+					{ name: 'Activity', value: 'activities' },
+					{ name: 'Contact', value: 'contact' },
+					{ name: 'Customer', value: 'customer' },
+					{ name: 'Enrichment', value: 'enrichment' },
+					{ name: 'Event', value: 'event' },
+					{ name: 'Invoice', value: 'invoice' },
+					{ name: 'Line Item', value: 'line_item' },
+					{ name: 'Metric', value: 'metric' },
+					{ name: 'Note and Call Log', value: 'note' },
+					{ name: 'Opportunity', value: 'opportunity' },
 					{ name: 'Plan', value: 'plan' },
+					{ name: 'Plan Group', value: 'plan_group' },
 					{ name: 'Source', value: 'source' },
+					{ name: 'Subscription', value: 'subscription' },
+					{ name: 'Task', value: 'task' },
+					{ name: 'Transaction', value: 'transaction' },
 				],
 				default: 'account',
 			},
-			...account.description,
-			...activities.description,
-			...plan.description,
-			...source.description,
+			...accountDescription,
+			...activitiesDescription,
+
+			...contactOperations,
+			...contactFields,
+
+			...customerOperations,
+			...customerFields,
+
+			...enrichmentOperations,
+			...enrichmentFields,
+
+			...eventOperations,
+			...eventFields,
+
+			...invoiceOperations,
+			...invoiceFields,
+
+			...lineItemOperations,
+			...lineItemFields,
+
+			...metricDescription,
+			...noteDescription,
+
+			...opportunityOperations,
+			...opportunityFields,
+
+			...planDescription,
+
+			...planGroupOperations,
+			...planGroupFields,
+
+			...sourceDescription,
+
+			...subscriptionOperations,
+			...subscriptionFields,
+
+			...taskOperations,
+			...taskFields,
+
+			...transactionOperations,
+			...transactionFields,
 		],
 	};
 }
