@@ -8,11 +8,6 @@ export const deleteDescription: INodeProperties[] = [
 		default: '',
 		description: 'The UUID of the plan',
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['plan'],
-				operation: ['delete']
-			}
-		},
+		displayOptions: { show: { resource: ['plan'], operation: ['delete'] } },
 	},
 ];

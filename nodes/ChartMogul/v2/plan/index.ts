@@ -18,23 +18,13 @@ export const planDescription: INodeProperties[] = [
 				name: 'Create a Plan',
 				value: 'create',
 				action: 'Create a plan',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '/plans'
-					}
-				},
+				routing: { request: { method: 'POST', url: '/plans' } },
 			},
 			{
 				name: 'Delete a Plan',
 				value: 'delete',
 				action: 'Delete a plan',
-				routing: {
-					request: {
-						method: 'DELETE',
-						url: '=/plans/{{$parameter.planUUID}}'
-					},
-				},
+				routing: { request: { method: 'DELETE', url: '=/plans/{{$parameter.planUUID}}' } },
 			},
 			{
 				name: 'List Plans',
@@ -50,14 +40,6 @@ export const planDescription: INodeProperties[] = [
 							data_source_uuid: '={{$parameter.filterOptions?.data_source_uuid || undefined}}',
 							external_id: '={{$parameter.filterOptions?.externalId || undefined}}',
 						}
-					},
-					output: {
-						postReceive: [{
-							type: 'rootProperty',
-							properties: {
-								property: 'plans',
-							},
-						}],
 					},
 					operations: {
 						pagination: {
@@ -82,30 +64,16 @@ export const planDescription: INodeProperties[] = [
 				name: 'Retrieve a Plan',
 				value: 'get',
 				action: 'Retrieve a plan',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '=/plans/{{$parameter.planUUID}}'
-					}
-				},
+				routing: { request: { method: 'GET', url: '=/plans/{{$parameter.planUUID}}' } },
 			},
 			{
 				name: 'Update a Plan',
 				value: 'update',
 				action: 'Update a plan',
-				routing: {
-					request: {
-						method: 'PATCH',
-						url: '=/plans/{{$parameter.planUUID}}'
-					}
-				},
+				routing: { request: { method: 'PATCH', url: '=/plans/{{$parameter.planUUID}}' } },
 			},
 		],
-		displayOptions: {
-			show: {
-				resource: ['plan']
-			}
-		},
+		displayOptions: { show: { resource: ['plan'] } },
 	},
 	...createDescription,
 	...deleteDescription,

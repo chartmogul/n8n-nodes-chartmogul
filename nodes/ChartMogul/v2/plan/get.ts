@@ -8,11 +8,6 @@ export const getDescription: INodeProperties[] = [
 		default: '',
 		description: 'The UUID of the plan',
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['plan'],
-				operation: ['get']
-			}
-		},
+		displayOptions: { show: { resource: ['plan'], operation: ['get'] } },
 	},
 ];

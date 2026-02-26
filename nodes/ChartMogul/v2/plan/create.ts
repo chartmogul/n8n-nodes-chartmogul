@@ -8,19 +8,8 @@ export const createDescription: INodeProperties[] = [
         default: '',
         description: 'ChartMogul UUID of the Data Source the plan belongs to',
         required: true,
-        displayOptions: {
-            show: {
-                resource: ['plan'],
-                operation: ['create']
-            }
-        },
-        routing: {
-            request: {
-                body: {
-                    data_source_uuid: '={{$value}}'
-                }
-            }
-        }
+        displayOptions: { show: { resource: ['plan'], operation: ['create'] } },
+        routing: { request: { body: { data_source_uuid: '={{$value}}' } } },
     },
     {
         displayName: 'Plan Name',
@@ -28,43 +17,19 @@ export const createDescription: INodeProperties[] = [
         type: 'string',
         default: '',
         required: true,
-        displayOptions: {
-            show: {
-                resource: ['plan'],
-                operation: ['create']
-            }
-        },
-        routing: {
-            request: {
-                body: {
-                    name: '={{$value}}'
-                }
-            }
-        },
+        displayOptions: { show: { resource: ['plan'], operation: ['create'] } },
+        routing: { request: { body: { name: '={{$value}}' } } },
     },
     {
         displayName: 'Plan Interval Count',
         name: 'interval_count',
         type: 'number',
-        typeOptions: {
-            minValue: 1
-        },
+        typeOptions: { minValue: 1 },
         default: 1,
         description: 'The number of intervals between each billing cycle',
         required: true,
-        displayOptions: {
-            show: {
-                resource: ['plan'],
-                operation: ['create']
-            }
-        },
-        routing: {
-            request: {
-                body: {
-                    interval_count: '={{$value}}'
-                }
-            }
-        },
+        displayOptions: { show: { resource: ['plan'], operation: ['create'] } },
+        routing: { request: { body: { interval_count: '={{$value}}' } } },
     },
     {
         displayName: 'Plan Interval Unit',
@@ -73,33 +38,13 @@ export const createDescription: INodeProperties[] = [
         default: 'month',
         description: 'The unit of time for the plan interval',
         options: [
-            {
-                name: 'Day',
-                value: 'day'
-            },
-            {
-                name: 'Month',
-                value: 'month'
-            },
-            {
-                name: 'Year',
-                value: 'year'
-            },
+            { name: 'Day', value: 'day' },
+            { name: 'Month', value: 'month' },
+            { name: 'Year', value: 'year' },
         ],
         required: true,
-        displayOptions: {
-            show: {
-                resource: ['plan'],
-                operation: ['create']
-            }
-        },
-        routing: {
-            request: {
-                body: {
-                    interval_unit: '={{$value}}'
-                }
-            }
-        },
+        displayOptions: { show: { resource: ['plan'], operation: ['create'] } },
+        routing: { request: { body: { interval_unit: '={{$value}}' } } },
     },
     {
         displayName: 'Additional Fields',
@@ -113,20 +58,9 @@ export const createDescription: INodeProperties[] = [
                 name: 'externalId',
                 type: 'string',
                 default: '',
-                routing: {
-                    request: {
-                        body: {
-                            external_id: '={{$value}}'
-                        }
-                    }
-                },
-            }
+                routing: { request: { body: { external_id: '={{$value}}' } } },
+            },
         ],
-        displayOptions: {
-            show: {
-                resource: ['plan'],
-                operation: ['create']
-            }
-        },
+        displayOptions: { show: { resource: ['plan'], operation: ['create'] } },
     },
 ];

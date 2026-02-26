@@ -7,16 +7,10 @@ export const listDescription: INodeProperties[] = [
 		type: 'boolean',
 		default: false,
 		description: 'Whether to return all results or only up to a given limit',
-		displayOptions: {
-			show: {
-				resource: ['plan'],
-				operation: ['list'],
-			},
-		},
-		routing: {
-			send: {
-				paginate: '={{ $value }}',
-			},
+		displayOptions: { show: { resource: ['plan'], operation: ['list'] } },
+		routing: { 
+			send: { paginate: '={{ $value }}' }, 
+			output: { postReceive: [{ type: 'rootProperty', properties: { property: 'plans' } }] } 
 		},
 	},
 	{
@@ -25,26 +19,9 @@ export const listDescription: INodeProperties[] = [
 		type: 'number',
 		default: 50,
 		description: 'Max number of results to return',
-		typeOptions: {
-			minValue: 1,
-			maxValue: 200,
-		},
-		displayOptions: {
-			show: {
-				resource: ['plan'],
-				operation: ['list'],
-			},
-			hide: {
-				returnAll: [true],
-			},
-		},
-		routing: {
-			request: {
-				qs: {
-					per_page: '={{$value}}'
-				}
-			}
-		}
+		typeOptions: { minValue: 1, maxValue: 200 },
+		displayOptions: { show: { resource: ['plan'], operation: ['list'] }, hide: { returnAll: [true] } },
+		routing: { request: { qs: { per_page: '={{$value}}' } } },
 	},
 	{
 		displayName: 'Filter Options',
@@ -75,11 +52,6 @@ export const listDescription: INodeProperties[] = [
 				description: 'Filter plans by their external ID',
 			}
 		],
-		displayOptions: {
-			show: {
-				resource: ['plan'],
-				operation: ['list'],
-			}
-		},
+		displayOptions: { show: { resource: ['plan'], operation: ['list'] } },
 	},
 ];
