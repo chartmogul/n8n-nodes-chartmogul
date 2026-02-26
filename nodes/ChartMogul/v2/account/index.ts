@@ -12,18 +12,9 @@ export const accountDescription: INodeProperties[] = [
 				name: 'Get Account Details',
 				value: 'get',
 				action: 'Get account details',
-				routing: {
-					request: {
-						method: 'GET',
-						url: '/account',
-					},
-				},
+				routing: { request: { method: 'GET', url: '/account' } },
 			},
 		],
-		displayOptions: {
-			show: {
-				resource: ['account'],
-			},
-		},
+		displayOptions: { show: { resource: ['account'] } },
 	},
 ];
