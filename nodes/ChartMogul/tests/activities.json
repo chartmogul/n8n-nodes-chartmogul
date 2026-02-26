@@ -1,0 +1,235 @@
+{
+  "name": "activities",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        464
+      ],
+      "id": "4c2b5c68-122e-48c9-b6b2-f14d3e1109d1",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "activities",
+        "filterOptions": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        80,
+        -112
+      ],
+      "id": "52d4e6a9-b1fa-470e-955a-3d770d657b4e",
+      "name": "Create an activities export",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "activities",
+        "filterOptions": {
+          "start-date": "2026-01-01T00:00:00",
+          "end-date": "2026-02-01T00:00:00",
+          "type": "new_biz"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        80,
+        80
+      ],
+      "id": "9af1264e-ee74-4d0e-b857-fa35e68c587c",
+      "name": "Create an activities export1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "activities",
+        "operation": "get",
+        "id": "={{ $json.id }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        304,
+        80
+      ],
+      "id": "f15419af-aab2-444b-ac75-c3e1f83f9b6e",
+      "name": "Retrieve an activities export",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "activities",
+        "operation": "list",
+        "filterOptions": {
+          "startDate": "2025-01-01T15:29:52",
+          "endDate": "2025-12-31T00:00:00",
+          "type": "new_biz",
+          "order": "date"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        80,
+        272
+      ],
+      "id": "fed2c27a-9512-4723-8dbf-47d71e570449",
+      "name": "List activities",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "activities",
+        "operation": "list",
+        "returnAll": true,
+        "filterOptions": {
+          "startDate": "2026-01-01T00:00:00",
+          "type": "new_biz",
+          "order": "-date"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        80,
+        464
+      ],
+      "id": "5345122c-00a4-4487-b824-12d8d2ee4e4f",
+      "name": "List activities1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -144,
+        -112
+      ],
+      "id": "0d04ab85-432b-4236-9992-b3756f8bc392",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create an activities export",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create an activities export1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List activities",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List activities1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an activities export1": {
+      "main": [
+        [
+          {
+            "node": "Retrieve an activities export",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve an activities export": {
+      "main": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Create an activities export",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create an activities export1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List activities",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List activities1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "dbb31cb7-145c-44e2-ac87-f77fc4785326",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f68f0d11ebdbb914691b5044468d308407b8b1690745a15752b163f66250b17b"
+  },
+  "id": "zGxV3aPc9ioXz90p",
+  "tags": []
+}
