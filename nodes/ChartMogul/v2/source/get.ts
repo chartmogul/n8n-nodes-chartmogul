@@ -8,11 +8,6 @@ export const getDescription: INodeProperties[] = [
 		default: '',
 		description: 'ChartMogul UUID of the Data Source',
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['source'],
-				operation: ['get'],
-			},
-		},
+		displayOptions: { show: { resource: ['source'], operation: ['get'] } },
 	},
 ];

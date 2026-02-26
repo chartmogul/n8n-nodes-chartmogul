@@ -14,13 +14,7 @@ export const listDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'Filter results by source name',
-				routing: {
-					request: {
-						qs: {
-							name: '={{$value}}',
-						},
-					},
-				},
+				routing: { request: { qs: { name: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Billing System',
@@ -28,20 +22,9 @@ export const listDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'Filter results by billing system',
-				routing: {
-					request: {
-						qs: {
-							system: '={{$value}}',
-						},
-					},
-				},
+				routing: { request: { qs: { system: '={{$value}}' } } },
 			},
 		],
-		displayOptions: {
-			show: {
-				resource: ['source'],
-				operation: ['list'],
-			},
-		},
+		displayOptions: { show: { resource: ['source'], operation: ['list'] } },
 	},
 ];

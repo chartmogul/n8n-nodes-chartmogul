@@ -8,18 +8,7 @@ export const createDescription: INodeProperties[] = [
 		default: '',
 		description: 'The name of the source to create',
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['source'],
-				operation: ['create'],
-			},
-		},
-		routing: {
-			request: {
-				body: {
-					name: '={{$value}}',
-				},
-			},
-		},
+		displayOptions: { show: { resource: ['source'], operation: ['create'] } },
+		routing: { request: { body: { name: '={{$value}}', } } },
 	},
 ];

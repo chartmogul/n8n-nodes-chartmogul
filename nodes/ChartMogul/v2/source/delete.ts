@@ -8,11 +8,6 @@ export const deleteDescription: INodeProperties[] = [
 		default: '',
 		description: 'ChartMogul UUID of the Data Source',
 		required: true,
-		displayOptions: {
-			show: {
-				resource: ['source'],
-				operation: ['delete'],
-			},
-		},
+		displayOptions: { show: { resource: ['source'], operation: ['delete'] } },
 	},
 ];
