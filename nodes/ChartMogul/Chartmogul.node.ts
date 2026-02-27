@@ -12,7 +12,7 @@ import { metricDescription } from './resources/metric';
 import { noteDescription } from './resources/note';
 import { opportunityDescription, opportunityFields } from './resources/opportunity';
 import { planDescription } from './resources/plan';
-import { planGroupDescription } from './resources/plan_group';
+import { planGroupDescription } from './resources/planGroup';
 import { sourceDescription } from './resources/source';
 import { subscriptionDescription } from './resources/subscription';
 import { taskDescription } from './resources/task';
@@ -60,7 +60,7 @@ export class Chartmogul implements INodeType {
 					{ name: 'Note and Call Log', value: 'note' },
 					{ name: 'Opportunity', value: 'opportunity' },
 					{ name: 'Plan', value: 'plan' },
-					{ name: 'Plan Group', value: 'plan_group' },
+					{ name: 'Plan Group', value: 'planGroup' },
 					{ name: 'Source', value: 'source' },
 					{ name: 'Subscription', value: 'subscription' },
 					{ name: 'Task', value: 'task' },
