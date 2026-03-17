@@ -39,7 +39,7 @@ export const planGroupDescription: INodeProperties[] = [
 						pagination: {
 							type: 'generic',
 							properties: {
-								continue: '={{ !!$response.body.cursor }}',
+								continue: '={{ $response.body.has_more === true }}',
 								request: { qs: { per_page: '={{$parameter.returnAll ? 200 : ($parameter.limit ?? 50)}}', cursor: '={{$response.body.cursor}}', } },
 							}
 						}
@@ -56,7 +56,7 @@ export const planGroupDescription: INodeProperties[] = [
 						pagination: {
 							type: 'generic',
 							properties: {
-								continue: '={{ !!$response.body.cursor }}',
+								continue: '={{ $response.body.has_more === true }}',
 								request: { qs: { per_page: '={{$parameter.returnAll ? 200 : ($parameter.limit ?? 50)}}', cursor: '={{$response.body.cursor}}', } },
 							}
 						}
