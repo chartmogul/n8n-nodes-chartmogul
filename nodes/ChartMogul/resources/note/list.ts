@@ -36,7 +36,6 @@ export const listDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The UUID of the customer to filter notes and call logs by',
-				routing: { request: { qs: { customer_uuid: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Type',
@@ -48,7 +47,6 @@ export const listDescription: INodeProperties[] = [
 				],
 				default: 'note',
 				description: 'The type of customer note',
-				routing: { request: { qs: { type: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Author Email',
@@ -57,7 +55,6 @@ export const listDescription: INodeProperties[] = [
 				default: '',
 				placeholder: 'name@email.com',
 				description: 'The email of the author of the note or call log',
-				routing: { request: { qs: { author_email: '={{$value}}' } } },
 			},
 		],
 		displayOptions: { show: { resource: ['note'], operation: ['list'] } },
