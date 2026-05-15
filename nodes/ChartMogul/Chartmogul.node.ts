@@ -1,4 +1,4 @@
-import { INodeType, INodeTypeDescription } from 'n8n-workflow';
+import { INodeType, INodeTypeDescription, NodeConnectionTypes } from 'n8n-workflow';
 
 import { accountDescription } from './resources/account';
 import { activitiesDescription } from './resources/activity';
@@ -7,10 +7,10 @@ import { customerDescription } from './resources/customer';
 import { enrichmentDescription } from './resources/enrichment';
 import { eventDescription } from './resources/event';
 import { invoiceDescription } from './resources/invoice';
-import { lineItemDescription } from './resources/line_item';
+import { lineItemDescription } from './resources/lineItem';
 import { metricDescription } from './resources/metric';
 import { noteDescription } from './resources/note';
-import { opportunityDescription, opportunityFields } from './resources/opportunity';
+import { opportunityDescription } from './resources/opportunity';
 import { planDescription } from './resources/plan';
 import { planGroupDescription } from './resources/planGroup';
 import { sourceDescription } from './resources/source';
@@ -31,8 +31,8 @@ export class Chartmogul implements INodeType {
 			name: 'ChartMogul',
 		},
 		usableAsTool: true,
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [{ name: 'chartmogulApi', required: true }],
 		requestDefaults: {
 			baseURL: 'https://api.chartmogul.com/v1',
@@ -79,7 +79,6 @@ export class Chartmogul implements INodeType {
 			...metricDescription,
 			...noteDescription,
 			...opportunityDescription,
-			...opportunityFields,
 			...planDescription,
 			...planGroupDescription,
 			...sourceDescription,

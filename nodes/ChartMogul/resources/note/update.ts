@@ -35,20 +35,20 @@ export const updateDescription: INodeProperties[] = [
 				routing: { request: { body: { call_duration: '={{$value}}' } } },
 			},
 			{
-				displayName: 'Created At',
-				name: 'created_at',
-				type: 'dateTime',
-				default: '={{$now}}',
-				description: 'The date and time when this note or call was made',
-				routing: { request: { body: { created_at: '={{$value}}' } } },
-			},
-			{
 				displayName: 'Content',
 				name: 'text',
 				type: 'string',
 				default: '',
 				description: 'Contents of the note or call log',
 				routing: { request: { body: { text: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Created At',
+				name: 'created_at',
+				type: 'dateTime',
+				default: '={{$now}}',
+				description: 'The date and time when this note or call was made',
+				routing: { request: { body: { created_at: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Updated At',
