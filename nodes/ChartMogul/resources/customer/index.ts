@@ -99,8 +99,38 @@ export const customerDescription: INodeProperties[] = [
 			{
 				name: 'List Customers',
 				value: 'list',
-				action: 'List all customers',
-				routing: { request: { method: 'GET', url: '/customers' } },
+				action: 'List customers',
+				routing: { 
+					request: { 
+						method: 'GET', 
+						url: '/customers',
+						qs: {
+							per_page: '={{$parameter.returnAll ? 200 : ($parameter.limit ?? 50)}}',
+							system: '={{$parameter.billingSystem}}',
+							data_source_uuid: '={{$parameter.dataSourceUUID}}',
+							external_id: '={{$parameter.externalId}}',
+							status: '={{$parameter.status}}',
+						}
+					},
+					operations: {
+						pagination: {
+							type: 'generic',
+							properties: {
+								continue: '={{ $response.body.has_more === true }}',
+								request: {
+									qs: {
+										per_page: '={{$parameter.returnAll ? 200 : ($parameter.limit ?? 50)}}',
+										system: '={{$parameter.billingSystem}}',
+										data_source_uuid: '={{$parameter.dataSourceUUID}}',
+										external_id: '={{$parameter.externalId}}',
+										status: '={{$parameter.status}}',
+										cursor: '={{$response.body.cursor}}',
+									}
+								}
+							}
+						}
+					} 
+				},
 			},
 			{
 				name: 'List Customers by Email',

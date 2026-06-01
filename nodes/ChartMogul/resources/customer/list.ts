@@ -2,6 +2,28 @@ import type { INodeProperties } from 'n8n-workflow';
 
 export const listDescription: INodeProperties[] = [
 	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: { show: { resource: ['customer'], operation: ['list'] } },
+		routing: { 
+			send: { paginate: '={{ $value }}' }, 
+			output: { postReceive: [{ type: 'rootProperty', properties: { property: 'entries' } }] } 
+		},
+	},
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		default: 50,
+		description: 'Max number of results to return',
+		typeOptions: { minValue: 1, maxValue: 200, },
+		displayOptions: { show: { resource: ['customer'], operation: ['list'] }, hide: { returnAll: [true] } },
+		routing: { request: { qs: { per_page: '={{$value}}' } } },
+	},
+	{
 		displayName: 'Filter Options',
 		name: 'filterOptions',
 		type: 'collection',
@@ -49,34 +71,6 @@ export const listDescription: INodeProperties[] = [
 				default: 'Active',
 				description: 'Filter results by customer status',
 				routing: { request: { qs: { status: '={{$value}}' } } },
-			},
-		],
-	},
-	{
-		displayName: 'Pagination',
-		name: 'pagination',
-		type: 'collection',
-		placeholder: 'Add Field',
-		default: {},
-		displayOptions: { show: { resource: ['customer'], operation: ['list'] } },
-		options: [
-			{
-				displayName: 'Cursor',
-				name: 'cursor',
-				type: 'string',
-				default: '',
-				description:
-					'Set the cursor for use in pagination. To fetch the next page of results, set the cursor to the value of the "cursor" field in the previous response.',
-				routing: { request: { qs: { cursor: '={{$value}}' } } },
-			},
-			{
-				displayName: 'Per Page',
-				name: 'perPage',
-				type: 'number',
-				typeOptions: { minValue: 1, maxValue: 200 },
-				default: 200,
-				description: 'The number of records to return. Default and max is 200.',
-				routing: { request: { qs: { per_page: '={{$value}}' } } },
 			},
 		],
 	},
