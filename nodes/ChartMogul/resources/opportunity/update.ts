@@ -80,6 +80,7 @@ export const updateDescription: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The name of the current deal stage within the sales pipeline',
+				routing: { request: { body: { pipeline_stage: '={{$value}}' } } },
 			},
 			{
 				displayName: 'Type',

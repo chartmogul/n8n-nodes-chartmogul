@@ -43,21 +43,12 @@ export const createDescription: INodeProperties[] = [
 		routing: { request: { body: { due_date: '={{$value}}' } } },
 	},
 	{
-		displayName: 'Completed',
-		name: 'completed',
-		type: 'boolean',
-		default: false,
-		description: 'Whether the task is completed',
-		displayOptions: { show: { resource: ['task'], operation: ['create'] } },
-		routing: { request: { body: { completed: '={{$value}}' } } },
-	},
-	{
 		displayName: 'Completed At',
 		name: 'completed_at',
 		type: 'dateTime',
 		default: '',
 		description: 'The date when the task was completed',
-		displayOptions: { show: { resource: ['task'], operation: ['create'], completed: [true] } },
+		displayOptions: { show: { resource: ['task'], operation: ['create'] } },
 		routing: { request: { body: { completed_at: '={{$value}}' } } },
 	},
 ];

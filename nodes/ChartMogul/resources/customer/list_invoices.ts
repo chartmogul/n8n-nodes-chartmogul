@@ -19,7 +19,7 @@ export const listInvoicesDescription: INodeProperties[] = [
 		displayOptions: { show: { resource: ['customer'], operation: ['list_invoices'] } },
 		routing: { 
 			send: { paginate: '={{ $value }}' }, 
-			output: { postReceive: [{ type: 'rootProperty', properties: { property: 'entries' } }] } 
+			output: { postReceive: [{ type: 'rootProperty', properties: { property: 'invoices' } }] }
 		},
 	},
 	{
