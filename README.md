@@ -24,19 +24,36 @@ This is an n8n community node. It lets you interact with the ChartMogul API in y
 After installing the node, you can use it like any other node. n8n displays the node in search results in the **Nodes** panel.
 
 ## Operations
-V1 of the ChartMogul N8N node focuses on functions that help you interface with ChartMogul CRM. These are based on the publicly available endpoints found at [https://dev.chartmogul.com/](https://dev.chartmogul.com/).
-Functions:
-1. Sources
-2. Customers
-3. Contacts
-4. Enrichment (Custom Attributes and Tags)
-5. Notes and Call Logs
-6. Opportunities
-7. Tasks
-   
+
+As of **v3**, the node provides full coverage of the publicly documented ChartMogul API ([dev.chartmogul.com](https://dev.chartmogul.com/)), grouped into the resources below. Each resource exposes its standard create / retrieve / list / update / delete operations where the API supports them.
+
+**CRM**
+- **Account** — Get account details
+- **Customer** — Create, Retrieve, List, List by email, Update, Delete, Merge, Unmerge, Add a contact, List a customer's activities, List a customer's invoices
+- **Contact** — Create, Retrieve, List, Update, Delete
+- **Enrichment** — Add/remove custom attributes (by UUID or email), Add/remove tags (by UUID or email), Retrieve tags and attributes
+- **Note and Call Log** — Create, Retrieve, List, Update, Delete
+- **Opportunity** — Create, Retrieve, List, Update, Delete
+- **Task** — Create, Retrieve, List, Update, Delete
+- **Activity** — List activities, Create an activities export, Retrieve an activities export
+
+**Subscription & billing data**
+- **Source** — Create, Retrieve, List, Delete
+- **Plan** — Create, Retrieve, List, Update, Delete
+- **Plan Group** — Create, Retrieve, List, Update, Delete, List plans in a group
+- **Customer Subscription** — List, Connect, Disconnect
+- **Invoice** — Create, Retrieve, List, Update, Update status, Disable, Delete, Delete all of a customer
+- **Line Item** — Create, Retrieve, Update, Disable, Delete
+- **Transaction** — Create, Retrieve, Update, Disable, Delete
+- **Subscription Event** — Create, List, Update, Disable, Delete
+
+**Metrics**
+- **Metric** — All key metrics, MRR, ARR, ARPA, ASP, Customer count, Customer churn rate, MRR churn rate, LTV
+
+List operations support **Return All** (auto-paginates through every page) or a **Limit** to cap results.
+
 ## Credentials
 
-_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
 You need to have a ChartMogul account to interact with this node.
 
 In ChartMogul, create an API key by navigating to **Profile > View Profile > API keys**. Then:
@@ -59,13 +76,20 @@ This node was developed and tested using N8N version 1.116.2.
   
 ## Versioning
 
-This node implements n8n's versioning system to support future updates while maintaining backwards compatibility. The current version is v1.
+This node implements n8n's versioning system to support future updates while maintaining backwards compatibility. The current node version is **v3**.
 
 For detailed information about the versioning structure and how to add new versions, see [VERSIONING.md](VERSIONING.md).
 
 ## Version history
 
-**v1.0.4** (Current)
+**v3.0.0** (Current)
+- Rewritten as a declarative node for faster, more maintainable API coverage
+- Full coverage of the documented ChartMogul API across all resources (Account, Activity, Contact, Customer, Enrichment, Note and Call Log, Opportunity, Task, Source, Plan, Plan Group, Customer Subscription, Invoice, Line Item, Transaction, Subscription Event, Metrics)
+- Cursor-based pagination on list operations via **Return All** / **Limit**
+- Published as a verified community node via GitHub Actions with npm provenance
+- **Breaking:** operation and parameter names were reorganized — workflows built on v1 may need to be updated
+
+**v1.0.4**
 - Implemented full versioning structure
 - Reorganized codebase with v1 directory for future version support
 
