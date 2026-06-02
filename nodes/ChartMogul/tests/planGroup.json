@@ -1,0 +1,376 @@
+{
+  "name": "planGroup",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -544,
+        -208
+      ],
+      "id": "6c2914f1-8d20-4b57-825e-27d175bc82ad",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -544,
+        -16
+      ],
+      "id": "d6826a8d-6681-41ef-b825-cd6bf884344a",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "name": "={{ 'test_'+$now}}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        -320,
+        -112
+      ],
+      "id": "ad7d2a37-67de-4a3b-af08-cdd44c03377f",
+      "name": "Create a source1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "delete",
+        "dataSourceUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -16
+      ],
+      "id": "91e41d29-df45-4aa3-8d5a-623b61836266",
+      "name": "Delete a source",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $json.uuid }}",
+        "name": "test plan",
+        "additionalFields": {
+          "externalId": "exid_testt"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -208
+      ],
+      "id": "e19aedfb-94cb-44b3-b9ec-97ff641adb67",
+      "name": "Create a plan1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $('Create a source1').item.json.uuid }}",
+        "name": "test plan",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        128,
+        -208
+      ],
+      "id": "e686ba6d-0f0f-43b8-be0c-0cf94eb6af47",
+      "name": "Create a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "planGroup",
+        "operation": "create",
+        "name": "={{ 'group_'+$now }}",
+        "plans": [
+          "={{ $('Create a plan1').item.json.uuid }}",
+          "={{ $json.uuid }}"
+        ],
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        352,
+        -208
+      ],
+      "id": "58a98195-d4fd-4cfa-818b-40cb36bcc402",
+      "name": "Create a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "planGroup",
+        "operation": "delete",
+        "planGroupUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        800,
+        80
+      ],
+      "id": "1627a74d-50b5-4cc2-991a-cc59ffc3fa9f",
+      "name": "Delete a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "planGroup",
+        "operation": "get",
+        "planGroupUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        576,
+        -112
+      ],
+      "id": "97c6a9b1-64a5-4456-90d3-b708d2f2387a",
+      "name": "Retrieve a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "planGroup",
+        "operation": "listContents",
+        "planGroupUUID": "={{ $json.uuid }}",
+        "returnAll": true,
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -304
+      ],
+      "id": "643c6cf4-bfda-4b61-9faa-2cb1fb3bd219",
+      "name": "List all plans in a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "planGroup",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        576,
+        -304
+      ],
+      "id": "13340a29-ed90-42dc-accb-5a195a3cbe40",
+      "name": "List all plan groups",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "planGroup",
+        "operation": "update",
+        "planGroupUUID": "={{ $json.uuid }}",
+        "updateFields": {
+          "name": "new name 2",
+          "plans": [
+            "={{ $('Create a plan1').item.json.uuid }}"
+          ]
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -112
+      ],
+      "id": "02419955-96c2-4e31-9b1d-13b9d8bdf34f",
+      "name": "Update a plan group",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Create a source1": {
+      "main": [
+        [
+          {
+            "node": "Delete a source",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a plan1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Create a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan1": {
+      "main": [
+        [
+          {
+            "node": "Create a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan": {
+      "main": [
+        [
+          {
+            "node": "Create a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan group": {
+      "main": [
+        [
+          {
+            "node": "Retrieve a plan group",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List all plan groups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a plan group": {
+      "main": [
+        [
+          {
+            "node": "Delete a plan group",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List all plans in a plan group",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Update a plan group",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "dc47d6f2-03e5-469d-9a97-8ce7b37cd02e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f68f0d11ebdbb914691b5044468d308407b8b1690745a15752b163f66250b17b"
+  },
+  "id": "b3MKEFXiJc9xcwNU",
+  "tags": []
+}

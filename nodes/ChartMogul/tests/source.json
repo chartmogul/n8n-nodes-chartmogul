@@ -1,0 +1,229 @@
+{
+  "name": "source",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -128,
+        -272
+      ],
+      "id": "6f46d66c-0770-43b2-8897-515814a13462",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "list",
+        "filterOptions": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        992,
+        -368
+      ],
+      "id": "af04cb3a-02c9-422f-a529-8ff5ed042f8b",
+      "name": "List all sources2",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "list",
+        "filterOptions": {
+          "system": "Stripe"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        768,
+        -368
+      ],
+      "id": "14e000da-b5ab-4b5b-a6f1-4a0f6bba5b68",
+      "name": "List all sources1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "list",
+        "filterOptions": {
+          "name": "Woo"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        544,
+        -368
+      ],
+      "id": "9ca8cb65-5536-4302-9cb1-1bc4628d7691",
+      "name": "List all sources",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "get",
+        "dataSourceUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -368
+      ],
+      "id": "ca8c97bc-7839-4198-8c9d-6dcf9cbc7f8e",
+      "name": "Retrieve a source",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "delete",
+        "dataSourceUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -176
+      ],
+      "id": "397b7ba6-7559-462c-98d0-3215cdb317a7",
+      "name": "Delete a source1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "name": "={{ 'test_'+$now }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        96,
+        -272
+      ],
+      "id": "c645704f-8254-41d7-8a45-200443ee4d68",
+      "name": "Create a source",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Create a source",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all sources1": {
+      "main": [
+        [
+          {
+            "node": "List all sources2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List all sources": {
+      "main": [
+        [
+          {
+            "node": "List all sources1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a source": {
+      "main": [
+        [
+          {
+            "node": "List all sources",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a source": {
+      "main": [
+        [
+          {
+            "node": "Retrieve a source",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Delete a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "ab24b59c-fe04-4c3d-9006-e6c16f67a910",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f68f0d11ebdbb914691b5044468d308407b8b1690745a15752b163f66250b17b"
+  },
+  "id": "cT1crEm8kMy4__VDQwjyR",
+  "tags": []
+}

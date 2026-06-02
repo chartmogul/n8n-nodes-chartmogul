@@ -1,0 +1,339 @@
+{
+  "name": "plan",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        48,
+        -432
+      ],
+      "id": "e81b3a2b-08c1-417c-9283-4c7d7bff3135",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        48,
+        -240
+      ],
+      "id": "fa49b2b3-dfcd-4e99-8d95-bf52fc150afb",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "limit": 3,
+        "filterOptions": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -720
+      ],
+      "id": "f12e705c-680c-4936-9cab-ad3222cec76c",
+      "name": "Get many plans",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "name": "={{ 'test_'+$now}}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        272,
+        -336
+      ],
+      "id": "24f71303-101e-4fb2-ae84-374180b7f8e5",
+      "name": "Create a source1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "source",
+        "operation": "delete",
+        "dataSourceUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -240
+      ],
+      "id": "6a89173d-457a-4413-a7f6-2953cbaea088",
+      "name": "Delete a source",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "delete",
+        "planUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -432
+      ],
+      "id": "fe9f0286-5ece-4a4f-86ef-3fb5236755d7",
+      "name": "Delete a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "get",
+        "planUUID": "={{ $json.uuid }}",
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -624
+      ],
+      "id": "5efd215b-7500-4940-a880-cb9348abf309",
+      "name": "Retrieve a plan1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "update",
+        "planUUID": "={{ $json.uuid }}",
+        "updateFields": {
+          "name": "new name",
+          "interval_count": 7,
+          "interval_unit": "day"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        944,
+        -624
+      ],
+      "id": "1abe762e-150a-4723-bc75-c857d0463a51",
+      "name": "Update a plan",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "returnAll": true,
+        "filterOptions": {},
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -528
+      ],
+      "id": "d557a2f8-1372-4701-a16b-e923adca3b2b",
+      "name": "Get many plans1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "limit": 10,
+        "filterOptions": {
+          "billingSystem": "Stripe"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -336
+      ],
+      "id": "fbc08051-1905-4527-857c-39bd1052833e",
+      "name": "Get many plans2",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "plan",
+        "operation": "create",
+        "data_source_uuid": "={{ $json.uuid }}",
+        "name": "test plan",
+        "additionalFields": {
+          "externalId": "exid_testt"
+        },
+        "requestOptions": {}
+      },
+      "type": "CUSTOM.chartmogul",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -432
+      ],
+      "id": "b3af59c5-a5dd-4a37-b17a-97729504b09c",
+      "name": "Create a plan1",
+      "credentials": {
+        "chartmogulApi": {
+          "id": "TysfXxDLPhnQDn83",
+          "name": "ChartMogul account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Create a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a source1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a source1": {
+      "main": [
+        [
+          {
+            "node": "Delete a source",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a plan1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve a plan1": {
+      "main": [
+        [
+          {
+            "node": "Update a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a plan": {
+      "main": [
+        [
+          {
+            "node": "Get many plans",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get many plans2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get many plans1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a plan1": {
+      "main": [
+        [
+          {
+            "node": "Retrieve a plan1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Delete a plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "69436ee6-5d04-4ae2-acb2-c4a9ffa769d6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f68f0d11ebdbb914691b5044468d308407b8b1690745a15752b163f66250b17b"
+  },
+  "id": "rlOHq8zuyXR3cRXh",
+  "tags": []
+}

@@ -1,0 +1,91 @@
+import type { INodeProperties } from 'n8n-workflow';
+
+export const listDescription: INodeProperties[] = [
+	{
+		displayName: 'Return All',
+		name: 'returnAll',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to return all results or only up to a given limit',
+		displayOptions: { show: { resource: ['invoice'], operation: ['list'] } },
+		routing: {
+			send: { paginate: '={{ $value }}' },
+			output: { postReceive: [{ type: 'rootProperty', properties: { property: 'invoices' } }] },
+		},
+	},
+	{
+		displayName: 'Limit',
+		name: 'limit',
+		type: 'number',
+		default: 50,
+		description: 'Max number of results to return',
+		typeOptions: { minValue: 1, maxValue: 200 },
+		displayOptions: {
+			show: { resource: ['invoice'], operation: ['list'] },
+			hide: { returnAll: [true] },
+		},
+		routing: { request: { qs: { per_page: '={{$value}}' } } },
+	},
+	{
+		displayName: 'Filter Options',
+		name: 'filterOptions',
+		type: 'collection',
+		placeholder: 'Add Filter Option',
+		default: {},
+		displayOptions: { show: { resource: ['invoice'], operation: ['list'] } },
+		options: [
+			{
+				displayName: 'Customer UUID',
+				name: 'customerUUID',
+				type: 'string',
+				description: 'ChartMogul UUID of the Customer',
+				default: '',
+				routing: { request: { qs: { customer_uuid: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Data Source UUID',
+				name: 'dataSourceUUID',
+				type: 'string',
+				default: '',
+				description: 'ChartMogul UUID of the Data Source',
+				routing: { request: { qs: { data_source_uuid: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Include Disabled Line Items',
+				name: 'with_disabled',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include disabled line items in the response',
+				routing: { request: { qs: { with_disabled: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Include Edit History',
+				name: 'include_edit_histories',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include the edit_history_summary objects in the response',
+				routing: { request: { qs: { include_edit_histories: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Invoice External ID',
+				name: 'externalId',
+				type: 'string',
+				default: '',
+				description: 'The external ID of the invoice',
+				routing: { request: { qs: { external_id: '={{$value}}' } } },
+			},
+			{
+				displayName: 'Validation Type',
+				name: 'validationType',
+				type: 'options',
+				options: [
+					{ name: 'All', value: 'all' },
+					{ name: 'Valid', value: 'valid' },
+					{ name: 'Invalid', value: 'invalid' },
+				],
+				default: 'valid',
+				routing: { request: { qs: { validation_type: '={{$value}}' } } },
+			},
+		],
+	},
+];

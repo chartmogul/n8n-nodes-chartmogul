@@ -1,35 +1,90 @@
-import type {
-	INodeType,
-	INodeTypeBaseDescription,
-	IVersionedNodeType,
-} from 'n8n-workflow';
-import { ApplicationError } from 'n8n-workflow';
+import { INodeType, INodeTypeDescription, NodeConnectionTypes } from 'n8n-workflow';
 
-import { ChartmogulV1 } from './v1/ChartmogulV1.node';
+import { accountDescription } from './resources/account';
+import { activitiesDescription } from './resources/activity';
+import { contactDescription } from './resources/contact';
+import { customerDescription } from './resources/customer';
+import { enrichmentDescription } from './resources/enrichment';
+import { eventDescription } from './resources/event';
+import { invoiceDescription } from './resources/invoice';
+import { lineItemDescription } from './resources/lineItem';
+import { metricDescription } from './resources/metric';
+import { noteDescription } from './resources/note';
+import { opportunityDescription } from './resources/opportunity';
+import { planDescription } from './resources/plan';
+import { planGroupDescription } from './resources/planGroup';
+import { sourceDescription } from './resources/source';
+import { subscriptionDescription } from './resources/subscription';
+import { taskDescription } from './resources/task';
+import { transactionDescription } from './resources/transaction';
 
-export class Chartmogul implements IVersionedNodeType {
-	nodeVersions: IVersionedNodeType['nodeVersions'] = {
-		1: new ChartmogulV1(),
-	};
-
-	currentVersion = 1;
-
-	description: INodeTypeBaseDescription = {
+export class Chartmogul implements INodeType {
+	description: INodeTypeDescription = {
 		displayName: 'ChartMogul',
 		name: 'chartmogul',
 		icon: 'file:chartmogul.svg',
 		group: ['transform'],
+		version: 2,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Interact with ChartMogul API',
-		defaultVersion: 1,
+		defaults: {
+			name: 'ChartMogul',
+		},
 		usableAsTool: true,
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
+		credentials: [{ name: 'chartmogulApi', required: true }],
+		requestDefaults: {
+			baseURL: 'https://api.chartmogul.com/v1',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+		},
+		properties: [
+			{
+				displayName: 'Resource',
+				name: 'resource',
+				type: 'options',
+				noDataExpression: true,
+				options: [
+					{ name: 'Account', value: 'account' },
+					{ name: 'Activity', value: 'activities' },
+					{ name: 'Contact', value: 'contact' },
+					{ name: 'Customer', value: 'customer' },
+					{ name: 'Enrichment', value: 'enrichment' },
+					{ name: 'Event', value: 'event' },
+					{ name: 'Invoice', value: 'invoice' },
+					{ name: 'Line Item', value: 'line_item' },
+					{ name: 'Metric', value: 'metric' },
+					{ name: 'Note and Call Log', value: 'note' },
+					{ name: 'Opportunity', value: 'opportunity' },
+					{ name: 'Plan', value: 'plan' },
+					{ name: 'Plan Group', value: 'planGroup' },
+					{ name: 'Source', value: 'source' },
+					{ name: 'Subscription', value: 'subscription' },
+					{ name: 'Task', value: 'task' },
+					{ name: 'Transaction', value: 'transaction' },
+				],
+				default: 'account',
+			},
+			...accountDescription,
+			...activitiesDescription,
+			...contactDescription,
+			...customerDescription,
+			...enrichmentDescription,
+			...eventDescription,
+			...invoiceDescription,
+			...lineItemDescription,
+			...metricDescription,
+			...noteDescription,
+			...opportunityDescription,
+			...planDescription,
+			...planGroupDescription,
+			...sourceDescription,
+			...subscriptionDescription,
+			...taskDescription,
+			...transactionDescription,
+		],
 	};
-
-	getNodeType(version?: number): INodeType {
-		const nodeVersion = version ?? this.currentVersion;
-		if (!this.nodeVersions[nodeVersion]) {
-			throw new ApplicationError(`Version ${nodeVersion} of ChartMogul node is not supported`);
-		}
-		return this.nodeVersions[nodeVersion] as INodeType;
-	}
 }

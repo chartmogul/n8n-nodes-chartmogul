@@ -19,6 +19,8 @@
     "build": "n8n-node build",
     "build:watch": "tsc --watch",
     "dev": "n8n-node dev",
+    "dev:n8n": "N8N_USER_FOLDER=~/.n8n-node-cli N8N_DEV_RELOAD=true n8n start",
+    "dev:watch": "n8n-node dev --external-n8n",
     "lint": "n8n-node lint",
     "lint:fix": "n8n-node lint --fix",
     "release": "n8n-node release",
@@ -38,11 +40,16 @@
     ]
   },
   "devDependencies": {
-    "@n8n/node-cli": "*",
+    "@n8n/node-cli": "^0.30.1",
     "eslint": "9.32.0",
     "prettier": "3.6.2",
-    "release-it": "^19.0.4",
+    "release-it": "^20.0.0",
     "typescript": "5.9.2"
+  },
+  "overrides": {
+    "eslint-plugin-n8n-nodes-base": "^1.16.6",
+    "undici": "^6.25.0",
+    "uuid": "^11.1.1"
   },
   "peerDependencies": {
     "n8n-workflow": "*"

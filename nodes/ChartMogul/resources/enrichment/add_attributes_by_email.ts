@@ -1,0 +1,92 @@
+import type { INodeProperties } from 'n8n-workflow';
+
+export const addAttributesByEmailDescription: INodeProperties[] = [
+	{
+		displayName: 'Email',
+		name: 'email',
+		type: 'string',
+		default: '',
+		placeholder: 'name@email.com',
+		description: 'Email address of the customer',
+		displayOptions: { show: { resource: ['enrichment'], operation: ['add_attributes_by_email'] } },
+		required: true,
+		routing: { request: { body: { email: '={{$value}}' } } },
+	},
+	{ 
+		displayName: 'Include Associated Emails',
+		name: 'includeAssociatedEmails',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to include lookup of contacts associated with the email address. If set to true, custom attributes will be added to all customer profiles with the email address in their associated contacts.',
+		displayOptions: { show: { resource: ['enrichment'], operation: ['add_attributes_by_email'] } },
+		routing: { request: { body: { with_associated_emails: '={{$value}}' } } },
+	},
+	{
+		displayName: 'Custom Attributes',
+		name: 'custom',
+		type: 'fixedCollection',
+		typeOptions: { multipleValues: true },
+		default: [],
+		placeholder: 'Add Attribute',
+		options: [
+			{
+				name: 'custom',
+				displayName: 'Attribute',
+				values: [
+					{
+						displayName: 'Key',
+						name: 'key',
+						type: 'string',
+						default: '',
+						description: 'Name of the custom attribute',
+					},
+					{
+						displayName: 'Type',
+						name: 'type',
+						type: 'options',
+						default: 'String',
+						options: [
+							{ name: 'Boolean', value: 'Boolean' },
+							{ name: 'Decimal', value: 'Decimal' },
+							{ name: 'Integer', value: 'Integer' },
+							{ name: 'String', value: 'String' },
+							{ name: 'Timestamp', value: 'Timestamp' },
+						],
+						description: 'Type of the custom attribute',
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'boolean',
+						default: false,
+						displayOptions: { show: { type: ['Boolean'] } },
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'number',
+						default: 0,
+						displayOptions: { show: { type: ['Decimal', 'Integer'] } },
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'string',
+						default: '',
+						displayOptions: { show: { type: ['String'] } },
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'dateTime',
+						default: '',
+						displayOptions: { show: { type: ['Timestamp'] } },
+					},
+				],
+			},
+		],
+		displayOptions: { show: { resource: ['enrichment'], operation: ['add_attributes_by_email'] } },
+		required: true,
+		routing: { request: { body: '={{$value}}' } },
+	},
+];
