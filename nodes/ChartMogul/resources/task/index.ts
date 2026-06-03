@@ -64,7 +64,7 @@ export const taskDescription: INodeProperties[] = [
 							}
 						}
 					}
-				 },
+				},
 			},
 			{
 				name: 'Retrieve a Task',

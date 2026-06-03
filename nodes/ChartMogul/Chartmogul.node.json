@@ -1,6 +1,6 @@
 {
-	"node": "n8n-nodes-base.ChartMogul",
-	"nodeVersion": "1.0.0",
+	"node": "n8n-nodes-chartmogul.ChartMogul",
+	"nodeVersion": "1.0",
 	"codexVersion": "1.0.0",
 	"categories": ["Analytics", "Productivity"],
 	"resources": {

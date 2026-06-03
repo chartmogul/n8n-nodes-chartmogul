@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "n8n node to interact with ChartMogul API",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/chartmogul/n8n-nodes-chartmogul#readme",
   "keywords": [
     "n8n-community-node-package"
   ],
@@ -45,11 +45,6 @@
     "prettier": "3.6.2",
     "release-it": "^20.0.0",
     "typescript": "5.9.2"
-  },
-  "overrides": {
-    "eslint-plugin-n8n-nodes-base": "^1.16.6",
-    "undici": "^6.25.0",
-    "uuid": "^11.1.1"
   },
   "peerDependencies": {
     "n8n-workflow": "*"
