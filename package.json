@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-chartmogul",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "n8n node to interact with ChartMogul API",
   "license": "MIT",
   "homepage": "https://github.com/chartmogul/n8n-nodes-chartmogul#readme",
